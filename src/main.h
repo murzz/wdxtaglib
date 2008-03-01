@@ -16,7 +16,7 @@ extern "C"
 {
 #endif
 
-//int DLL_EXPORT ContentGetDetectString(char* DetectString,int maxlen);
+void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen);
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);

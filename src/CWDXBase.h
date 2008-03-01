@@ -1,15 +1,9 @@
 #ifndef CWDXBASE_H
 #define CWDXBASE_H
 
-#include <string>
+#include "CustomTypes.h"
 
-#ifdef _UNICODE
-	#define string_t wstring
-#else
-	#define string_t string
-#endif
 
-using namespace std;
 namespace WDXTagLib
 {
 
@@ -18,12 +12,18 @@ namespace WDXTagLib
 		public:
 			CWDXBase();
 			virtual ~CWDXBase();
-			virtual string_t GetDetectString();
+			virtual string_t GetDetectString() const;
+
+			void SetIniName(const string_t sIniName);
 
 
-			int ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
+
+//			virtual int ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen) = 0;
 		protected:
+			string_t GetIniName() const;
+
 		private:
+			string_t FIniName;
 	};
 
 
