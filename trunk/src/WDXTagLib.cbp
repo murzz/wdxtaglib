@@ -50,10 +50,13 @@
 			<Add option="-Wl,--kill-at" />
 			<Add library="..\lib\libtag.dll.a" />
 		</Linker>
+		<Unit filename="CUtils.cpp" />
+		<Unit filename="CUtils.h" />
 		<Unit filename="CWDXBase.cpp" />
 		<Unit filename="CWDXBase.h" />
 		<Unit filename="CWDXTagLib.cpp" />
 		<Unit filename="CWDXTagLib.h" />
+		<Unit filename="CustomTypes.h" />
 		<Unit filename="contentplug.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
