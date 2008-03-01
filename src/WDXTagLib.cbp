@@ -41,12 +41,12 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="..\taglib-1.5\taglib" />
-			<Add directory="..\taglib-1.5\taglib\toolkit" />
+			<Add directory="..\externals\taglib\taglib" />
+			<Add directory="..\externals\taglib\taglib\toolkit" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl,--kill-at" />
-			<Add library="..\taglib-1.5\taglib\libtag.dll.a" />
+			<Add library="..\lib\libtag.dll.a" />
 		</Linker>
 		<Unit filename="contentplug.h" />
 		<Unit filename="main.cpp" />
