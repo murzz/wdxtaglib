@@ -1,15 +1,7 @@
 #include "main.h"
-#include <fileref.h>
-#include <tag.h>
-#include <map>
-
-#define _detectstring ""
-
-// a sample exported function
-/*void DLL_EXPORT SomeFunction(const LPCSTR sometext)
-{
-    MessageBoxA(0, sometext, "DLL Message", MB_OK | MB_ICONINFORMATION);
-}*/
+#include "CWDXTagLib.h"
+using namespace WDXTagLib;
+CWDXTagLib wdx;
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -45,16 +37,16 @@ char* strlcpy(char* p,const char* p2,int maxlen)
 	return p;
 }
 
-TagLib::String formatSeconds(int seconds)
+/*TagLib::String formatSeconds(int seconds)
 {
   char secondsString[3];
   sprintf(secondsString, "%02i", seconds);
   return secondsString;
-}
+}*/
 
 int DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
-	strlcpy(DetectString,_detectstring,maxlen);
+	strlcpy(DetectString, wdx.GetDetectString().c_str(), maxlen);
 	return 0;
 }
 
@@ -76,13 +68,13 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags)
 {
-	TagLib::FileRef f(FileName);
+	/*TagLib::FileRef f(FileName);
 
 	if (f.isNull() || !f.tag() )
 		return ft_fileerror;
 
 	TagLib::Tag *tag = f.tag();
-	//tag->
+	//tag->*/
 
 	return ft_nosuchfield	;
 }

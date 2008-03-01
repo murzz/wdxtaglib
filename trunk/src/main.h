@@ -4,10 +4,6 @@
 #include <windows.h>
 #include "contentplug.h"
 
-/*  To use this exported function of dll, include this header
- *  in your project.
- */
-
 #ifdef BUILD_DLL
     #define DLL_EXPORT __declspec(dllexport)
 #else
@@ -20,7 +16,6 @@ extern "C"
 {
 #endif
 
-//void DLL_EXPORT SomeFunction(const LPCSTR sometext);
 //int DLL_EXPORT ContentGetDetectString(char* DetectString,int maxlen);
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
