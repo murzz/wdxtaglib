@@ -40,17 +40,13 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 	if ( sizeof(ContentDefaultParamStruct) != dps->size)
 		return;
 
-
-	MessageBoxA(0, dps->DefaultIniName, "DLL Message", MB_OK | MB_ICONINFORMATION);
+	wdx.SetIniName(dps->DefaultIniName);
+	wdx.SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen)
 {
-//	if (FieldIndex<0 || FieldIndex>=fieldcount)
-		return ft_nomorefields;
-//	strlcpy(FieldName,fieldnames[FieldIndex],maxlen-1);
-//	strlcpy(Units,fieldunits_and_multiplechoicestrings[FieldIndex],maxlen-1);
-//	return fieldtypes[FieldIndex];
+	return wdx.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags)
