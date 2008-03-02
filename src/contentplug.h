@@ -1,3 +1,6 @@
+#ifndef contentplug_H
+#define contentplug_H
+
 #define ft_nomorefields 0
 #define ft_numeric_32 1
 #define ft_numeric_64 2
@@ -43,3 +46,4 @@ int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* 
 void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
 void __stdcall ContentStopGetValue(char* FileName);
 */
+#endif

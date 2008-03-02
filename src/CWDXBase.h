@@ -2,10 +2,21 @@
 #define CWDXBASE_H
 
 #include "CustomTypes.h"
-
+#include <windows.h>
+#include "contentplug.h"
+//#include <map>
+//using namespace std;
 
 namespace WDXTagLib
 {
+
+	typedef struct
+	{
+		string_t m_Name;
+		int m_Type;
+		string_t m_Unit;
+		string_t m_MultChoice;
+	} CField;
 
 	class CWDXBase
 	{
@@ -15,15 +26,22 @@ namespace WDXTagLib
 			virtual string_t GetDetectString() const;
 
 			void SetIniName(const string_t sIniName);
+			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
+			int GetSupportedField(const int FieldIndex,char* FieldName,char* Units, const int maxlen) const;
 
-
-
-//			virtual int ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen) = 0;
 		protected:
 			string_t GetIniName() const;
+			DWORD GetPluginInterfaceVersionHi() const;
+			DWORD GetPluginInterfaceVersionLow() const;
+			//void AddField(const CField& Field);
+			const int m_uFieldsCount;
 
 		private:
-			string_t FIniName;
+			string_t m_IniName;
+			DWORD m_PluginInterfaceVerionHi;
+			DWORD m_PluginInterfaceVerionLow;
+			CField m_Fields[];
+
 	};
 
 
