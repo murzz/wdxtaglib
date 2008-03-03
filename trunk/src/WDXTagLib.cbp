@@ -13,7 +13,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option host_application="TOTALCMD.exe" />
+				<Option host_application="TOTALCMD.EXE" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-DBUILD_DLL" />

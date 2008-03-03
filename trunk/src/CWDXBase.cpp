@@ -2,10 +2,12 @@
 #include "CUtils.h"
 namespace WDXTagLib
 {
-
+enum{UNDEFINED = -1};
 CWDXBase::CWDXBase()
-: m_PluginInterfaceVerionHi(0),
-	m_PluginInterfaceVerionLow(0)
+: m_FieldsPtr(NULL),
+	m_PluginInterfaceVerionHi(0),
+	m_PluginInterfaceVerionLow(0),
+	m_FieldsCount(UNDEFINED)
 {
 	//ctor
 }
@@ -38,21 +40,26 @@ void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 	m_PluginInterfaceVerionLow = dwLow;
 }
 
-int CWDXBase::GetSupportedField( const int FieldIndex, char* FieldName, char* Units, int maxlen) const
+int CWDXBase::GetSupportedField( const int FieldIndex, char* FieldName, char* Units, int maxlen)
 {
 	if ( FieldIndex < 0 || FieldIndex >= GetFieldsCount() )
 		return ft_nomorefields;
 
-	const CField& f = m_Fields[FieldIndex];
-
+	const CField& f = m_FieldsPtr[FieldIndex];
 	CUtils::strlcpy(FieldName, f.m_Name.c_str(), maxlen - 1);
 	CUtils::strlcpy(Units, f.m_MultChoice.c_str(), maxlen - 1);
 	return f.m_Type;
 }
 
-int CWDXBase::GetFieldsCount() const
+int CWDXBase::GetFieldsCount()
 {
-	return sizeof(m_Fields) / sizeof(CField);
+/*	if (UNDEFINED == m_FieldsCount)
+	{
+		for(;&m_FieldsPtr[m_FieldsCount]; m_FieldsCount++)
+		{
+		}
+	}*/
+	return 7;//m_FieldsCount;//sizeof(m_Fields) / sizeof(CField);
 }
 
 }

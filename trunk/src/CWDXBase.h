@@ -4,8 +4,6 @@
 #include "CustomTypes.h"
 #include <windows.h>
 #include "contentplug.h"
-//#include <map>
-//using namespace std;
 
 namespace WDXTagLib
 {
@@ -16,7 +14,8 @@ namespace WDXTagLib
 		int m_Type;
 		string_t m_Unit;
 		string_t m_MultChoice;
-	} CField;
+	} CField, *PField;
+
 
 	class CWDXBase
 	{
@@ -28,7 +27,7 @@ namespace WDXTagLib
 			void SetIniName(const string_t sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int FieldIndex, char* FieldName,
-														char* Units, const int maxlen) const;
+														char* Units, const int maxlen);
 
 			virtual int GetValue(const char* FileName, const int FieldIndex,
 													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
@@ -37,13 +36,15 @@ namespace WDXTagLib
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
-			int GetFieldsCount() const;
+			int GetFieldsCount();
+			PField m_FieldsPtr;
 
 		private:
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
-			const CField m_Fields[];
+			int m_FieldsCount;
+
 
 	};
 
