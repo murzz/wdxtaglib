@@ -51,4 +51,13 @@ int CWDXBase::GetSupportedField( const int FieldIndex, char* FieldName, char* Un
 	return f.m_Type;
 }
 
+int CWDXBase::GetValue(const char* FileName, const int FieldIndex,
+						const int UnitIndex, void* FieldValue, const int maxlen, const int flags)
+{
+	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
+		return ft_nosuchfield;
+
+	return OnGetValue(FileName, m_Fields[FieldIndex], FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+}
+
 }
