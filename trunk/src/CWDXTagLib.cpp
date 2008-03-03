@@ -15,7 +15,6 @@ namespace WDXTagLib
 	},*/
 
 CWDXTagLib::CWDXTagLib()
-:	m_uFieldsCount(0)
 {
 	//ctor
 	//CField f;

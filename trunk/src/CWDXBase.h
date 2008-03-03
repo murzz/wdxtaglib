@@ -33,8 +33,7 @@ namespace WDXTagLib
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
-			//void AddField(const CField& Field);
-			const int m_uFieldsCount;
+			int GetFieldsCount() const;
 
 		private:
 			string_t m_IniName;

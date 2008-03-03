@@ -1,5 +1,5 @@
-#ifndef CTAGLIB_H
-#define CTAGLIB_H
+#ifndef CWDXTAGLIB_H
+#define CWDXTAGLIB_H
 
 #include "CWDXBase.h"
 
@@ -16,4 +16,4 @@ namespace WDXTagLib
 		private:
 	};
 };
-#endif // CTAGLIB_H
+#endif // CWDXTAGLIB_H
