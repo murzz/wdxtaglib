@@ -10,7 +10,6 @@ typedef enum
 } CFieldIndexes;
 CWDXTagLib::CWDXTagLib()
 {
-//	m_FieldsPtr = g_Fields;
 	m_Fields[m_Fields.size()] = CField( TEXT("Title"),				ft_string, TEXT(""), TEXT("") );
 	m_Fields[m_Fields.size()] = CField( TEXT("Artist"),				ft_string, TEXT(""), TEXT("") );
 	m_Fields[m_Fields.size()] = CField( TEXT("Album"),				ft_string, TEXT(""), TEXT("") );
@@ -21,12 +20,8 @@ CWDXTagLib::CWDXTagLib()
 	m_Fields[m_Fields.size()] = CField( TEXT("Bitrate"),			ft_numeric_32, TEXT(""), TEXT("") );
 	m_Fields[m_Fields.size()] = CField( TEXT("Sample rate"),	ft_numeric_32, TEXT(""), TEXT("") );
 	m_Fields[m_Fields.size()] = CField( TEXT("Channels"),			ft_numeric_32, TEXT(""), TEXT("") );
-	m_Fields[m_Fields.size()] = CField( TEXT("Length"),				ft_numeric_32, TEXT(""), TEXT("") );
-	/*
-	      cout << "bitrate     - " << properties->bitrate() << endl;
-      cout << "sample rate - " << properties->sampleRate() << endl;
-      cout << "channels    - " << properties->channels() << endl;
-      cout << "length      - " << minutes << ":" << formatSeconds(seconds) << endl;*/
+	m_Fields[m_Fields.size()] = CField( TEXT("Length (s)"),				ft_numeric_32, TEXT(""), TEXT("") );
+	m_Fields[m_Fields.size()] = CField( TEXT("Length (m:s)"),				ft_string, TEXT(""), TEXT("") );
 }
 
 CWDXTagLib::~CWDXTagLib()
@@ -58,22 +53,18 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const CField& Field, const
 		case 8:	*(__int32*)FieldValue = prop->sampleRate();	break;
 		case 9:	*(__int32*)FieldValue = prop->channels();	break;
 		case 10:	*(__int32*)FieldValue = prop->length();	break;
-		default:
+		case 11:
+		{
+			int seconds = prop->length() % 60;
+      int minutes = (prop->length() - seconds) / 60;
+
+      CUtils::strlcpy((TCHAR*)FieldValue,
+					string_t(CUtils::Int2Str(minutes) + string_t(TEXT(":")) + CUtils::formatSeconds(seconds)).c_str(), maxlen);
+		}
+		break;
+		default: return ft_nosuchfield;
 			break;
 	}
-
-	/*
-	    if(!f.isNull() && f.audioProperties()) {
-
-      TagLib::AudioProperties *properties = f.audioProperties();
-
-      int seconds = properties->length() % 60;
-      int minutes = (properties->length() - seconds) / 60;*/
-
-
-//	CUtils::strlcpy(FieldName, f.m_Name.c_str(), maxlen - 1);
-//	CUtils::strlcpy(Units, f.m_MultChoice.c_str(), maxlen - 1);
-
 
 
 	return Field.m_Type;

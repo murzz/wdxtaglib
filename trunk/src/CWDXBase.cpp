@@ -2,12 +2,9 @@
 #include "CUtils.h"
 namespace WDXTagLib
 {
-//enum{UNDEFINED = -1};
 CWDXBase::CWDXBase()
-: //m_FieldsPtr(NULL),
-	m_PluginInterfaceVerionHi(0),
+:	m_PluginInterfaceVerionHi(0),
 	m_PluginInterfaceVerionLow(0)
-//	m_FieldsCount(UNDEFINED)
 {
 	//ctor
 }

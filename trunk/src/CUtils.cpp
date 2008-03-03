@@ -1,6 +1,9 @@
 #include "CUtils.h"
 #include <windows.h>
-
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
 
 CUtils::CUtils()
 {
@@ -19,7 +22,15 @@ char* CUtils::strlcpy(char* p, const char* p2, int maxlen)
 
 string_t CUtils::formatSeconds(int seconds)
 {
-  char secondsString[3];
+  TCHAR secondsString[3] = {0};
   sprintf(secondsString, "%02i", seconds);
   return secondsString;
 }
+
+string_t CUtils::Int2Str(const int num)
+{
+    ostringstream os;
+    os << num;
+    return (os.str());
+}
+
