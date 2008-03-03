@@ -4,17 +4,33 @@
 #include "CustomTypes.h"
 #include <windows.h>
 #include "contentplug.h"
+#include <map>
+using namespace std;
 
 namespace WDXTagLib
 {
 
-	typedef struct
+	//typedef struct
+	class CField
 	{
-		string_t m_Name;
-		int m_Type;
-		string_t m_Unit;
-		string_t m_MultChoice;
-	} CField, *PField;
+		public:
+			string_t m_Name;
+			int m_Type;
+			string_t m_Unit;
+			string_t m_MultChoice;
+
+			CField() : m_Type(0){};
+
+			CField(string_t sName, int iType, string_t sUnit, string_t sMultChoice)
+			:	m_Name(sName),
+				m_Type(iType),
+				m_Unit(sUnit),
+				m_MultChoice(sMultChoice)
+			{
+			};
+	};// CField, *PField;
+
+	typedef map<int, CField> CFields;
 
 
 	class CWDXBase
@@ -24,7 +40,7 @@ namespace WDXTagLib
 			virtual ~CWDXBase();
 			virtual string_t GetDetectString() const;
 
-			void SetIniName(const string_t sIniName);
+			void SetIniName(const string_t& sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int FieldIndex, char* FieldName,
 														char* Units, const int maxlen);
@@ -36,14 +52,15 @@ namespace WDXTagLib
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
-			int GetFieldsCount();
-			PField m_FieldsPtr;
+//			int GetFieldsCount();
+			//PField m_FieldsPtr;
+			CFields m_Fields;
 
 		private:
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
-			int m_FieldsCount;
+//			int m_FieldsCount;
 
 
 	};
