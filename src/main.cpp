@@ -5,7 +5,7 @@
 using namespace WDXTagLib;
 
 CWDXTagLib wdx;
-
+/*
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     switch (fdwReason)
@@ -28,11 +28,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
             break;
     }
     return TRUE; // succesful
-}
+}*/
 
-void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
+int DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
 	CUtils::strlcpy(DetectString, wdx.GetDetectString().c_str(), maxlen);
+	return 0;
 }
 
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
@@ -49,7 +50,8 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName
 	return wdx.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
-int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex, int UnitIndex, void* FieldValue, int maxlen, int flags)
+int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
+																int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
 	return wdx.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }

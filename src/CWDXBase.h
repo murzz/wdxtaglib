@@ -51,8 +51,6 @@ namespace WDXTagLib
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
-//			int GetFieldsCount();
-			//PField m_FieldsPtr;
 			CFields m_Fields;
 			virtual int OnGetValue(const string_t& sFileName, const CField& Field, const int FieldIndex,
 													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
@@ -61,8 +59,6 @@ namespace WDXTagLib
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
-//			int m_FieldsCount;
-
 	};
 
 
