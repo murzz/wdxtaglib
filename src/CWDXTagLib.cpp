@@ -17,8 +17,6 @@ namespace WDXTagLib
 CWDXTagLib::CWDXTagLib()
 {
 	//ctor
-	//CField f;
-	//this->AddField(f);
 }
 
 CWDXTagLib::~CWDXTagLib()
@@ -26,5 +24,10 @@ CWDXTagLib::~CWDXTagLib()
 	//dtor
 }
 
+int CWDXTagLib::GetValue(const char* FileName, const int FieldIndex,
+													const int UnitIndex, void* FieldValue, const int maxlen, const int flags)
+{
+	return ft_nosuchfield;
+}
 
 }

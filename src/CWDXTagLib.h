@@ -11,6 +11,8 @@ namespace WDXTagLib
 		public:
 			CWDXTagLib();
 			virtual ~CWDXTagLib();
+			int GetValue(const char* FileName, const int FieldIndex,
+										const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
 
 		protected:
 		private:

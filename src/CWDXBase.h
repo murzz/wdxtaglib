@@ -27,7 +27,11 @@ namespace WDXTagLib
 
 			void SetIniName(const string_t sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
-			int GetSupportedField(const int FieldIndex,char* FieldName,char* Units, const int maxlen) const;
+			int GetSupportedField(const int FieldIndex, char* FieldName,
+														char* Units, const int maxlen) const;
+
+			virtual int GetValue(const char* FileName, const int FieldIndex,
+													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
 
 		protected:
 			string_t GetIniName() const;
@@ -39,7 +43,7 @@ namespace WDXTagLib
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
-			CField m_Fields[];
+			const CField m_Fields[];
 
 	};
 
