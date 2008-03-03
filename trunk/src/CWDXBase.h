@@ -44,9 +44,8 @@ namespace WDXTagLib
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int FieldIndex, char* FieldName,
 														char* Units, const int maxlen);
-
-			virtual int GetValue(const char* FileName, const int FieldIndex,
-													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
+			int GetValue(const char* FileName, const int FieldIndex,
+									const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
 
 		protected:
 			string_t GetIniName() const;
@@ -55,13 +54,14 @@ namespace WDXTagLib
 //			int GetFieldsCount();
 			//PField m_FieldsPtr;
 			CFields m_Fields;
+			virtual int OnGetValue(const string_t& sFileName, const CField& Field, const int FieldIndex,
+													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
 
 		private:
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
 //			int m_FieldsCount;
-
 
 	};
 
