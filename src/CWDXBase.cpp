@@ -5,8 +5,7 @@ namespace WDXTagLib
 
 CWDXBase::CWDXBase()
 : m_PluginInterfaceVerionHi(0),
-	m_PluginInterfaceVerionLow(0),
-	m_uFieldsCount(0)
+	m_PluginInterfaceVerionLow(0)
 {
 	//ctor
 }
@@ -41,14 +40,19 @@ void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 
 int CWDXBase::GetSupportedField( const int FieldIndex, char* FieldName, char* Units, int maxlen) const
 {
-	if ( FieldIndex < 0 || FieldIndex >= m_uFieldsCount)
+	if ( FieldIndex < 0 || FieldIndex >= GetFieldsCount() )
 		return ft_nomorefields;
 
-	//CField& f = m_Fields[FieldIndex];
+	const CField& f = m_Fields[FieldIndex];
 
-	CUtils::strlcpy(FieldName, m_Fields[FieldIndex].m_Name.c_str(), maxlen - 1);
-	CUtils::strlcpy(Units, m_Fields[FieldIndex].m_MultChoice.c_str(), maxlen - 1);
-	return m_Fields[FieldIndex].m_Type;
+	CUtils::strlcpy(FieldName, f.m_Name.c_str(), maxlen - 1);
+	CUtils::strlcpy(Units, f.m_MultChoice.c_str(), maxlen - 1);
+	return f.m_Type;
+}
+
+int CWDXBase::GetFieldsCount() const
+{
+	return sizeof(m_Fields) / sizeof(CField);
 }
 
 }
