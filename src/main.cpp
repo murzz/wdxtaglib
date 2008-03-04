@@ -56,3 +56,13 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 	return wdx.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
+int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
+{
+	return wdx.GetSupportedFieldFlags(FieldIndex);
+}
+
+int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
+										int UnitIndex, int FieldType, void* FieldValue, int flags)
+{
+	return wdx.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+}
