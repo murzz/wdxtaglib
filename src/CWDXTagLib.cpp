@@ -5,7 +5,7 @@
 
 namespace WDXTagLib
 {
-typedef enum
+typedef enum FieldIndexes
 {
 	fiTitle = 0,
 	fiArtist,
@@ -17,7 +17,8 @@ typedef enum
 	fiBitrate,
 	fiSamplerate,
 	fiChannels,
-	fiLength
+	fiLength_s,
+	fiLength_m
 } CFieldIndexes;
 
 CWDXTagLib::CWDXTagLib()
@@ -32,8 +33,8 @@ CWDXTagLib::CWDXTagLib()
 	m_Fields[ fiBitrate ] 				= CField( TEXT("Bitrate"),			ft_numeric_32, 		TEXT(""), TEXT("") );
 	m_Fields[ fiSamplerate ] 			= CField( TEXT("Sample rate"),	ft_numeric_32, 		TEXT(""), TEXT("") );
 	m_Fields[ fiChannels ] 				= CField( TEXT("Channels"),			ft_numeric_32, 		TEXT(""), TEXT("") );
-	m_Fields[ fiLength ] 					= CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT("") );
-//	m_Fields[m_Fields.size()] = CField( TEXT("Length (m:s)"),				ft_string, TEXT(""), TEXT("") );
+	m_Fields[ fiLength_s ] 				= CField( TEXT("Length"),		ft_numeric_32, 		TEXT(""), TEXT("") );
+	m_Fields[ fiLength_m ]				= CField( TEXT("Length (formatted)"),		ft_string,				TEXT(""), TEXT("") );
 }
 
 CWDXTagLib::~CWDXTagLib()
@@ -76,16 +77,17 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, /*const CField& Field,*/ c
 		case fiBitrate:			*(__int32*)FieldValue = prop->bitrate();		break;
 		case fiSamplerate:	*(__int32*)FieldValue = prop->sampleRate();	break;
 		case fiChannels:		*(__int32*)FieldValue = prop->channels();		break;
-		case fiLength:			*(__int32*)FieldValue = prop->length();			break;
-		/*case 11:
+		case fiLength_s:		*(__int32*)FieldValue = prop->length();			break;
+		case fiLength_m:
 		{
 			int seconds = prop->length() % 60;
       int minutes = (prop->length() - seconds) / 60;
 
       CUtils::strlcpy((TCHAR*)FieldValue,
-					string_t(CUtils::Int2Str(minutes) + string_t(TEXT(":")) + CUtils::formatSeconds(seconds)).c_str(), maxlen);
+					string_t(CUtils::Int2Str(minutes) + TEXT("m ") +
+									CUtils::formatSeconds(seconds) + TEXT("s")).c_str(), maxlen);
+			break;
 		}
-		break;*/
 		default: return ft_nosuchfield;
 			break;
 	}

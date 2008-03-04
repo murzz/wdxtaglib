@@ -39,6 +39,7 @@ void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 
 int CWDXBase::GetSupportedField( const int FieldIndex, char* FieldName, char* Units, int maxlen)
 {
+	//MessageBox(NULL, CUtils::Int2Str(FieldIndex).c_str(), NULL, MB_OK);
 	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
 		return ft_nomorefields;
 
