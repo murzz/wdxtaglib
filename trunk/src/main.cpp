@@ -5,7 +5,7 @@
 using namespace WDXTagLib;
 
 CWDXTagLib wdx;
-/*
+
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     switch (fdwReason)
@@ -28,7 +28,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
             break;
     }
     return TRUE; // succesful
-}*/
+}
 
 int DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
