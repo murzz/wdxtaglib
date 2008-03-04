@@ -52,7 +52,7 @@ namespace WDXTagLib
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
 			CFields m_Fields;
-			virtual int OnGetValue(const string_t& sFileName, const CField& Field, const int FieldIndex,
+			virtual int OnGetValue(const string_t& sFileName, /*const CField& Field, */const int FieldIndex,
 													const int UnitIndex, void* FieldValue, const int maxlen, const int flags) = 0;
 
 		private:
