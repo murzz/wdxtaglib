@@ -68,7 +68,7 @@ typedef struct {
 
 typedef struct {
 
-WORD wYear;
+	WORD wYear;
 	WORD wMonth;
 	WORD wDay;
 } tdateformat,*pdateformat;

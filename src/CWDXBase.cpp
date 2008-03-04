@@ -54,7 +54,7 @@ int CWDXBase::GetValue(const char* FileName, const int FieldIndex,
 	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
 		return ft_nosuchfield;
 
-	return OnGetValue(FileName, m_Fields[FieldIndex], FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+	return OnGetValue(FileName, /*m_Fields[FieldIndex], */FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
 }
