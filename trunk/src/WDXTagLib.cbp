@@ -60,6 +60,7 @@
 		<Unit filename="contentplug.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
+		<Unit filename="readme.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />
