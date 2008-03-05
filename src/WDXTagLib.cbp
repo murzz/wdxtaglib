@@ -50,6 +50,9 @@
 			<Add option="-Wl,--kill-at" />
 			<Add library="..\lib\libtag.dll.a" />
 		</Linker>
+		<Unit filename="..\doc\license.txt" />
+		<Unit filename="..\doc\read_before_install.txt" />
+		<Unit filename="..\doc\readme.txt" />
 		<Unit filename="CUtils.cpp" />
 		<Unit filename="CUtils.h" />
 		<Unit filename="CWDXBase.cpp" />
@@ -60,7 +63,6 @@
 		<Unit filename="contentplug.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
-		<Unit filename="readme.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />
