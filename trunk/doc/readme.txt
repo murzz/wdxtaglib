@@ -51,14 +51,12 @@ First public version.
 
 
 Special thanks -----------------------------------------------------------------
-• Christian Ghisler, author of Total Commander for the great file manager
-	(http://www.ghisler.com).
-• TagLib project
-	(http://developer.kde.org/~wheeler/taglib.html).
-• Andrey "Ergo" Pyasetskiy for great web project "All about Total Commander"
-	(http://www.wincmd.ru and http://totalcmd.net).
+• Christian Ghisler, author of Total Commander (http://www.ghisler.com).
+• TagLib project (http://developer.kde.org/~wheeler/taglib.html).
+• Andrey "Ergo" Pyasetskiy (http://www.wincmd.ru and http://totalcmd.net).
 
 
 Support ------------------------------------------------------------------------
 • author's e-mail: murzzz@gmail.com
-• plugin's homepage: http://www.wincmd.ru/plugring/wdxtaglib.html
+• plugin's homepage (en): http://www.totalcmd.net/plugring/wdxtaglib.html
+• plugin's homepage (ru): http://wincmd.ru/plugring/wdxtaglib.html
