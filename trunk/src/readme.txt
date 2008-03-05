@@ -32,7 +32,7 @@ Known issues -------------------------------------------------------------------
 
 
 License Agreement --------------------------------------------------------------
-This software is released under GPL terms.
+This software is released under GPLv3 terms.
 
 
 Requirements -------------------------------------------------------------------
