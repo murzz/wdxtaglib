@@ -1,0 +1,2 @@
+Firstly place the taglib.dll in the totalcmd.exe folder. Then add wdxtaglib.wdx
+as content plugin.
