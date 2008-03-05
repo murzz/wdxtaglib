@@ -5,7 +5,8 @@ by Dmitrie Murzaikin
 
 Description --------------------------------------------------------------------
 	This is a content plugin for Total Commander that allows you to show audio
-file tags in columns, edit tags and search in tags.
+file tags in columns, edit tags and search in tags. Supported file formats:
+MP3, MPC, FLAC, Ogg FLAC, Ogg Vorbis and Speex.
 
 
 Functionality ------------------------------------------------------------------
