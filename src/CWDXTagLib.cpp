@@ -97,8 +97,9 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
-	///@todo Optimization: use std::list for all unique sFileName (TagLib::FileRef). When iFlags indicates end
-	/// of operations then save every file. Quotation from wdxhelp: FileName is set to NULL and FieldIndex to -1
+	/// @todo Optimization: use std::list for all unique sFileName (list of TagLib::FileRef instances).
+	/// When iFlags indicates end of operations then save every file.
+	/// Quotation from wdxhelp: FileName is set to NULL and FieldIndex to -1
 	/// to signal to the plugin that the change attributes operation has ended.
 	/// This can be used to flush unsaved data to disk, e.g. when setting comments for multiple files.
 
