@@ -62,3 +62,4 @@ Support ------------------------------------------------------------------------
 • author's e-mail: murzzz@gmail.com
 • plugin's homepage (en): http://www.totalcmd.net/plugring/wdxtaglib.html
 • plugin's homepage (ru): http://wincmd.ru/plugring/wdxtaglib.html
+• plugin's support (en): http://ghisler.ch/board/viewtopic.php?p=145149
