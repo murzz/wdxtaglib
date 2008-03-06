@@ -38,11 +38,13 @@ This software is released under GPLv3 terms.
 
 Requirements -------------------------------------------------------------------
 • Total Commander 7.02 and higher.
+• libtag.dll (included).
+• msvcrt.dll (included).
 
 
 Installation -------------------------------------------------------------------
-Firstly place the taglib.dll in the totalcmd.exe folder. Then add wdxtaglib.wdx
-as content plugin.
+Firstly place the taglib.dll and msvcrt.dll in the totalcmd.exe folder or
+somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 
 Version history ----------------------------------------------------------------
