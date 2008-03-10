@@ -15,8 +15,8 @@ copy ..\doc\COPYING %package%\COPYING
 copy ..\doc\COPYING.LESSER %package%\COPYING.LESSER
 copy ..\doc\read_before_install.txt %package%\read_before_install.txt
 copy ..\doc\readme.txt %package%\readme.txt
-copy ..\src\libtag.dll %package%\libtag.dll
-copy ..\src\msvcrt.dll %package%\msvcrt.dll
+copy ..\lib\libtag.dll %package%\libtag.dll
+copy ..\lib\msvcrt.dll %package%\msvcrt.dll
 
 rem zip package
 cd %package%
