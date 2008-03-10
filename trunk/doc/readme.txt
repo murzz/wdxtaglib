@@ -33,17 +33,18 @@ Known issues -------------------------------------------------------------------
 
 
 License Agreement --------------------------------------------------------------
-This software is released under GPLv3 terms.
+	This software is distributed under the GNU General Public License (GPL) and
+GNU Lesser General Public License (LGPL).
 
 
 Requirements -------------------------------------------------------------------
-• Total Commander 7.02 and higher.
+• Total Commander 7.02 or higher.
 • libtag.dll (included).
 • msvcrt.dll (included).
 
 
 Installation -------------------------------------------------------------------
-Firstly place the taglib.dll and msvcrt.dll in the totalcmd.exe folder or
+	Firstly place the taglib.dll and msvcrt.dll in the totalcmd.exe folder or
 somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 
