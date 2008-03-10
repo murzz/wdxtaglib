@@ -33,8 +33,8 @@ Known issues -------------------------------------------------------------------
 
 
 License Agreement --------------------------------------------------------------
-	This software is distributed under the GNU General Public License (GPL) and
-GNU Lesser General Public License (LGPL).
+	This software is distributed under the GNU General Public License (GPL)
+version 3 or later and GNU Lesser General Public License (LGPL) version 3 or later.
 
 
 Requirements -------------------------------------------------------------------
