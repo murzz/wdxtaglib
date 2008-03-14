@@ -17,6 +17,9 @@
 
 #include "CWDXBase.h"
 #include "CUtils.h"
+#include <exception>
+using namespace std;
+
 namespace WDXTagLib
 {
 CWDXBase::CWDXBase()
@@ -56,30 +59,54 @@ void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 
 int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
 {
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nomorefields;
+	try
+	{
+		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+			return ft_nomorefields;
 
-	const CField& f = m_Fields[ iFieldIndex ];
-	CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
-	CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
-	return f.m_Type;
+		const CField& f = m_Fields[ iFieldIndex ];
+		CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
+		CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
+		return f.m_Type;
+	}
+	catch(...)
+	{
+		ExceptionHandler();
+		return ft_nomorefields;
+	}
 }
 
 int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nosuchfield;
+	try
+	{
+		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+			return ft_nosuchfield;
 
-	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
+		return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
+	}
+	catch(...)
+	{
+		ExceptionHandler();
+		return ft_fileerror;
+	}
 }
 
 int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
 {
-	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
-		return ft_nosuchfield;
-	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+	try
+	{
+		if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
+			return ft_nosuchfield;
+		return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+	}
+	catch(...)
+	{
+		ExceptionHandler();
+		return ft_fileerror;
+	}
 }
 
 int CWDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
@@ -90,19 +117,43 @@ int CWDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 
 int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
-	if (-1 == iFieldIndex)
+	try
 	{
-		int iTotalFlags = 0;
-		for (CFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
-			if (iter->second.m_Flag)
-				iTotalFlags |= iter->second.m_Flag;
-		return iTotalFlags;
+		if (-1 == iFieldIndex)
+		{
+			int iTotalFlags = 0;
+			for (CFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
+				if (iter->second.m_Flag)
+					iTotalFlags |= iter->second.m_Flag;
+			return iTotalFlags;
+		}
+
+		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+			return ft_nomorefields;
+
+		return m_Fields[iFieldIndex].m_Flag;
 	}
+	catch(...)
+	{
+		ExceptionHandler();
+		return 0; // not sure what to return here.
+	}
+}
 
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nomorefields;
-
-	return m_Fields[iFieldIndex].m_Flag;
+void CWDXBase::ExceptionHandler() const
+{
+	try
+	{
+		throw;
+	}
+	catch(const std::exception& e)
+	{
+		CUtils::ShowError(e.what());
+	}
+	catch(...)
+	{
+		CUtils::ShowError(TEXT("Unknown exception"));
+	}
 }
 
 }
