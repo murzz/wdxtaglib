@@ -139,6 +139,7 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 		default: return ft_nosuchfield;															break;
 	}
 	file.save();
+//	throw std::runtime_error(__FUNCTION__);
 	return ft_setsuccess;
 }
 

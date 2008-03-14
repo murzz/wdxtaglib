@@ -51,3 +51,8 @@ string_t CUtils::Int2Str(const int num)
     return (os.str());
 }
 
+void CUtils::ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)
+{
+	MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
+}
+
