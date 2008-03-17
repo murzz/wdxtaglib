@@ -74,12 +74,13 @@ namespace WDXTagLib
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
 			CFields m_Fields;
+			void ExceptionHandler() const;
+
 			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags) = 0;
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags);
-			void ExceptionHandler() const;
-			string_t sDetectStr;
+			virtual string_t OnGetDetectString() const;
 
 		private:
 			string_t m_IniName;

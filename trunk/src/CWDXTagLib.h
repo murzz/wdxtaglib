@@ -35,6 +35,8 @@ namespace WDXTagLib
 										const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
 
 		protected:
+			string_t OnGetDetectString() const;
+
 		private:
 			TagLib::FileRef* m_FilePtr;
 			string_t m_sFileName;
