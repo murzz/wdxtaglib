@@ -79,6 +79,7 @@ namespace WDXTagLib
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags);
 			void ExceptionHandler() const;
+			string_t sDetectStr;
 
 		private:
 			string_t m_IniName;

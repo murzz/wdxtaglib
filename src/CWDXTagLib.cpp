@@ -40,6 +40,9 @@ typedef enum FieldIndexes
 CWDXTagLib::CWDXTagLib()
 :	m_FilePtr(NULL)
 {
+	sDetectStr =
+		TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
+
 	m_Fields[ fiTitle				]	=	CField( TEXT("Title"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiArtist			]	=	CField( TEXT("Artist"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiAlbum				]	=	CField( TEXT("Album"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
@@ -70,6 +73,7 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		delete m_FilePtr;
 		m_FilePtr = NULL;
 		m_FilePtr = new TagLib::FileRef(sFileName.c_str());
+		//m_FilePtr->create( sFileName.c_str() );
 	}
 
 	if ( !m_FilePtr || m_FilePtr->isNull() || !m_FilePtr->tag() || !m_FilePtr->audioProperties() )
@@ -127,6 +131,9 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	/// Quotation from wdxhelp: FileName is set to NULL and FieldIndex to -1
 	/// to signal to the plugin that the change attributes operation has ended.
 	/// This can be used to flush unsaved data to disk, e.g. when setting comments for multiple files.
+
+	if ( !TagLib::File::isWritable(sFileName.c_str()) )
+		return ft_fileerror;
 
 	TagLib::FileRef file( sFileName.c_str() );
 
