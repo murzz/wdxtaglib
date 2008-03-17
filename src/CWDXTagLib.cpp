@@ -17,7 +17,6 @@
 
 #include "CWDXTagLib.h"
 #include "CUtils.h"
-#include <fileref.h>
 #include <tag.h>
 
 namespace WDXTagLib
@@ -39,6 +38,7 @@ typedef enum FieldIndexes
 } CFieldIndexes;
 
 CWDXTagLib::CWDXTagLib()
+:	m_FilePtr(NULL)
 {
 	m_Fields[ fiTitle				]	=	CField( TEXT("Title"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiArtist			]	=	CField( TEXT("Artist"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
@@ -56,19 +56,27 @@ CWDXTagLib::CWDXTagLib()
 
 CWDXTagLib::~CWDXTagLib()
 {
-	//dtor
+	delete m_FilePtr;
+	m_FilePtr = NULL;
 }
 
 int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 												const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	TagLib::FileRef file( sFileName.c_str() );
+	//TagLib::FileRef file( sFileName.c_str() );
+	if ( sFileName != m_sFileName )
+	{
+		m_sFileName = sFileName;
+		delete m_FilePtr;
+		m_FilePtr = NULL;
+		m_FilePtr = new TagLib::FileRef(sFileName.c_str());
+	}
 
-	if ( file.isNull() || !file.tag() || !file.audioProperties() )
+	if ( !m_FilePtr || m_FilePtr->isNull() || !m_FilePtr->tag() || !m_FilePtr->audioProperties() )
 		return ft_fileerror;
 
-	TagLib::Tag *tag = file.tag();
-	TagLib::AudioProperties *prop = file.audioProperties();
+	TagLib::Tag *tag = m_FilePtr->tag();
+	TagLib::AudioProperties *prop = m_FilePtr->audioProperties();
 
 	switch (iFieldIndex)
 	{

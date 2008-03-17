@@ -19,6 +19,7 @@
 #define CWDXTAGLIB_H
 
 #include "CWDXBase.h"
+#include <fileref.h>
 
 
 namespace WDXTagLib
@@ -35,6 +36,8 @@ namespace WDXTagLib
 
 		protected:
 		private:
+			TagLib::FileRef* m_FilePtr;
+			string_t m_sFileName;
 	};
 };
 #endif // CWDXTAGLIB_H
