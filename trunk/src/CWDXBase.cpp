@@ -36,7 +36,7 @@ CWDXBase::~CWDXBase()
 
 string_t CWDXBase::GetDetectString() const
 {
-	return "";
+	return sDetectStr;
 }
 
 void CWDXBase::SetIniName(const string_t& sIniName)
