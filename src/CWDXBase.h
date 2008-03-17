@@ -49,7 +49,7 @@ namespace WDXTagLib
 			};
 	};// CField, *PField;
 
-	typedef map<int, CField> CFields;
+	typedef map<int, CField> CMapOfFields;
 
 
 	class CWDXBase
@@ -73,7 +73,7 @@ namespace WDXTagLib
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
-			CFields m_Fields;
+			CMapOfFields m_Fields;
 			void ExceptionHandler() const;
 
 			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
@@ -81,6 +81,7 @@ namespace WDXTagLib
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags);
 			virtual string_t OnGetDetectString() const;
+			virtual int OnEndOfSetValue();
 
 		private:
 			string_t m_IniName;
