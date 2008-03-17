@@ -36,7 +36,12 @@ CWDXBase::~CWDXBase()
 
 string_t CWDXBase::GetDetectString() const
 {
-	return sDetectStr;
+	return OnGetDetectString();
+}
+
+string_t CWDXBase::OnGetDetectString() const
+{
+	return "";
 }
 
 void CWDXBase::SetIniName(const string_t& sIniName)
@@ -119,6 +124,7 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
 	try
 	{
+		// if iFieldIndex is -1 we should return combination of all supported flags.
 		if (-1 == iFieldIndex)
 		{
 			int iTotalFlags = 0;

@@ -40,9 +40,6 @@ typedef enum FieldIndexes
 CWDXTagLib::CWDXTagLib()
 :	m_FilePtr(NULL)
 {
-	sDetectStr =
-		TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
-
 	m_Fields[ fiTitle				]	=	CField( TEXT("Title"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiArtist			]	=	CField( TEXT("Artist"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiAlbum				]	=	CField( TEXT("Album"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
@@ -61,6 +58,11 @@ CWDXTagLib::~CWDXTagLib()
 {
 	delete m_FilePtr;
 	m_FilePtr = NULL;
+}
+
+string_t CWDXTagLib::OnGetDetectString() const
+{
+	return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");;
 }
 
 int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
