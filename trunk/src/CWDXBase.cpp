@@ -103,8 +103,12 @@ int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
 {
 	try
 	{
+		if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
+			return OnEndOfSetValue();
+
 		if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
 			return ft_nosuchfield;
+
 		return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 	}
 	catch(...)
@@ -124,13 +128,12 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
 	try
 	{
-		// if iFieldIndex is -1 we should return combination of all supported flags.
-		if (-1 == iFieldIndex)
+		if (-1 == iFieldIndex) // we should return combination of all supported flags here
 		{
 			int iTotalFlags = 0;
-			for (CFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
-				if (iter->second.m_Flag)
-					iTotalFlags |= iter->second.m_Flag;
+			for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
+				if ((*iter).second.m_Flag)
+					iTotalFlags |= (*iter).second.m_Flag;
 			return iTotalFlags;
 		}
 
@@ -142,8 +145,13 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 	catch(...)
 	{
 		ExceptionHandler();
-		return 0; // not sure what to return here.
+		return 0; // not sure what to return here
 	}
+}
+
+int CWDXBase::OnEndOfSetValue()
+{
+	return ft_setsuccess;
 }
 
 void CWDXBase::ExceptionHandler() const

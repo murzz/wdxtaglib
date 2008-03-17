@@ -38,7 +38,6 @@ typedef enum FieldIndexes
 } CFieldIndexes;
 
 CWDXTagLib::CWDXTagLib()
-:	m_FilePtr(NULL)
 {
 	m_Fields[ fiTitle				]	=	CField( TEXT("Title"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
 	m_Fields[ fiArtist			]	=	CField( TEXT("Artist"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
@@ -56,33 +55,48 @@ CWDXTagLib::CWDXTagLib()
 
 CWDXTagLib::~CWDXTagLib()
 {
-	delete m_FilePtr;
-	m_FilePtr = NULL;
 }
 
 string_t CWDXTagLib::OnGetDetectString() const
 {
-	return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");;
+	return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
+}
+
+FileRef& CWDXTagLib::OpenFile( const string_t& sFileName, EOpenType OpenType )
+{
+	CMapOfFiles& files = m_Files2Read;
+	switch ( OpenType )
+	{
+		case otRead:	files = m_Files2Read;	break;
+		case otWrite:	files = m_Files2Write;	break;
+		default:
+		/// @todo throw something here.
+			break;
+	}
+
+	// if there is no such file then insert it
+	// otherwise find its reference
+	CFilesIter iter = files.find( sFileName );
+	if ( files.end() == iter )
+	{
+		files[sFileName] = FileRef(sFileName.c_str());
+		return files[sFileName];
+	}
+	else
+		return (*iter).second;
+
 }
 
 int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 												const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	//TagLib::FileRef file( sFileName.c_str() );
-	if ( sFileName != m_sFileName )
-	{
-		m_sFileName = sFileName;
-		delete m_FilePtr;
-		m_FilePtr = NULL;
-		m_FilePtr = new TagLib::FileRef(sFileName.c_str());
-		//m_FilePtr->create( sFileName.c_str() );
-	}
+	FileRef file = OpenFile( sFileName, otRead );
 
-	if ( !m_FilePtr || m_FilePtr->isNull() || !m_FilePtr->tag() || !m_FilePtr->audioProperties() )
+	if ( file.isNull() || !file.tag() || !file.audioProperties() )
 		return ft_fileerror;
 
-	TagLib::Tag *tag = m_FilePtr->tag();
-	TagLib::AudioProperties *prop = m_FilePtr->audioProperties();
+	TagLib::Tag *tag = file.tag();
+	TagLib::AudioProperties *prop = file.audioProperties();
 
 	switch (iFieldIndex)
 	{
@@ -122,22 +136,19 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		default: return ft_nosuchfield;
 			break;
 	}
+//	if ( iFieldIndex == (int)m_Fields.size() ) // this is probably the last call for the file
+		//m_Files2Read.clear();
+
 	return m_Fields[iFieldIndex].m_Type;
 }
 
 int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
-	/// @todo Optimization: use std::list for all unique sFileName (list of TagLib::FileRef instances).
-	/// When iFlags indicates end of operations then save every file.
-	/// Quotation from wdxhelp: FileName is set to NULL and FieldIndex to -1
-	/// to signal to the plugin that the change attributes operation has ended.
-	/// This can be used to flush unsaved data to disk, e.g. when setting comments for multiple files.
-
 	if ( !TagLib::File::isWritable(sFileName.c_str()) )
 		return ft_fileerror;
 
-	TagLib::FileRef file( sFileName.c_str() );
+	FileRef file = OpenFile( sFileName, otWrite );
 
 	if ( file.isNull() || !file.tag() )
 		return ft_fileerror;
@@ -155,7 +166,19 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 		case fiGenre:				tag->setGenre((PCHAR)pFieldValue);			break;
 		default: return ft_nosuchfield;															break;
 	}
-	file.save();
+		CUtils::ShowError(TEXT("value set"));
+	return ft_setsuccess;
+}
+
+int CWDXTagLib::OnEndOfSetValue()
+{
+	for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+		(*iter).second.save();
+
+	m_Files2Write.clear();
+	CUtils::ShowError(TEXT("all should be saved now"));
+	// should clear read map also, otherwise changed values wouldn't be read
+	m_Files2Read.clear();
 	return ft_setsuccess;
 }
 

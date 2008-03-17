@@ -20,7 +20,9 @@
 
 #include "CWDXBase.h"
 #include <fileref.h>
-
+#include <map>
+using namespace std;
+using namespace TagLib;
 
 namespace WDXTagLib
 {
@@ -36,10 +38,23 @@ namespace WDXTagLib
 
 		protected:
 			string_t OnGetDetectString() const;
+			int OnEndOfSetValue();
 
 		private:
-			TagLib::FileRef* m_FilePtr;
 			string_t m_sFileName;
+
+			typedef enum
+			{
+				otRead,
+				otWrite
+			} EOpenType;
+
+			FileRef& OpenFile( const string_t& sFileName, EOpenType OpenType);
+
+			typedef map<string_t, TagLib::FileRef> CMapOfFiles;
+			typedef CMapOfFiles::iterator CFilesIter;
+			CMapOfFiles m_Files2Write;
+			CMapOfFiles m_Files2Read;
 	};
 };
 #endif // CWDXTAGLIB_H
