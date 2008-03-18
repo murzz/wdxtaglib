@@ -43,13 +43,13 @@ namespace WDXTagLib
 		private:
 			string_t m_sFileName;
 
-			typedef enum
+			typedef enum OpenType
 			{
 				otRead,
 				otWrite
 			} EOpenType;
 
-			FileRef& OpenFile( const string_t& sFileName, EOpenType OpenType);
+			FileRef& OpenFile( const string_t& sFileName, const EOpenType OpenType);
 
 			typedef map<string_t, TagLib::FileRef> CMapOfFiles;
 			typedef CMapOfFiles::iterator CFilesIter;
