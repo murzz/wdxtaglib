@@ -20,8 +20,7 @@
 #include "CUtils.h"
 
 using namespace WDXTagLib;
-
-CWDXTagLib wdx;
+CWDXTagLib* pWdx;
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -49,42 +48,45 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 int DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
-	CUtils::strlcpy(DetectString, wdx.GetDetectString().c_str(), maxlen);
+	CUtils::strlcpy(DetectString, pWdx->GetDetectString().c_str(), maxlen);
 	return 0;
 }
 
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
+	pWdx = new CWDXTagLib; // deleted in ContentPluginUnloading()
+
 	if ( sizeof(ContentDefaultParamStruct) != dps->size)
 		return;
 
-	wdx.SetIniName(dps->DefaultIniName);
-	wdx.SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
+	pWdx->SetIniName(dps->DefaultIniName);
+	pWdx->SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
+}
+
+void DLL_EXPORT __stdcall ContentPluginUnloading(void)
+{
+	delete pWdx; // created in ContentSetDefaultParams();
+	pWdx = NULL;
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen)
 {
-	return wdx.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
+	return pWdx->GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 																int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
-	return wdx.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+	return pWdx->GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
-	return wdx.GetSupportedFieldFlags(FieldIndex);
+	return pWdx->GetSupportedFieldFlags(FieldIndex);
 }
 
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
-	return wdx.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
-}
-
-void DLL_EXPORT __stdcall ContentPluginUnloading(void)
-{
-
+	return pWdx->SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
