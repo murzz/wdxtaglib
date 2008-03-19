@@ -86,6 +86,9 @@ int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 {
 	try
 	{
+		if (iUnitIndex < 0)
+			CUtils::ShowError(CUtils::Int2Str(iUnitIndex));
+
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nosuchfield;
 

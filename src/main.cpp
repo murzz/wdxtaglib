@@ -83,3 +83,8 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 {
 	return wdx.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
+
+void DLL_EXPORT __stdcall ContentPluginUnloading(void)
+{
+
+}
