@@ -174,7 +174,7 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	return ft_setsuccess;
 }
 
-int CWDXTagLib::OnEndOfSetValue()
+void CWDXTagLib::OnEndOfSetValue()
 {
 	for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
 		(*iter).second.save();
@@ -183,7 +183,6 @@ int CWDXTagLib::OnEndOfSetValue()
 
 	// should clear read map also, so changed values could be reread again
 	m_Files2Read.clear();
-	return ft_setsuccess;
 }
 
 }
