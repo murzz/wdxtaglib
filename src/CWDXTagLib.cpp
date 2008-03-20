@@ -19,6 +19,20 @@
 #include "CUtils.h"
 #include <tag.h>
 
+#include "mpegfile.h"
+
+#include "id3v2tag.h"
+//#include <id3v2frame.h>
+#include <id3v2header.h>
+#include <id3v1tag.h>
+#include <apetag.h>
+#include <flacfile.h>
+#include <oggflacfile.h>
+
+#include <iostream>
+#include <string>
+#include <sstream>
+
 namespace WDXTagLib
 {
 typedef enum FieldIndexes
@@ -34,7 +48,8 @@ typedef enum FieldIndexes
 	fiSamplerate,
 	fiChannels,
 	fiLength_s,
-	fiLength_m
+	fiLength_m,
+	fiTagType,
 } CFieldIndexes;
 
 CWDXTagLib::CWDXTagLib()
@@ -51,6 +66,7 @@ CWDXTagLib::CWDXTagLib()
 	m_Fields[ fiChannels		]	= CField( TEXT("Channels"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
 	m_Fields[ fiLength_s		]	= CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
 	m_Fields[ fiLength_m		]	= CField( TEXT("Length (formatted)"),		ft_string,				TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiTagType			]	= CField( TEXT("Tag type"),			ft_string,				TEXT(""), TEXT(""), 0 );
 }
 
 CWDXTagLib::~CWDXTagLib()
@@ -70,7 +86,7 @@ FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 
 	if ( m_Files2Write.end() == iter )
 	{
-		m_Files2Write[sFileName] = FileRef(sFileName.c_str());
+		m_Files2Write[sFileName] = FileRef( sFileName.c_str() );
 		return m_Files2Write[sFileName];
 	}
 	else
@@ -83,7 +99,7 @@ FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 												const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	FileRef file( sFileName.c_str() );
+	TagLib::FileRef file( sFileName.c_str() );
 
 	if ( file.isNull() || !file.tag() || !file.audioProperties() )
 		return ft_fileerror;
@@ -126,11 +142,75 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 													CUtils::formatSeconds(seconds) + TEXT("s")).c_str(), iMaxLen);
 			break;
 		}
+		case fiTagType:
+		{
+			CUtils::strlcpy( (PTCHAR)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );		break;
+		}
 		default: return ft_nosuchfield;
 			break;
 	}
 
 	return m_Fields[iFieldIndex].m_Type;
+}
+
+string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
+{
+	ostringstream osResult;
+
+	MPEG::File* MpegFilePtr = dynamic_cast<MPEG::File*>(pFile);
+	if (MpegFilePtr)
+	{
+		bool bUseSeparator = false;
+		ID3v2::Tag *pId3v2 = MpegFilePtr->ID3v2Tag();
+		if ( pId3v2 && !pId3v2->isEmpty())
+		{
+			osResult << TEXT("ID3v2.")
+				<< pId3v2->header()->majorVersion()
+				<< TEXT(".")
+				<< pId3v2->header()->revisionNumber();
+			bUseSeparator = true;
+		}
+
+		ID3v1::Tag *pId3v1 = MpegFilePtr->ID3v1Tag();
+		if ( pId3v1 && !pId3v1->isEmpty())
+		{
+			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+			bUseSeparator = true;
+		}
+
+		APE::Tag *pApe = MpegFilePtr->APETag();
+		if ( pApe && !pApe->isEmpty())
+			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+	}
+
+	FLAC::File* FlacFilePtr = dynamic_cast<FLAC::File*>(pFile);
+	if (FlacFilePtr)
+	{
+		bool bUseSeparator = false;
+		ID3v2::Tag *pId3v2 = FlacFilePtr->ID3v2Tag();
+		if ( pId3v2 && !pId3v2->isEmpty())
+		{
+			osResult << TEXT("ID3v2.")
+				<< pId3v2->header()->majorVersion()
+				<< TEXT(".")
+				<< pId3v2->header()->revisionNumber();
+			bUseSeparator = true;
+		}
+
+		ID3v1::Tag *pId3v1 = FlacFilePtr->ID3v1Tag();
+		if ( pId3v1 && !pId3v1->isEmpty())
+		{
+			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+			bUseSeparator = true;
+		}
+
+		Ogg::XiphComment *pXiph = FlacFilePtr->xiphComment();
+		if ( pXiph && !pXiph->isEmpty())
+			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
+
+	}
+
+	return osResult.str();
 }
 
 int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,

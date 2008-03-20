@@ -44,6 +44,7 @@ namespace WDXTagLib
 			string_t m_sFileName;
 
 			FileRef& OpenFile( const string_t& sFileName );
+			string_t GetTagType( TagLib::File* pFile/*const string_t& sFileName*/ ) const;
 
 			typedef map<string_t, TagLib::FileRef> CMapOfFiles;
 			typedef CMapOfFiles::iterator CFilesIter;
