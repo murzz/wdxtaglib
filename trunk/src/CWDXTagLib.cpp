@@ -22,12 +22,15 @@
 #include "mpegfile.h"
 
 #include "id3v2tag.h"
-//#include <id3v2frame.h>
-#include <id3v2header.h>
-#include <id3v1tag.h>
-#include <apetag.h>
-#include <flacfile.h>
-#include <oggflacfile.h>
+#include "id3v2header.h"
+#include "id3v1tag.h"
+#include "apetag.h"
+#include "flacfile.h"
+#include "oggflacfile.h"
+#include "mpcfile.h"
+#include "oggfile.h"
+#include "trueaudiofile.h"
+#include "wavpackfile.h"
 
 #include <iostream>
 #include <string>
@@ -156,59 +159,74 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
 	ostringstream osResult;
+	ID3v2::Tag *pId3v2 = NULL;
+	ID3v1::Tag *pId3v1 = NULL;
+	APE::Tag *pApe = NULL;
+	Ogg::XiphComment *pXiph = NULL;
 
-	MPEG::File* MpegFilePtr = dynamic_cast<MPEG::File*>(pFile);
-	if (MpegFilePtr)
+	// get pointers to tags
+	MPEG::File* pMpegFile = dynamic_cast<MPEG::File*>(pFile);
+	if (pMpegFile && pMpegFile->isValid())
 	{
-		bool bUseSeparator = false;
-		ID3v2::Tag *pId3v2 = MpegFilePtr->ID3v2Tag();
-		if ( pId3v2 && !pId3v2->isEmpty())
-		{
-			osResult << TEXT("ID3v2.")
-				<< pId3v2->header()->majorVersion()
-				<< TEXT(".")
-				<< pId3v2->header()->revisionNumber();
-			bUseSeparator = true;
-		}
-
-		ID3v1::Tag *pId3v1 = MpegFilePtr->ID3v1Tag();
-		if ( pId3v1 && !pId3v1->isEmpty())
-		{
-			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
-			bUseSeparator = true;
-		}
-
-		APE::Tag *pApe = MpegFilePtr->APETag();
-		if ( pApe && !pApe->isEmpty())
-			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+		pId3v2 = pMpegFile->ID3v2Tag();
+		pId3v1 = pMpegFile->ID3v1Tag();
+		pApe = pMpegFile->APETag();
 	}
 
-	FLAC::File* FlacFilePtr = dynamic_cast<FLAC::File*>(pFile);
-	if (FlacFilePtr)
+	FLAC::File* pFlacFile = dynamic_cast<FLAC::File*>(pFile);
+	if (pFlacFile && pFlacFile->isValid())
 	{
-		bool bUseSeparator = false;
-		ID3v2::Tag *pId3v2 = FlacFilePtr->ID3v2Tag();
-		if ( pId3v2 && !pId3v2->isEmpty())
-		{
-			osResult << TEXT("ID3v2.")
-				<< pId3v2->header()->majorVersion()
-				<< TEXT(".")
-				<< pId3v2->header()->revisionNumber();
-			bUseSeparator = true;
-		}
-
-		ID3v1::Tag *pId3v1 = FlacFilePtr->ID3v1Tag();
-		if ( pId3v1 && !pId3v1->isEmpty())
-		{
-			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
-			bUseSeparator = true;
-		}
-
-		Ogg::XiphComment *pXiph = FlacFilePtr->xiphComment();
-		if ( pXiph && !pXiph->isEmpty())
-			osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
-
+		pId3v2 = pFlacFile->ID3v2Tag();
+		pId3v1 = pFlacFile->ID3v1Tag();
+		pXiph = pFlacFile->xiphComment();
 	}
+
+	MPC::File* pMpcFile =  dynamic_cast<MPC::File*>(pFile);
+	if (pMpcFile && pMpcFile->isValid())
+	{
+		pId3v1 = pMpcFile->ID3v1Tag();
+		pApe = pMpcFile->APETag();
+	}
+
+	Ogg::File* pOggFile =  dynamic_cast<Ogg::File*>(pFile);
+	bool bJustSayXiph = pOggFile && pOggFile->isValid(); // ogg files could have only xiph comments
+
+	TrueAudio::File* pTAFile = dynamic_cast<TrueAudio::File*>(pFile);
+	if (pTAFile && pTAFile->isValid())
+	{
+		pId3v2 = pTAFile->ID3v2Tag();
+		pId3v1 = pTAFile->ID3v1Tag();
+	}
+
+	WavPack::File* pWPFile =  dynamic_cast<WavPack::File*>(pFile);
+	if (pWPFile && pWPFile->isValid())
+	{
+		pId3v1 = pWPFile->ID3v1Tag();
+		pApe = pWPFile->APETag();
+	}
+
+	// format text
+	bool bUseSeparator = false;
+	if ( pId3v2 && !pId3v2->isEmpty())
+	{
+		osResult << TEXT("ID3v2.")
+			<< pId3v2->header()->majorVersion()
+			<< TEXT(".")
+			<< pId3v2->header()->revisionNumber();
+		bUseSeparator = true;
+	}
+
+	if ( pId3v1 && !pId3v1->isEmpty() )
+	{
+		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+		bUseSeparator = true;
+	}
+
+	if ( pApe && !pApe->isEmpty() )
+		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+
+	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
+		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
 
 	return osResult.str();
 }
