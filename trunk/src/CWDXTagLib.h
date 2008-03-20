@@ -38,7 +38,7 @@ namespace WDXTagLib
 
 		protected:
 			string_t OnGetDetectString() const;
-			int OnEndOfSetValue();
+			void OnEndOfSetValue();
 
 		private:
 			string_t m_sFileName;

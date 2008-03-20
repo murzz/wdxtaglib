@@ -107,7 +107,10 @@ int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
 	try
 	{
 		if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
-			return OnEndOfSetValue();
+		{
+			OnEndOfSetValue();
+			return ft_setsuccess;
+		}
 
 		if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
 			return ft_nosuchfield;
@@ -152,9 +155,8 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 	}
 }
 
-int CWDXBase::OnEndOfSetValue()
+void CWDXBase::OnEndOfSetValue()
 {
-	return ft_setsuccess;
 }
 
 void CWDXBase::ExceptionHandler() const
