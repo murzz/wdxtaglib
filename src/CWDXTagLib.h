@@ -43,18 +43,11 @@ namespace WDXTagLib
 		private:
 			string_t m_sFileName;
 
-			typedef enum OpenType
-			{
-				otRead,
-				otWrite
-			} EOpenType;
-
-			FileRef& OpenFile( const string_t& sFileName, const EOpenType OpenType);
+			FileRef& OpenFile( const string_t& sFileName );
 
 			typedef map<string_t, TagLib::FileRef> CMapOfFiles;
 			typedef CMapOfFiles::iterator CFilesIter;
 			CMapOfFiles m_Files2Write;
-			CMapOfFiles m_Files2Read;
 	};
 };
 #endif // CWDXTAGLIB_H
