@@ -46,12 +46,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     return TRUE; // succesful
 }
 
-int DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
+void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
 	CUtils::strlcpy(DetectString, pWdx->GetDetectString().c_str(), maxlen);
-	return 0;
 }
 
+// this functions should be called before any other
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
 	pWdx = new CWDXTagLib; // deleted in ContentPluginUnloading()
