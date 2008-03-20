@@ -62,27 +62,16 @@ string_t CWDXTagLib::OnGetDetectString() const
 	return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
 }
 
-FileRef& CWDXTagLib::OpenFile( const string_t& sFileName, const EOpenType OpenType )
+FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 {
-	CMapOfFiles* pFiles = &m_Files2Read;
-	switch ( OpenType )
-	{
-		case otRead:	pFiles = &m_Files2Read;	break;
-		case otWrite:	pFiles = &m_Files2Write;	break;
-		default:
-		/// @todo throw something here.
-			break;
-	}
-
-
 	// if there is no such file then insert it
 	// otherwise find its reference
-	CFilesIter iter = pFiles->find( sFileName );
+	CFilesIter iter = m_Files2Write.find( sFileName );
 
-	if ( pFiles->end() == iter )
+	if ( m_Files2Write.end() == iter )
 	{
-		(*pFiles)[sFileName] = FileRef(sFileName.c_str());
-		return (*pFiles)[sFileName];
+		m_Files2Write[sFileName] = FileRef(sFileName.c_str());
+		return m_Files2Write[sFileName];
 	}
 	else
 	{
@@ -94,7 +83,7 @@ FileRef& CWDXTagLib::OpenFile( const string_t& sFileName, const EOpenType OpenTy
 int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 												const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	FileRef file = OpenFile( sFileName, otRead );
+	FileRef file( sFileName.c_str() );
 
 	if ( file.isNull() || !file.tag() || !file.audioProperties() )
 		return ft_fileerror;
@@ -104,9 +93,9 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				CUtils::strlcpy( (TCHAR*)pFieldValue, tag->title().toCString(true), iMaxLen );	break;
-		case fiArtist:			CUtils::strlcpy( (TCHAR*)pFieldValue, tag->artist().toCString(true), iMaxLen );	break;
-		case fiAlbum:				CUtils::strlcpy( (TCHAR*)pFieldValue, tag->album().toCString(true), iMaxLen );	break;
+		case fiTitle:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->title().toCString(true), iMaxLen );	break;
+		case fiArtist:			CUtils::strlcpy( (PTCHAR)pFieldValue, tag->artist().toCString(true), iMaxLen );	break;
+		case fiAlbum:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->album().toCString(true), iMaxLen );	break;
 		case fiYear:
 		{
 			if (!tag->year())
@@ -121,8 +110,8 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			*(__int32*)pFieldValue = tag->track();
 			break;
 		}
-		case fiComment:			CUtils::strlcpy( (TCHAR*)pFieldValue, tag->comment().toCString(true), iMaxLen );	break;
-		case fiGenre:				CUtils::strlcpy( (TCHAR*)pFieldValue, tag->genre().toCString(true), iMaxLen );		break;
+		case fiComment:			CUtils::strlcpy( (PTCHAR)pFieldValue, tag->comment().toCString(true), iMaxLen );	break;
+		case fiGenre:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->genre().toCString(true), iMaxLen );		break;
 		case fiBitrate:			*(__int32*)pFieldValue = prop->bitrate();		break;
 		case fiSamplerate:	*(__int32*)pFieldValue = prop->sampleRate();	break;
 		case fiChannels:		*(__int32*)pFieldValue = prop->channels();		break;
@@ -132,7 +121,7 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			int seconds = prop->length() % 60;
 			int minutes = (prop->length() - seconds) / 60;
 
-			CUtils::strlcpy((TCHAR*)pFieldValue,
+			CUtils::strlcpy((PTCHAR)pFieldValue,
 										string_t(CUtils::Int2Str(minutes) + TEXT("m ") +
 													CUtils::formatSeconds(seconds) + TEXT("s")).c_str(), iMaxLen);
 			break;
@@ -140,8 +129,6 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		default: return ft_nosuchfield;
 			break;
 	}
-//	if ( iFieldIndex == (int)m_Fields.size() ) // this is probably the last call for the file
-		//m_Files2Read.clear();
 
 	return m_Fields[iFieldIndex].m_Type;
 }
@@ -152,7 +139,7 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	if ( !TagLib::File::isWritable(sFileName.c_str()) )
 		return ft_fileerror;
 
-	FileRef file = OpenFile( sFileName, otWrite );
+	FileRef file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
 		return ft_fileerror;
@@ -161,13 +148,13 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				tag->setTitle((PCHAR)pFieldValue);			break;
-		case fiArtist:			tag->setArtist((PCHAR)pFieldValue);			break;
-		case fiAlbum:				tag->setAlbum((PCHAR)pFieldValue);			break;
+		case fiTitle:				tag->setTitle((PTCHAR)pFieldValue);			break;
+		case fiArtist:			tag->setArtist((PTCHAR)pFieldValue);			break;
+		case fiAlbum:				tag->setAlbum((PTCHAR)pFieldValue);			break;
 		case fiYear:				tag->setYear(*(__int32*)pFieldValue);		break;
 		case fiTracknumber:	tag->setTrack(*(__int32*)pFieldValue);	break;
-		case fiComment:			tag->setComment((PCHAR)pFieldValue);		break;
-		case fiGenre:				tag->setGenre((PCHAR)pFieldValue);			break;
+		case fiComment:			tag->setComment((PTCHAR)pFieldValue);		break;
+		case fiGenre:				tag->setGenre((PTCHAR)pFieldValue);			break;
 		default: return ft_nosuchfield;															break;
 	}
 
@@ -180,9 +167,6 @@ void CWDXTagLib::OnEndOfSetValue()
 		(*iter).second.save();
 
 	m_Files2Write.clear();
-
-	// should clear read map also, so changed values could be reread again
-	m_Files2Read.clear();
 }
 
 }
