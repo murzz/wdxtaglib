@@ -1,5 +1,5 @@
 rem build
-rem codeblocks.exe /na /nd /ns --rebuild ..\src\WDXTagLib.cbp --target='Release' > build_log.txt
+codeblocks.exe /na /nd /ns --rebuild ..\src\WDXTagLib.cbp --target='Release' > build_log.txt
 
 rem should take release name from project properties somehow
 set package=wdx_WDXTagLib_100
@@ -20,7 +20,7 @@ copy ..\lib\msvcrt.dll %package%\msvcrt.dll
 
 rem zip package
 cd %package%
-7z a -tzip ..\%package%.zip *.*
+7z a -tzip ..\%package%.zip *
 cd..
 
 rem zip sources
