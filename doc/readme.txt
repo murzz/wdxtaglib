@@ -44,7 +44,7 @@ Requirements -------------------------------------------------------------------
 
 
 Installation -------------------------------------------------------------------
-	Firstly place the taglib.dll and msvcrt.dll in the totalcmd.exe folder or
+	Firstly place the libtag.dll and msvcrt.dll in the totalcmd.exe folder or
 somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 
