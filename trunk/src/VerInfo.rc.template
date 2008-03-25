@@ -1,7 +1,7 @@
 #include <windows.h>
 1 VERSIONINFO
-FILEVERSION 1,0,0,304
-PRODUCTVERSION 1,0,0,0
+FILEVERSION 1,0,1,$WCREV$
+PRODUCTVERSION 1,0,1,$WCREV$
 FILEOS VOS__WINDOWS32
 FILETYPE VFT_APP
 {
@@ -9,7 +9,7 @@ FILETYPE VFT_APP
 				{
                 BLOCK "040904E4"
 								{
-                        VALUE "FileVersion", "1.0.0.$WCREV$\000"
+                        VALUE "FileVersion", "1.0.1.$WCREV$\000"
 //                        VALUE "CompanyName", "CompanyName\000"
                         VALUE "FileDescription", "Content plugin for Total Commander to show, edit and search in audio file tags\000"
                         VALUE "InternalName", "WDXTagLib\000"
@@ -17,7 +17,7 @@ FILETYPE VFT_APP
 //                        VALUE "LegalTrademarks", "LegalTrademarks\000"
                         VALUE "OriginalFilename", "WDXTagLib.wdx\000"
                         VALUE "ProductName", "WDXTagLib\000"
-                        VALUE "ProductVersion", "1.0.0.0\000"
+                        VALUE "ProductVersion", "1.0.1.$WCREV$\000"
 //                        VALUE "Comments", "Comments\000"
                         VALUE "Revision", "$WCREV$\000"
                         VALUE "RevDate", "$WCDATE$\000"
