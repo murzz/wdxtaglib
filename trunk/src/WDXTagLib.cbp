@@ -62,6 +62,9 @@
 			<Add option="-Wl,--kill-at" />
 			<Add library="..\lib\libtag.dll.a" />
 		</Linker>
+		<ExtraCommands>
+			<Add before='SubWCRev.exe &quot;$(PROJECTDIR).&quot; &quot;$(PROJECTDIR)VerInfo.rc.template&quot; &quot;$(PROJECTDIR)VerInfo.rc&quot;' />
+		</ExtraCommands>
 		<Unit filename="..\doc\read_before_install.txt" />
 		<Unit filename="..\doc\readme.txt" />
 		<Unit filename="CUtils.cpp" />
@@ -71,6 +74,10 @@
 		<Unit filename="CWDXTagLib.cpp" />
 		<Unit filename="CWDXTagLib.h" />
 		<Unit filename="CustomTypes.h" />
+		<Unit filename="VerInfo.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="VerInfo.rc.template" />
 		<Unit filename="contentplug.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
