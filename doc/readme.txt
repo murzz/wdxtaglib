@@ -23,7 +23,8 @@ Readonly tags:
 	• bitrate;
 	• samplerate;
 	• channels;
-	• length.
+	• length;
+	• tag type.
 
 It has been tested with Total Commander 7.02a under Windows XP.
 
@@ -49,7 +50,13 @@ somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 
 Version history ----------------------------------------------------------------
-05.03.2008	WDXTagLib 1.0.0.0
+25.03.2008	WDXTagLib 1.0.1
++ New field Tag Type. It shows all tags types file has (ID3v1, APE etc).
++ Speed improvement on tag saving.
++ Double licensing scheme used now GPL and LGPL.
++ Detect string used.
+
+05.03.2008	WDXTagLib 1.0.0
 First public version.
 
 
