@@ -247,7 +247,7 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	switch (iFieldIndex)
 	{
 		case fiTitle:				tag->setTitle((PTCHAR)pFieldValue);			break;
-		case fiArtist:			tag->setArtist((PTCHAR)pFieldValue);			break;
+		case fiArtist:			tag->setArtist((PTCHAR)pFieldValue);		break;
 		case fiAlbum:				tag->setAlbum((PTCHAR)pFieldValue);			break;
 		case fiYear:				tag->setYear(*(__int32*)pFieldValue);		break;
 		case fiTracknumber:	tag->setTrack(*(__int32*)pFieldValue);	break;
