@@ -134,7 +134,7 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
 	try
 	{
-		if (-1 == iFieldIndex) // we should return combination of all supported flags here
+		if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 		{
 			int iTotalFlags = 0;
 			for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)

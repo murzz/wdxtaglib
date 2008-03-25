@@ -19,8 +19,25 @@
 #include "CWDXTagLib.h"
 #include "CUtils.h"
 
-using namespace WDXTagLib;
-CWDXTagLib* pWdx;
+template <class T>
+class singleton : private T
+{
+public:
+    /// creates global instance of singleton and returns it
+    static T& instance()
+    {
+        static singleton<T> global_instance;
+        return global_instance;
+    }
+
+private:
+    /// private constructor - to prevent direct object creation
+    inline singleton() {}
+    /// private destructor - to prevent direct object destruction
+    inline ~singleton() {}
+};
+
+typedef singleton<WDXTagLib::CWDXTagLib> GPlugin;
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -48,45 +65,41 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
-	CUtils::strlcpy(DetectString, pWdx->GetDetectString().c_str(), maxlen);
+	CUtils::strlcpy(DetectString, GPlugin::instance().GetDetectString().c_str(), maxlen);
 }
 
-// this functions should be called before any other
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
-	pWdx = new CWDXTagLib; // deleted in ContentPluginUnloading()
-
 	if ( sizeof(ContentDefaultParamStruct) != dps->size)
 		return;
 
-	pWdx->SetIniName(dps->DefaultIniName);
-	pWdx->SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
+	GPlugin::instance().SetIniName(dps->DefaultIniName);
+	GPlugin::instance().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
 }
 
 void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 {
-	delete pWdx; // created in ContentSetDefaultParams();
-	pWdx = NULL;
+	// free plugin instance here
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen)
 {
-	return pWdx->GetSupportedField(FieldIndex, FieldName, Units, maxlen);
+	return GPlugin::instance().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 																int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
-	return pWdx->GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+	return GPlugin::instance().GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
-	return pWdx->GetSupportedFieldFlags(FieldIndex);
+	return GPlugin::instance().GetSupportedFieldFlags(FieldIndex);
 }
 
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
-	return pWdx->SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+	return GPlugin::instance().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
