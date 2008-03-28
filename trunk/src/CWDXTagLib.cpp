@@ -158,7 +158,6 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
-	ostringstream osResult;
 	ID3v2::Tag *pId3v2 = NULL;
 	ID3v1::Tag *pId3v1 = NULL;
 	APE::Tag *pApe = NULL;
@@ -206,6 +205,7 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	}
 
 	// format text
+	ostringstream osResult;
 	bool bUseSeparator = false;
 	if ( pId3v2 && !pId3v2->isEmpty())
 	{
@@ -223,7 +223,10 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	}
 
 	if ( pApe && !pApe->isEmpty() )
+	{
 		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+		bUseSeparator = true;
+	}
 
 	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
 		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
