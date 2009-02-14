@@ -1,14 +1,21 @@
-#summary Readme file.
+#summary General information
 #labels Featured
 
-*WDXTagLib*
+=WDXTagLib=
 Content plugin for [http://www.ghisler.com/ Total Commander]
 by Dmitry Murzaikin
 
 =Description=
 This is a content plugin for Total Commander that allows you to show audio
-file tags in columns, edit tags and search in tags. Supported file formats:
-MP3, MPC, FLAC, Ogg FLAC, Ogg Vorbis and Speex.
+file tags in columns, edit tags and search in tags.
+
+Supported file formats:
+ * MP3,
+ * MPC,
+ * FLAC,
+ * Ogg FLAC,
+ * Ogg Vorbis and
+ * Speex.
 
 =Functionality=
 Tags supported for reading and writing:
@@ -42,8 +49,7 @@ version 3 or later and GNU Lesser General Public License (LGPL) version 3 or lat
  * msvcrt.dll (included).
 
 =Installation=
-Firstly place the libtag.dll and msvcrt.dll in the totalcmd.exe folder or
-somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
+[http://code.google.com/p/wdxtaglib/wiki/Installation Look here]
 
 =Version history=
 [http://code.google.com/p/wdxtaglib/wiki/History Look here]
@@ -52,7 +58,7 @@ somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 =Special thanks=
  * Christian Ghisler, author of [http://www.ghisler.com Total Commander].
  * [http://developer.kde.org/~wheeler/taglib.html TagLib] project.
- * Andrey "Ergo" Pyasetskiy maintainer of [http://www.wincmd.ru wincmd.ru] and [http://totalcmd.net totalcmd.net].
+ * Andrey "Ergo" Pyasetskiy, maintainer of [http://www.wincmd.ru wincmd.ru] and [http://totalcmd.net totalcmd.net].
 
 
 =Support=
