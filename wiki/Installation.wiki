@@ -1,12 +1,13 @@
 #summary How to install.
 #labels Featured,Phase-Deploy
+#sidebar TableOfContents
 
-=Installation manual=
+= Installation manual =
 There are two ways to install plugin in Total Commander:
  * manually and
  * automatically.
 
-=Manual installation=
+= Manual installation =
  * Extract archive to the path of your choice. For example _c:\totalcmd\plugins\wdx\wdxtaglib\_.
  * Place the *libtag.dll* and *msvcrt.dll* in the totalcmd.exe folder or somewhere in the %PATH%.
  * Add *wdxtaglib.wdx* as content plugin:
@@ -17,8 +18,8 @@ There are two ways to install plugin in Total Commander:
   * press OK several times. 
  * Done!
 
-=Automatic installation=
+= Automatic installation =
 For now it is not possible to install plugin automatically due to statical linkage with TagLib library.
 
-=Screenshot=
-[http://wdxtaglib.googlecode.com/svn/trunk/doc/installation.png]
+= Screenshot =
+http://wdxtaglib.googlecode.com/svn/trunk/doc/installation.png
