@@ -1,7 +1,7 @@
 #summary How to install.
 #labels Featured,Phase-Deploy
 
-=How to install=
+=Installation manual=
 There are two ways to install plugin in Total Commander:
  * manually and
  * automatically.
