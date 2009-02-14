@@ -51,9 +51,11 @@ version 3 or later and GNU Lesser General Public License (LGPL) version 3 or lat
 =Installation=
 [http://code.google.com/p/wdxtaglib/wiki/Installation Look here]
 
+=Usage=
+[http://code.google.com/p/wdxtaglib/wiki/Usage Look here]
+
 =Version history=
 [http://code.google.com/p/wdxtaglib/wiki/History Look here]
-
 
 =Special thanks=
  * Christian Ghisler, author of [http://www.ghisler.com Total Commander].
