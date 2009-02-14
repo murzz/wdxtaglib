@@ -1,5 +1,6 @@
 #summary General information
 #labels Featured
+#sidebar TableOfContents
 
 =WDXTagLib=
 Content plugin for [http://www.ghisler.com/ Total Commander]
