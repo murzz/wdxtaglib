@@ -46,7 +46,7 @@ Firstly place the libtag.dll and msvcrt.dll in the totalcmd.exe folder or
 somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 =Version history=
-[ Look here]
+[http://code.google.com/p/wdxtaglib/wiki/History Look here]
 
 
 =Special thanks=
