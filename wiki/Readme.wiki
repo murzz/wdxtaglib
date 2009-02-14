@@ -56,7 +56,7 @@ somewhere in the %PATH%. Then add wdxtaglib.wdx as content plugin.
 
 
 =Support=
- * author's e-mail: murzzz@gmail.com
- * plugin's homepage (en): http://www.totalcmd.net/plugring/wdxtaglib.html
+ * [murzzz@gmail.com author's e-mail]
+ * [http://www.totalcmd.net/plugring/wdxtaglib.html plugin homepage on totalcmd.net (en)]
  * plugin's homepage (ru): http://wincmd.ru/plugring/wdxtaglib.html
  * plugin's support (en): http://ghisler.ch/board/viewtopic.php?p=145149
