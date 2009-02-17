@@ -41,8 +41,8 @@ It has been tested with Total Commander 7.02a under Windows XP.
  * National characters are not supported yet.
 
 =License Agreement=
-This software is distributed under the GNU General Public License ([http://www.fsf.org/licensing/licenses/gpl.html *GPL*])
-version 3 or later and GNU Lesser General Public License ([http://www.fsf.org/licensing/licenses/lgpl.html *LGPL*]) version 3 or later.
+This software is distributed under the GNU General Public License (*[http://www.fsf.org/licensing/licenses/gpl.html GPL]*)
+version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
 =Requirements=
  * Total Commander 7.02 or higher.
