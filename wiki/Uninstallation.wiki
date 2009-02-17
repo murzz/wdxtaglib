@@ -3,5 +3,5 @@
 
 = Uninstallation =
 
- * Remove plugin from plugin list.
+ * Remove plugin from plugin list. http://wdxtaglib.googlecode.com/svn/trunk/doc/remove_plugin_dialog.png
  * Delete plugin's folder.
