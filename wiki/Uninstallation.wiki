@@ -1,0 +1,7 @@
+#summary How to uninstall plugin.
+#labels Featured
+
+= Uninstallation =
+
+ * Remove plugin from plugin list.
+ * Delete plugin's folder.
