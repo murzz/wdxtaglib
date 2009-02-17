@@ -1,7 +1,7 @@
 #summary Table of contents
 
 
- * [Readme General information]
+ * [Introduction Introduction]
  * [Installation Installation]
  * [Uninstallation Unstallation]
  * [Usage Usage]
