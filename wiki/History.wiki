@@ -4,7 +4,7 @@
 
 = Version history =
 _25.03.2008_	WDXTagLib *1.0.1*
- * New field Tag Type. It shows all tags types file has (ID3v1, APE etc).
+ * New field Tag Type. It shows all tag types file has (ID3v1, APE etc).
  * Speed improvement on tag saving.
  * Double licensing scheme used now GPL and LGPL.
  * Detect string is used.
