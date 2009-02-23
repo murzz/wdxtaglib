@@ -26,7 +26,7 @@ class CUtils
 	public:
 		static char* strlcpy( char* p, const char* p2, int maxlen );
 		static string_t formatSeconds( int seconds );
-		static string_t CUtils::Int2Str( const int num );
+		static string_t Int2Str( const int num );
 		static void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 	protected:
 	private:
