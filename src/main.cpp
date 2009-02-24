@@ -60,7 +60,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
             // detach from thread
             break;
     }
-    return TRUE; // succesful
+    return TRUE; // successful
 }
 
 void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
