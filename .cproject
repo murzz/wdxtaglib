@@ -411,7 +411,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -494,7 +494,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -678,7 +678,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="wdx" artifactName="WDXTagLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.so.release.530680242" name="Release" parent="cdt.managedbuild.config.gnu.mingw.so.release" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="Create version info resource" prebuildStep="${project_loc}\src\generate_verinfo.cmd ${project_loc} ${CWD}">
+<configuration artifactExtension="wdx" artifactName="WDXTagLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.so.release.530680242" name="Release" parent="cdt.managedbuild.config.gnu.mingw.so.release" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="Create version info resource" prebuildStep="${project_loc}\tools\generate_verinfo.cmd ${project_loc} ${CWD}">
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.release.530680242." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.so.release.2057944411" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.so.release">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.so.release.626494090" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.so.release"/>
@@ -1071,7 +1071,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -1154,7 +1154,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
