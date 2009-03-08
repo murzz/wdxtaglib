@@ -11,9 +11,9 @@ FILETYPE VFT_APP
 								{
                         VALUE "FileVersion", "1.0.1.$WCREV$\000"
 //                        VALUE "CompanyName", "CompanyName\000"
-                        VALUE "FileDescription", "Content plugin for Total Commander to show, edit and search in audio file tags\000"
+                        VALUE "FileDescription", "This is a content plugin for Total Commander that allows you to show audio file tags in columns, edit tags and search in tags.\000"
                         VALUE "InternalName", "WDXTagLib\000"
-                        VALUE "LegalCopyright", "© 2008 by Dmitrie Murzaikin\000"
+                        VALUE "LegalCopyright", "© 2008 - 2009 by Dmitry Murzaikin\000"
 //                        VALUE "LegalTrademarks", "LegalTrademarks\000"
                         VALUE "OriginalFilename", "WDXTagLib.wdx\000"
                         VALUE "ProductName", "WDXTagLib\000"
