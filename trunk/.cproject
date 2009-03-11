@@ -32,10 +32,11 @@
 <option id="gnu.cpp.compiler.mingw.so.debug.option.optimization.level.222386814" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.so.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.mingw.so.debug.option.debugging.level.1694535696" name="Debug Level" superClass="gnu.cpp.compiler.mingw.so.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.1178641587" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/debug/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.preprocessor.def.539071276" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="BUILD_DLL"/>
+<listOptionValue builtIn="false" value="DEBUG"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.878767724" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
@@ -50,11 +51,10 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.debug.966239071" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.debug">
 <option defaultValue="true" id="gnu.cpp.link.mingw.so.debug.option.shared.1771528979" name="Shared (-shared)" superClass="gnu.cpp.link.mingw.so.debug.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.paths.913360887" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/lib}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${CWD}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/debug/lib}&quot;"/>
 </option>
 <option id="gnu.cpp.link.option.libs.69927727" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="tag.dll"/>
+<listOptionValue builtIn="false" value="tagd.dll"/>
 </option>
 <option id="gnu.cpp.link.option.other.728506108" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
 <listOptionValue builtIn="false" value="--kill-at"/>
@@ -691,10 +691,11 @@
 <option id="gnu.cpp.compiler.mingw.so.release.option.optimization.level.608395227" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.so.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.mingw.so.release.option.debugging.level.1613289513" name="Debug Level" superClass="gnu.cpp.compiler.mingw.so.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.756360069" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/release/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.preprocessor.def.1836556592" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="BUILD_DLL"/>
+<listOptionValue builtIn="false" value="NDEBUG"/>
 </option>
 <option id="gnu.cpp.compiler.option.optimization.flags.641163921" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1533535883" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -710,7 +711,7 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.release.1155562017" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.release">
 <option defaultValue="true" id="gnu.cpp.link.mingw.so.release.option.shared.1892004193" name="Shared (-shared)" superClass="gnu.cpp.link.mingw.so.release.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.paths.238552571" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/lib}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/release/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${CWD}&quot;"/>
 </option>
 <option id="gnu.cpp.link.option.libs.1466937148" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
