@@ -32,16 +32,18 @@ namespace WDXTagLib
 			CWDXTagLib();
 			virtual ~CWDXTagLib();
 			int OnGetValue(const string_t& sFileName, const int FieldIndex,
-										const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
+										const int UnitIndex, void* FieldValue,
+										const int maxlen, const int flags);
+
 			int OnSetValue(const string_t& sFileName, const int FieldIndex,
-										const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
+										const int UnitIndex, const int FieldType,
+										const void* FieldValue, const int flags);
 
 		protected:
 			string_t OnGetDetectString() const;
 			void OnEndOfSetValue();
 
 		private:
-			string_t m_sFileName;
 
 			FileRef& OpenFile( const string_t& sFileName );
 			string_t GetTagType( TagLib::File* pFile ) const;

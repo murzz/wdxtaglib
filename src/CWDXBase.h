@@ -26,16 +26,17 @@ using namespace std;
 
 namespace WDXTagLib
 {
-
-	//typedef struct
+	/// Basically this class represents a field (property) of a file we want to expose.
 	class CField
 	{
 		public:
+			/// Name of a field as it would be shown in TC.
+			/// @note Consult contentplugin help file for name limitation (ContentGetSupportedField).
 			string_t m_Name;
-			int m_Type;
-			string_t m_Unit;
-			string_t m_MultChoice;
-			int m_Flag;
+			int m_Type;			///< Type of a field: ft_numeric_32, ft_string etc.
+			string_t m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
+			string_t m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
 			CField() : m_Type(0), m_Flag(0){};
 
@@ -46,11 +47,11 @@ namespace WDXTagLib
 				m_MultChoice(sMultChoice),
 				m_Flag(iFlag)
 			{
-			};
-	};// CField, *PField;
+			}
+	};
 
+	/// Map of fields.
 	typedef map<int, CField> CMapOfFields;
-
 
 	class CWDXBase
 	{
@@ -62,26 +63,37 @@ namespace WDXTagLib
 			void SetIniName(const string_t& sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int iFieldIndex, char* pszFieldName,
-														char* pszUnits, const int iMaxLen);
+														char* pszUnits, const int iMaxLen) const;
+
 			int GetValue(const char* pszFileName, const int iFieldIndex,
-									const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags);
+									const int iUnitIndex, void* pFieldValue,
+									const int iMaxLen, const int iFlags);
+
 			int SetValue(const char* pszFileName, const int iFieldIndex,
-									const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags);
-			virtual int GetSupportedFieldFlags(const int iFieldIndex);
+									const int iUnitIndex, const int iFieldType,
+									const void* pFieldValue, const int iFlags);
+
+			virtual int GetSupportedFieldFlags(const int iFieldIndex) const;
 
 		protected:
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
+
+			/// List of fields supported by plugin. Should be defined in descendants.
 			CMapOfFields m_Fields;
 			void ExceptionHandler() const;
 
 			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
-													const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags) = 0;
+										const int iUnitIndex, void* pFieldValue,
+										const int iMaxLen, const int iFlags) = 0;
+
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
-													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags);
+								const int iUnitIndex, const int iFieldType,
+								const void* pFieldValue, const int iFlags) const;
+
 			virtual string_t OnGetDetectString() const;
-			virtual void OnEndOfSetValue();
+			virtual void OnEndOfSetValue() const;
 
 		private:
 			string_t m_IniName;

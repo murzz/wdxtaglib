@@ -62,14 +62,15 @@ void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 	m_PluginInterfaceVerionLow = dwLow;
 }
 
-int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
+int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
+								char* pszUnits, int iMaxLen) const
 {
 	try
 	{
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nomorefields;
 
-		const CField& f = m_Fields[ iFieldIndex ];
+		const CField& f = m_Fields.at( iFieldIndex );
 		CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
 		CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
 		return f.m_Type;
@@ -82,7 +83,8 @@ int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char
 }
 
 int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
-						const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
+						const int iUnitIndex, void* pFieldValue,
+						const int iMaxLen, const int iFlags)
 {
 	try
 	{
@@ -102,7 +104,8 @@ int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 }
 
 int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
-									const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
+						const int UnitIndex, const int FieldType,
+						const void* FieldValue, const int flags)
 {
 	try
 	{
@@ -125,28 +128,34 @@ int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
 }
 
 int CWDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
-													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
+				const int iUnitIndex, const int iFieldType,
+				const void* pFieldValue, const int iFlags) const
 {
 	return ft_nosuchfield;
 }
 
-int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
+int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex) const
 {
 	try
 	{
 		if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 		{
 			int iTotalFlags = 0;
-			for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
-				if ((*iter).second.m_Flag)
-					iTotalFlags |= (*iter).second.m_Flag;
+			for (CMapOfFields::const_iterator iter = m_Fields.begin();
+				iter != m_Fields.end();
+				++iter)
+			{
+				const CField& f = (*iter).second;
+				if (f.m_Flag)
+					iTotalFlags |= f.m_Flag;
+			}
 			return iTotalFlags;
 		}
 
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nomorefields;
 
-		return m_Fields[iFieldIndex].m_Flag;
+		return m_Fields.at(iFieldIndex).m_Flag;
 	}
 	catch(...)
 	{
@@ -155,7 +164,7 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 	}
 }
 
-void CWDXBase::OnEndOfSetValue()
+void CWDXBase::OnEndOfSetValue() const
 {
 }
 

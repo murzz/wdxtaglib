@@ -74,7 +74,8 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 		return;
 
 	GPlugin::instance().SetIniName(dps->DefaultIniName);
-	GPlugin::instance().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow);
+	GPlugin::instance().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
+													dps->PluginInterfaceVersionLow);
 }
 
 void DLL_EXPORT __stdcall ContentPluginUnloading(void)
@@ -82,13 +83,14 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 	// free plugin instance here
 }
 
-int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen)
+int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,
+											char* Units,int maxlen)
 {
 	return GPlugin::instance().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
-																int UnitIndex, void* FieldValue, int maxlen, int flags)
+							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
 	return GPlugin::instance().GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
