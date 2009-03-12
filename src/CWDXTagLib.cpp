@@ -128,7 +128,8 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 	if ( file.isNull() )
 		return ft_fileerror;
 
-	 //|| !file.tag() || !file.audioProperties() )
+	if ( IsAborted() )
+		return ft_fieldempty; // return ft_fieldempty here, according to contentplugin help
 
 	TagLib::Tag* pTag = file.tag();
 	TagLib::AudioProperties* pProp = file.audioProperties();

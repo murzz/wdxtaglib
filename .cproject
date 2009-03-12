@@ -19,11 +19,11 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="wdx" artifactName="WDXTagLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370" name="Debug" parent="cdt.managedbuild.config.gnu.mingw.so.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
+<configuration artifactExtension="wdx" artifactName="WDXTagLibDebug" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370" name="Debug" parent="cdt.managedbuild.config.gnu.mingw.so.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.so.debug.643734076" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.so.debug">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.so.debug.1457697719" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.so.debug"/>
-<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1158204878" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="-1" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1158204878" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="-1" stopOnErr="false" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
 <tool command="as" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.assembler.mingw.so.debug.1178582143" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.so.debug">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.729282431" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
@@ -411,7 +411,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -494,7 +494,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -1072,7 +1072,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
@@ -1155,7 +1155,7 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.debug.780374370;cdt.managedbuild.config.gnu.mingw.so.debug.780374370.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.debug.1791074813;cdt.managedbuild.tool.gnu.c.compiler.input.898263317">
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.so.release.530680242;cdt.managedbuild.config.gnu.mingw.so.release.530680242.;cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678;cdt.managedbuild.tool.gnu.c.compiler.input.2077953866">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>

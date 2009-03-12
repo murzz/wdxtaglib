@@ -94,6 +94,9 @@ int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nosuchfield;
 
+		// abort flag down
+		SetAborted( false );
+
 		return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 	}
 	catch(...)
@@ -184,4 +187,37 @@ void CWDXBase::ExceptionHandler() const
 	}
 }
 
+void CWDXBase::StopGetValue(const string_t& sFileName)
+{
+	// abort flag up
+
+	SetAbortedFilename( sFileName );
+	SetAborted( true );
 }
+
+void CWDXBase::SetAborted( const bool bValue )
+{
+	m_bIsAborted = bValue;
+
+	// clear filename when not in aborted state
+	if (!m_bIsAborted)
+		SetAbortedFilename("");
+}
+
+bool CWDXBase::IsAborted() const
+{
+	return m_bIsAborted;
+}
+
+void CWDXBase::SetAbortedFilename(const string_t& sValue)
+{
+	m_sAbortedFilename = sValue;
+}
+
+string_t CWDXBase::GetAbortedFilename() const
+{
+	return m_sAbortedFilename;
+}
+
+}
+

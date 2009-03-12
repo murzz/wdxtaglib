@@ -105,3 +105,8 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 {
 	return GPlugin::instance().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
+
+void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
+{
+	GPlugin::instance().StopGetValue(FileName);
+}

@@ -75,6 +75,8 @@ namespace WDXTagLib
 
 			virtual int GetSupportedFieldFlags(const int iFieldIndex) const;
 
+			void StopGetValue(const string_t& sFileName);
+
 		protected:
 			string_t GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
@@ -95,10 +97,30 @@ namespace WDXTagLib
 			virtual string_t OnGetDetectString() const;
 			virtual void OnEndOfSetValue() const;
 
+			/// Check this method on lengthy operations.
+			/// TC set this flag to tell a plugin that a directory change
+			/// has occurred, and the plugin should stop loading a value.
+			bool IsAborted() const;
+
+			///  Get aborted filename.
+			/// @return Filename of the processed file in the time when abort flag was up.
+			string_t GetAbortedFilename() const;
+
 		private:
 			string_t m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
+
+			/// File should be aborted
+			string_t m_sAbortedFilename;
+
+			/// 'time to stop' flag
+			bool m_bIsAborted;
+
+			/// Setter for m_bIsAborted.
+			void SetAborted( const bool bValue );
+
+			void SetAbortedFilename(const string_t& sValue);
 	};
 
 
