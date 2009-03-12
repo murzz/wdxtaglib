@@ -40,6 +40,7 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitI
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
 void DLL_EXPORT __stdcall ContentPluginUnloading(void);
+void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName);
 
 #ifdef __cplusplus
 }
