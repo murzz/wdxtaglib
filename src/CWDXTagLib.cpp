@@ -79,16 +79,25 @@ CWDXTagLib::~CWDXTagLib()
 
 string_t CWDXTagLib::OnGetDetectString() const
 {
-	return TEXT("EXT=\"OGG\" |"
-				"EXT=\"FLAC\" | "
-				"EXT=\"OGA\" | "
-				"EXT=\"MP3\" | "
-				"EXT=\"MPC\" | "
-				"EXT=\"WV\" | "
-				"EXT=\"SPX\" | "
-				"EXT=\"TTA\" | "
-				"EXT=\"WMA\" | "
-				"EXT=\"M4A\"");
+	// take supported extensions from FileRef.
+	TagLib::String sExtList;
+	TagLib::String sOpen(TEXT("EXT=\""));
+	TagLib::String sClose(TEXT("\""));
+	TagLib::String sOr(TEXT(" | "));
+
+	FileRef fTmp;
+	TagLib::StringList Exts = fTmp.defaultFileExtensions();
+
+	for(TagLib::StringList::Iterator iter = Exts.begin(); iter != Exts.end(); ++iter)
+	{
+		sExtList += sOpen + *iter + sClose + sOr;
+	}
+
+	// remove last sOr
+	if (!sExtList.isEmpty())
+		sExtList = sExtList.substr(0, sExtList.size() - sOr.size());
+
+	return sExtList.toCString(true);
 }
 
 FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
