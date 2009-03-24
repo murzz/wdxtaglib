@@ -36,8 +36,6 @@
 #include <string>
 #include <sstream>
 
-namespace WDXTagLib
-{
 typedef enum FieldIndexes
 {
 	fiTitle = 0,
@@ -58,19 +56,19 @@ typedef enum FieldIndexes
 CWDXTagLib::CWDXTagLib()
 {
 	// fill data for all supported fields here
-	m_Fields[ fiTitle		]	= CField( TEXT("Title"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiArtist		]	= CField( TEXT("Artist"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiAlbum		]	= CField( TEXT("Album"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiYear		]	= CField( TEXT("Year"),					ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiTracknumber	]	= CField( TEXT("Tracknumber"),			ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiComment		]	= CField( TEXT("Comment"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiGenre		]	= CField( TEXT("Genre"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiBitrate		]	= CField( TEXT("Bitrate"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiSamplerate	]	= CField( TEXT("Sample rate"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiChannels	]	= CField( TEXT("Channels"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_s	]	= CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_m	]	= CField( TEXT("Length (formatted)"),	ft_string,			TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiTagType		]	= CField( TEXT("Tag type"),				ft_string,			TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiTitle		]	= WDX_API::CField( TEXT("Title"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiArtist		]	= WDX_API::CField( TEXT("Artist"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiAlbum		]	= WDX_API::CField( TEXT("Album"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiYear		]	= WDX_API::CField( TEXT("Year"),					ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiTracknumber	]	= WDX_API::CField( TEXT("Tracknumber"),			ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiComment		]	= WDX_API::CField( TEXT("Comment"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiGenre		]	= WDX_API::CField( TEXT("Genre"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
+	m_Fields[ fiBitrate		]	= WDX_API::CField( TEXT("Bitrate"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiSamplerate	]	= WDX_API::CField( TEXT("Sample rate"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiChannels	]	= WDX_API::CField( TEXT("Channels"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiLength_s	]	= WDX_API::CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiLength_m	]	= WDX_API::CField( TEXT("Length (formatted)"),	ft_string,			TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiTagType		]	= WDX_API::CField( TEXT("Tag type"),				ft_string,			TEXT(""), TEXT(""), 0 );
 }
 
 CWDXTagLib::~CWDXTagLib()
@@ -122,7 +120,9 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iMaxLen, const int iFlags)
 
 {
-	TagLib::FileRef file( sFileName.c_str() );//, true, AudioProperties::Accurate );
+	//CUtils::ShowError(sFileName, CUtils::Int2Str(iFieldIndex));
+
+	TagLib::FileRef file( sFileName.c_str(), true, AudioProperties::Accurate );
 
 	// no file, no tags or no properties
 	if ( file.isNull() )
@@ -358,6 +358,4 @@ void CWDXTagLib::OnEndOfSetValue()
 		(*iter).second.save();
 
 	m_Files2Write.clear();
-}
-
 }

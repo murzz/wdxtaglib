@@ -24,7 +24,7 @@
 #include <map>
 using namespace std;
 
-namespace WDXTagLib
+namespace WDX_API
 {
 	/// Basically this class represents a field (property) of a file we want to expose.
 	class CField
