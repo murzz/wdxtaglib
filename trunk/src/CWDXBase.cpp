@@ -20,7 +20,7 @@
 #include <exception>
 using namespace std;
 
-namespace WDXTagLib
+namespace WDX_API
 {
 CWDXBase::CWDXBase()
 :	m_PluginInterfaceVerionHi(0),
