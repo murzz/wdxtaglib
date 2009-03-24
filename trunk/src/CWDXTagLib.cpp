@@ -88,7 +88,7 @@ string_t CWDXTagLib::OnGetDetectString() const
 
 	for(TagLib::StringList::Iterator iter = Exts.begin(); iter != Exts.end(); ++iter)
 	{
-		sExtList += sOpen + *iter + sClose + sOr;
+		sExtList += sOpen + (*iter).upper() + sClose + sOr;
 	}
 
 	// remove last sOr
