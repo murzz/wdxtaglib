@@ -2,4 +2,6 @@
 #labels Featured
 #sidebar TableOfContents
 
-TODO
+It is possible to create custom column set via Configuration->Options->Custom columns dialog.
+
+Also check [here http://www.ghisler.ch/wiki/index.php?title=Content_plugin] for more usage scenarios.
