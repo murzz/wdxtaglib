@@ -24,7 +24,10 @@
 class CUtils
 {
 	public:
+		static std::wstring toWideString(const char* pStr, const size_t len);
+		static std::wstring toWideString(const std::string& str);
 		static char* strlcpy( char* p, const char* p2, int maxlen );
+		static WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
 		static string_t formatSeconds( int seconds );
 		static string_t Int2Str( const int num );
 		static void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
@@ -32,5 +35,19 @@ class CUtils
 	private:
 		CUtils();
 };
+
+#define wdirtypemax 1024
+
+#ifndef countof
+#define countof(str) (sizeof(str)/sizeof(str[0]))
+#endif // countof
+
+WCHAR* wcslcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
+WCHAR* wcslcat(wchar_t *str1,const WCHAR *str2,int imaxlen);
+char* walcopy(char* outname,WCHAR* inname,int maxlen);
+WCHAR* awlcopy(WCHAR* outname,char* inname,int maxlen);
+
+#define wafilenamecopy(outname,inname) walcopy(outname,inname,countof(outname)-1)
+#define awfilenamecopy(outname,inname) awlcopy(outname,inname,countof(outname)-1)
 
 #endif // CUTILS_H

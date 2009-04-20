@@ -38,7 +38,7 @@ class CWDXTagLib : public WDX_API::CWDXBase
 									const void* FieldValue, const int flags);
 
 	protected:
-		string_t OnGetDetectString() const;
+		std::string OnGetDetectString() const;
 		void OnEndOfSetValue();
 
 	private:

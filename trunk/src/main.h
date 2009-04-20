@@ -35,13 +35,23 @@ extern "C"
 			ContentDefaultParamStruct* dps);
 	int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,
 			char* FieldName, char* Units, int maxlen);
+	int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
+	void DLL_EXPORT __stdcall ContentPluginUnloading(void);
+
+	// unicode enabled functions
+	void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName);
+	void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName);
+
 	int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 			int UnitIndex, void* FieldValue, int maxlen, int flags);
-	int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
+	int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
+			int UnitIndex, void* FieldValue, int maxlen, int flags);
+
 	int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 			int UnitIndex, int FieldType, void* FieldValue, int flags);
-	void DLL_EXPORT __stdcall ContentPluginUnloading(void);
-	void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName);
+	int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
+			int UnitIndex, int FieldType, void* FieldValue, int flags);
+
 }
 
 #endif // __MAIN_H__

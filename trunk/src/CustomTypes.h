@@ -19,12 +19,15 @@
 #define CUSTOMTYPES_H_INCLUDED
 
 #include <string>
-using namespace std;
+#include <iostream>
+#include <sstream>
 
 #ifdef _UNICODE
-	#define string_t wstring
+	#define string_t std::wstring
+	#define tstringstream std::wstringstream
 #else
-	#define string_t string
+	#define string_t std::string
+	#define tstringstream std::ostringstream
 #endif
 
 #endif // CUSTOMTYPES_H_INCLUDED
