@@ -38,6 +38,7 @@ private:
 };
 
 typedef singleton<CWDXTagLib> GPlugin;
+#define PLUGIN (GPlugin::instance())
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -63,19 +64,21 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     return TRUE; // successful
 }
 
+// must be ASCII
 void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
-	CUtils::strlcpy(DetectString, GPlugin::instance().GetDetectString().c_str(), maxlen);
+	CUtils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
 }
 
+/// @note ANSI only
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
 	if ( sizeof(ContentDefaultParamStruct) != dps->size)
 		return;
 
-	GPlugin::instance().SetIniName(dps->DefaultIniName);
-	GPlugin::instance().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
-													dps->PluginInterfaceVersionLow);
+	PLUGIN.SetIniName(dps->DefaultIniName);
+	PLUGIN.SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
+									dps->PluginInterfaceVersionLow);
 }
 
 void DLL_EXPORT __stdcall ContentPluginUnloading(void)
@@ -86,27 +89,46 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,
 											char* Units,int maxlen)
 {
-	return GPlugin::instance().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
+	return PLUGIN.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
-	return GPlugin::instance().GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+	return PLUGIN.GetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
+			UnitIndex, FieldValue, maxlen, flags);
+}
+
+int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
+							int UnitIndex, void* FieldValue, int maxlen, int flags)
+{
+	return PLUGIN.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
-	return GPlugin::instance().GetSupportedFieldFlags(FieldIndex);
+	return PLUGIN.GetSupportedFieldFlags(FieldIndex);
 }
 
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
-	return GPlugin::instance().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+	return PLUGIN.SetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
+			UnitIndex, FieldType, FieldValue, flags);
+}
+
+int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
+										int UnitIndex, int FieldType, void* FieldValue, int flags)
+{
+	return PLUGIN.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
 void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 {
-	GPlugin::instance().StopGetValue(FileName);
+	PLUGIN.StopGetValue(CUtils::toWideString(FileName));
+}
+
+void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
+{
+	PLUGIN.StopGetValue(FileName);
 }

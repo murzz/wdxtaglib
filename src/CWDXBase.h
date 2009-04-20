@@ -27,20 +27,24 @@ using namespace std;
 namespace WDX_API
 {
 	/// Basically this class represents a field (property) of a file we want to expose.
+	/// @note Field name and unit must me ANSI, use LNG file to translate it.
+	/// @todo Make use of CFieldList.
+	/// @todo Rename CField to Field.
 	class CField
 	{
 		public:
 			/// Name of a field as it would be shown in TC.
 			/// @note Consult contentplugin help file for name limitation (ContentGetSupportedField).
-			string_t m_Name;
+			/// @note Field name must me ANSI.
+			std::string m_Name;
 			int m_Type;			///< Type of a field: ft_numeric_32, ft_string etc.
-			string_t m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
-			string_t m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+			std::string m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
+			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
 			CField() : m_Type(0), m_Flag(0){};
 
-			CField(const string_t& sName, const int iType, const string_t& sUnit, const string_t& sMultChoice, const int iFlag)
+			CField(const std::string& sName, const int iType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
 			:	m_Name(sName),
 				m_Type(iType),
 				m_Unit(sUnit),
@@ -58,27 +62,29 @@ namespace WDX_API
 		public:
 			CWDXBase();
 			virtual ~CWDXBase();
-			virtual string_t GetDetectString() const;
 
-			void SetIniName(const string_t& sIniName);
+			/// @note should be ASCII anyway
+			virtual std::string GetDetectString() const;
+
+			void SetIniName(const std::string& sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int iFieldIndex, char* pszFieldName,
-														char* pszUnits, const int iMaxLen) const;
+														char* pszUnits, const int iMaxLen) ;
 
-			int GetValue(const char* pszFileName, const int iFieldIndex,
+			int GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, void* pFieldValue,
 									const int iMaxLen, const int iFlags);
 
-			int SetValue(const char* pszFileName, const int iFieldIndex,
+			int SetValue(const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, const int iFieldType,
 									const void* pFieldValue, const int iFlags);
 
-			virtual int GetSupportedFieldFlags(const int iFieldIndex) const;
+			virtual int GetSupportedFieldFlags(const int iFieldIndex) ;
 
 			void StopGetValue(const string_t& sFileName);
 
 		protected:
-			string_t GetIniName() const;
+			std::string GetIniName() const;
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
 
@@ -94,7 +100,7 @@ namespace WDX_API
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags) const;
 
-			virtual string_t OnGetDetectString() const;
+			virtual std::string OnGetDetectString() const;
 			virtual void OnEndOfSetValue() const;
 
 			/// Check this method on lengthy operations.
@@ -107,7 +113,7 @@ namespace WDX_API
 			string_t GetAbortedFilename() const;
 
 		private:
-			string_t m_IniName;
+			std::string m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
 

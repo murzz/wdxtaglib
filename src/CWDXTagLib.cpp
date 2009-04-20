@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 #include "CWDXTagLib.h"
 #include "CUtils.h"
 #include <tag.h>
@@ -31,10 +32,6 @@
 #include "oggfile.h"
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
-
-#include <iostream>
-#include <string>
-#include <sstream>
 
 typedef enum FieldIndexes
 {
@@ -56,26 +53,26 @@ typedef enum FieldIndexes
 CWDXTagLib::CWDXTagLib()
 {
 	// fill data for all supported fields here
-	m_Fields[ fiTitle		]	= WDX_API::CField( TEXT("Title"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiArtist		]	= WDX_API::CField( TEXT("Artist"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiAlbum		]	= WDX_API::CField( TEXT("Album"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiYear		]	= WDX_API::CField( TEXT("Year"),					ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiTracknumber	]	= WDX_API::CField( TEXT("Tracknumber"),			ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiComment		]	= WDX_API::CField( TEXT("Comment"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiGenre		]	= WDX_API::CField( TEXT("Genre"),				ft_string, 			TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiBitrate		]	= WDX_API::CField( TEXT("Bitrate"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiSamplerate	]	= WDX_API::CField( TEXT("Sample rate"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiChannels	]	= WDX_API::CField( TEXT("Channels"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_s	]	= WDX_API::CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_m	]	= WDX_API::CField( TEXT("Length (formatted)"),	ft_string,			TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiTagType		]	= WDX_API::CField( TEXT("Tag type"),				ft_string,			TEXT(""), TEXT(""), 0 );
+	m_Fields[ fiTitle		]	= WDX_API::CField( "Title",					ft_string, 			"", "", contflags_edit );
+	m_Fields[ fiArtist		]	= WDX_API::CField( "Artist",				ft_string, 			"", "", contflags_edit );
+	m_Fields[ fiAlbum		]	= WDX_API::CField( "Album",					ft_string, 			"", "", contflags_edit );
+	m_Fields[ fiYear		]	= WDX_API::CField( "Year",					ft_numeric_32, 		"", "", contflags_edit );
+	m_Fields[ fiTracknumber	]	= WDX_API::CField( "Tracknumber",			ft_numeric_32, 		"", "", contflags_edit );
+	m_Fields[ fiComment		]	= WDX_API::CField( "Comment",				ft_string, 			"", "", contflags_edit );
+	m_Fields[ fiGenre		]	= WDX_API::CField( "Genre",					ft_string, 			"", "", contflags_edit );
+	m_Fields[ fiBitrate		]	= WDX_API::CField( "Bitrate",				ft_numeric_32, 		"", "", 0 );
+	m_Fields[ fiSamplerate	]	= WDX_API::CField( "Sample rate",			ft_numeric_32, 		"", "", 0 );
+	m_Fields[ fiChannels	]	= WDX_API::CField( "Channels",				ft_numeric_32, 		"", "", 0 );
+	m_Fields[ fiLength_s	]	= WDX_API::CField( "Length",				ft_numeric_32, 		"", "", 0 );
+	m_Fields[ fiLength_m	]	= WDX_API::CField( "Length (formatted)",	ft_string,			"", "", 0 );
+	m_Fields[ fiTagType		]	= WDX_API::CField( "Tag type",				ft_string,			"", "", 0 );
 }
 
 CWDXTagLib::~CWDXTagLib()
 {
 }
 
-string_t CWDXTagLib::OnGetDetectString() const
+std::string CWDXTagLib::OnGetDetectString() const
 {
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
@@ -95,7 +92,7 @@ string_t CWDXTagLib::OnGetDetectString() const
 	if (!sExtList.isEmpty())
 		sExtList = sExtList.substr(0, sExtList.size() - sOr.size());
 
-	return sExtList.toCString(true);
+	return sExtList.toCString();
 }
 
 FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
@@ -120,8 +117,6 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iMaxLen, const int iFlags)
 
 {
-	//CUtils::ShowError(sFileName, CUtils::Int2Str(iFieldIndex));
-
 	TagLib::FileRef file( sFileName.c_str(), true, AudioProperties::Accurate );
 
 	// no file, no tags or no properties
@@ -140,21 +135,21 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		{
 			if (!pTag)
 				return ft_fieldempty;
-			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->title().toCString(true), iMaxLen );
+			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->title().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiArtist:
 		{
 			if (!pTag)
 				return ft_fieldempty;
-			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->artist().toCString(true), iMaxLen );
+			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->artist().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiAlbum:
 		{
 			if (!pTag)
 				return ft_fieldempty;
-			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->album().toCString(true), iMaxLen );
+			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->album().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiYear:
@@ -179,14 +174,14 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		{
 			if (!pTag)
 				return ft_fieldempty;
-			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->comment().toCString(true), iMaxLen );
+			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->comment().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiGenre:
 		{
 			if (!pTag)
 				return ft_fieldempty;
-			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->genre().toCString(true), iMaxLen );
+			CUtils::strlcpy( (PTCHAR)pFieldValue, pTag->genre().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiBitrate:
@@ -242,7 +237,8 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		}
 	}
 
-	return m_Fields.at(iFieldIndex).m_Type;
+	//return m_Fields.at(iFieldIndex).m_Type;
+	return m_Fields[iFieldIndex].m_Type;
 }
 
 string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
@@ -294,11 +290,11 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	}
 
 	// format text
-	ostringstream osResult;
+	tstringstream sResult;
 	bool bUseSeparator = false;
 	if ( pId3v2 && !pId3v2->isEmpty())
 	{
-		osResult << TEXT("ID3v2.")
+		sResult << TEXT("ID3v2.")
 			<< pId3v2->header()->majorVersion()
 			<< TEXT(".")
 			<< pId3v2->header()->revisionNumber();
@@ -307,28 +303,29 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 
 	if ( pId3v1 && !pId3v1->isEmpty() )
 	{
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
 		bUseSeparator = true;
 	}
 
 	if ( pApe && !pApe->isEmpty() )
 	{
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
 		bUseSeparator = true;
 	}
 
 	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
+		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
 
-	return osResult.str();
+	return sResult.str();
 }
 
 int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags)
 {
-	if ( !TagLib::File::isWritable(sFileName.c_str()) )
-		return ft_fileerror;
+	///@todo use unicode here
+	//if ( !TagLib::File::isWritable(sFileName.c_str()) )
+		//return ft_fileerror;
 
 	FileRef file = OpenFile( sFileName );
 
