@@ -60,10 +60,15 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/debug/lib}&quot;"/>
 </option>
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1804792422" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
+<option id="gnu.cpp.link.option.flags.1167340645" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
+<option id="gnu.cpp.link.option.other.1757590876" superClass="gnu.cpp.link.option.other" valueType="stringList">
+<listOptionValue builtIn="false" value="--kill-at"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.808989620" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
 </inputType>
+<outputType id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.output.base.1658908955" outputPrefix="" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.output.base"/>
 </tool>
 </toolChain>
 </folderInfo>
@@ -1056,6 +1061,7 @@
 <option id="gnu.cpp.link.option.other.2029524069" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
 <listOptionValue builtIn="false" value="--kill-at"/>
 </option>
+<option id="gnu.cpp.link.option.flags.718833890" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1564062657" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
