@@ -56,11 +56,11 @@ namespace WDX_API
 	/// Map of fields.
 	typedef map<int, Field> CMapOfFields;
 
-	class CWDXBase
+	class WDXBase
 	{
 		public:
-			CWDXBase();
-			virtual ~CWDXBase();
+			WDXBase();
+			virtual ~WDXBase();
 
 			/// @note should be ASCII anyway
 			virtual std::string GetDetectString() const;

@@ -22,47 +22,47 @@ using namespace std;
 
 namespace WDX_API
 {
-CWDXBase::CWDXBase()
+WDXBase::WDXBase()
 :	m_PluginInterfaceVerionHi(0),
 	m_PluginInterfaceVerionLow(0)
 {
 	//ctor
 }
 
-CWDXBase::~CWDXBase()
+WDXBase::~WDXBase()
 {
 	//dtor
 }
 
-std::string CWDXBase::GetDetectString() const
+std::string WDXBase::GetDetectString() const
 {
 	return OnGetDetectString();
 }
 
-std::string CWDXBase::OnGetDetectString() const
+std::string WDXBase::OnGetDetectString() const
 {
 	return "";
 }
 
-void CWDXBase::SetIniName(const std::string& sIniName)
+void WDXBase::SetIniName(const std::string& sIniName)
 {
 	if (sIniName == m_IniName)
 		return;
 	m_IniName = sIniName;
 }
 
-std::string CWDXBase::GetIniName() const
+std::string WDXBase::GetIniName() const
 {
 	return m_IniName;
 }
 
-void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
+void WDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 {
 	m_PluginInterfaceVerionHi = dwHi;
 	m_PluginInterfaceVerionLow = dwLow;
 }
 
-int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
+int WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 								char* pszUnits, int iMaxLen)
 {
 	try
@@ -83,7 +83,7 @@ int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 	}
 }
 
-int CWDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
+int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue,
 						const int iMaxLen, const int iFlags)
 {
@@ -107,7 +107,7 @@ int CWDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 	}
 }
 
-int CWDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
+int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 						const int UnitIndex, const int FieldType,
 						const void* FieldValue, const int flags)
 {
@@ -131,14 +131,14 @@ int CWDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 	}
 }
 
-int CWDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+int WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 				const int iUnitIndex, const int iFieldType,
 				const void* pFieldValue, const int iFlags) const
 {
 	return ft_nosuchfield;
 }
 
-int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
+int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
 	try
 	{
@@ -169,11 +169,11 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 	}
 }
 
-void CWDXBase::OnEndOfSetValue() const
+void WDXBase::OnEndOfSetValue() const
 {
 }
 
-void CWDXBase::ExceptionHandler() const
+void WDXBase::ExceptionHandler() const
 {
 	try
 	{
@@ -189,7 +189,7 @@ void CWDXBase::ExceptionHandler() const
 	}
 }
 
-void CWDXBase::StopGetValue(const string_t& sFileName)
+void WDXBase::StopGetValue(const string_t& sFileName)
 {
 	// abort flag up
 
@@ -197,7 +197,7 @@ void CWDXBase::StopGetValue(const string_t& sFileName)
 	SetAborted( true );
 }
 
-void CWDXBase::SetAborted( const bool bValue )
+void WDXBase::SetAborted( const bool bValue )
 {
 	m_bIsAborted = bValue;
 
@@ -206,17 +206,17 @@ void CWDXBase::SetAborted( const bool bValue )
 		SetAbortedFilename(TEXT(""));
 }
 
-bool CWDXBase::IsAborted() const
+bool WDXBase::IsAborted() const
 {
 	return m_bIsAborted;
 }
 
-void CWDXBase::SetAbortedFilename(const string_t& sValue)
+void WDXBase::SetAbortedFilename(const string_t& sValue)
 {
 	m_sAbortedFilename = sValue;
 }
 
-string_t CWDXBase::GetAbortedFilename() const
+string_t WDXBase::GetAbortedFilename() const
 {
 	return m_sAbortedFilename;
 }
