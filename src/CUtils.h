@@ -36,18 +36,4 @@ class CUtils
 		CUtils();
 };
 
-#define wdirtypemax 1024
-
-#ifndef countof
-#define countof(str) (sizeof(str)/sizeof(str[0]))
-#endif // countof
-
-WCHAR* wcslcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
-WCHAR* wcslcat(wchar_t *str1,const WCHAR *str2,int imaxlen);
-char* walcopy(char* outname,WCHAR* inname,int maxlen);
-WCHAR* awlcopy(WCHAR* outname,char* inname,int maxlen);
-
-#define wafilenamecopy(outname,inname) walcopy(outname,inname,countof(outname)-1)
-#define awfilenamecopy(outname,inname) awlcopy(outname,inname,countof(outname)-1)
-
 #endif // CUTILS_H

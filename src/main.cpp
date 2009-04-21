@@ -19,6 +19,7 @@
 #include "WDXTagLib.h"
 #include "CUtils.h"
 
+///@todo move singleton to utils namespace.
 template <class T>
 class singleton : private T
 {
@@ -64,13 +65,13 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     return TRUE; // successful
 }
 
-// must be ASCII
+/// @note ANSI only.
 void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
 	CUtils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
 }
 
-/// @note ANSI only
+/// @note ANSI only.
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
 	if ( sizeof(ContentDefaultParamStruct) != dps->size)
@@ -81,17 +82,20 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 									dps->PluginInterfaceVersionLow);
 }
 
+/// @note ANSI only.
 void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 {
 	// free plugin instance here
 }
 
+/// @note ANSI only.
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,
 											char* Units,int maxlen)
 {
 	return PLUGIN.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
+/// @note ANSI and Unicode.
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
@@ -99,17 +103,20 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 			UnitIndex, FieldValue, maxlen, flags);
 }
 
+/// @note ANSI and Unicode.
 int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
 	return PLUGIN.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
+/// @note ANSI only.
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
 	return PLUGIN.GetSupportedFieldFlags(FieldIndex);
 }
 
+/// @note ANSI and Unicode.
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
@@ -117,17 +124,20 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 			UnitIndex, FieldType, FieldValue, flags);
 }
 
+/// @note ANSI and Unicode.
 int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
 	return PLUGIN.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
+/// @note ANSI and Unicode.
 void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 {
 	PLUGIN.StopGetValue(CUtils::toWideString(FileName));
 }
 
+/// @note ANSI and Unicode.
 void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
 {
 	PLUGIN.StopGetValue(FileName);

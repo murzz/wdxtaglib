@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CWDXTAGLIB_H
-#define CWDXTAGLIB_H
+#ifndef WDXTAGLIB_H
+#define WDXTAGLIB_H
 
 #include "WDXBase.h"
 #include <fileref.h>
