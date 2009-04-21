@@ -22,8 +22,8 @@
 #include <windows.h>
 #include "contentplug.h"
 #include <map>
-using namespace std;
 
+/// Namespace where WDX API classes are defined.
 namespace WDX_API
 {
 	/// Basically this class represents a field (property) of a file we want to expose.
@@ -54,7 +54,7 @@ namespace WDX_API
 	};
 
 	/// Map of fields.
-	typedef map<int, Field> CMapOfFields;
+	typedef std::map<int, Field> CMapOfFields;
 
 	class WDXBase
 	{
@@ -62,7 +62,7 @@ namespace WDX_API
 			WDXBase();
 			virtual ~WDXBase();
 
-			/// @note should be ASCII anyway
+			/// @note should be ASCII anyway.
 			virtual std::string GetDetectString() const;
 
 			void SetIniName(const std::string& sIniName);
