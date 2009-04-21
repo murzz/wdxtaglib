@@ -70,8 +70,8 @@ int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nomorefields;
 
-		//const CField& f = m_Fields.at( iFieldIndex );
-		const CField& f = m_Fields[ iFieldIndex ];
+		//const Field& f = m_Fields.at( iFieldIndex );
+		const Field& f = m_Fields[ iFieldIndex ];
 		CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
 		CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
 		return f.m_Type;
@@ -149,7 +149,7 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 				iter != m_Fields.end();
 				++iter)
 			{
-				const CField& f = (*iter).second;
+				const Field& f = (*iter).second;
 				if (f.m_Flag)
 					iTotalFlags |= f.m_Flag;
 			}
