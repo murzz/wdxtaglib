@@ -16,7 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#include "CWDXTagLib.h"
+#include "WDXTagLib.h"
 #include "CUtils.h"
 #include <tag.h>
 
