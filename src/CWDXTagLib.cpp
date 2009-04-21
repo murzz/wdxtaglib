@@ -33,6 +33,9 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
+///@todo Use full qualified names.
+using namespace TagLib;
+
 typedef enum FieldIndexes
 {
 	fiTitle = 0,
@@ -80,7 +83,7 @@ std::string CWDXTagLib::OnGetDetectString() const
 	TagLib::String sClose(TEXT("\""));
 	TagLib::String sOr(TEXT(" | "));
 
-	FileRef fTmp;
+	TagLib::FileRef fTmp;
 	TagLib::StringList Exts = fTmp.defaultFileExtensions();
 
 	for(TagLib::StringList::Iterator iter = Exts.begin(); iter != Exts.end(); ++iter)
@@ -95,7 +98,7 @@ std::string CWDXTagLib::OnGetDetectString() const
 	return sExtList.toCString();
 }
 
-FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
+TagLib::FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference

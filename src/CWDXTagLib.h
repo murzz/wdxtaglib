@@ -18,11 +18,9 @@
 #ifndef CWDXTAGLIB_H
 #define CWDXTAGLIB_H
 
-#include "CWDXBase.h"
+#include "WDXBase.h"
 #include <fileref.h>
 #include <map>
-using namespace std;
-using namespace TagLib;
 
 class CWDXTagLib : public WDX_API::WDXBase
 {
@@ -43,10 +41,10 @@ class CWDXTagLib : public WDX_API::WDXBase
 
 	private:
 
-		FileRef& OpenFile( const string_t& sFileName );
+		TagLib::FileRef& OpenFile( const string_t& sFileName );
 		string_t GetTagType( TagLib::File* pFile ) const;
 
-		typedef map<string_t, TagLib::FileRef> CMapOfFiles;
+		typedef std::map<string_t, TagLib::FileRef> CMapOfFiles;
 		typedef CMapOfFiles::iterator CFilesIter;
 		CMapOfFiles m_Files2Write;
 };
