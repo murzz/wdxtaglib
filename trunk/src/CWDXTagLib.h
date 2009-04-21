@@ -22,11 +22,11 @@
 #include <fileref.h>
 #include <map>
 
-class CWDXTagLib : public WDX_API::WDXBase
+class WDXTagLib : public WDX_API::WDXBase
 {
 	public:
-		CWDXTagLib();
-		virtual ~CWDXTagLib();
+		WDXTagLib();
+		virtual ~WDXTagLib();
 		int OnGetValue(const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, void* FieldValue,
 									const int maxlen, const int flags);

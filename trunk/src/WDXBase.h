@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CWDXBASE_H
-#define CWDXBASE_H
+#ifndef WDXBASE_H
+#define WDXBASE_H
 
 #include "CustomTypes.h"
 #include <windows.h>
