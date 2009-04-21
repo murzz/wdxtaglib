@@ -53,7 +53,7 @@ typedef enum FieldIndexes
 	fiTagType,
 } CFieldIndexes;
 
-CWDXTagLib::CWDXTagLib()
+WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
 	m_Fields[ fiTitle		]	= WDX_API::Field( "Title",					ft_stringw, 		"", "", contflags_edit );
@@ -71,11 +71,11 @@ CWDXTagLib::CWDXTagLib()
 	m_Fields[ fiTagType		]	= WDX_API::Field( "Tag type",				ft_stringw,			"", "", 0 );
 }
 
-CWDXTagLib::~CWDXTagLib()
+WDXTagLib::~WDXTagLib()
 {
 }
 
-std::string CWDXTagLib::OnGetDetectString() const
+std::string WDXTagLib::OnGetDetectString() const
 {
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
@@ -98,7 +98,7 @@ std::string CWDXTagLib::OnGetDetectString() const
 	return sExtList.toCString();
 }
 
-TagLib::FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
+TagLib::FileRef& WDXTagLib::OpenFile( const string_t& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference
@@ -115,7 +115,7 @@ TagLib::FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 	}
 }
 
-int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
+int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iUnitIndex, void* pFieldValue,
 							const int iMaxLen, const int iFlags)
 
@@ -244,7 +244,7 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 	return m_Fields[iFieldIndex].m_Type;
 }
 
-string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
+string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
 	ID3v2::Tag *pId3v2 = NULL;
 	ID3v1::Tag *pId3v1 = NULL;
@@ -322,7 +322,7 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	return sResult.str();
 }
 
-int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+int WDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags)
 {
@@ -352,7 +352,7 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	return ft_setsuccess;
 }
 
-void CWDXTagLib::OnEndOfSetValue()
+void WDXTagLib::OnEndOfSetValue()
 {
 	for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
 		(*iter).second.save();

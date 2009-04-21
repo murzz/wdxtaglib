@@ -37,7 +37,7 @@ private:
     inline ~singleton() {}
 };
 
-typedef singleton<CWDXTagLib> GPlugin;
+typedef singleton<WDXTagLib> GPlugin;
 #define PLUGIN (GPlugin::instance())
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
