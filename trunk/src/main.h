@@ -51,7 +51,6 @@ extern "C"
 			int UnitIndex, int FieldType, void* FieldValue, int flags);
 	int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 			int UnitIndex, int FieldType, void* FieldValue, int flags);
-
 }
 
 #endif // __MAIN_H__

@@ -72,6 +72,7 @@ std::wstring CUtils::toWideString(const std::string& str)
 	return toWideString(str.c_str(), str.length());
 }
 
+///@todo Polish it.
 std::wstring CUtils::toWideString(const char* pStr, const size_t len)
 {
 	//ASSERT_PTR( pStr );
@@ -92,56 +93,4 @@ std::wstring CUtils::toWideString(const char* pStr, const size_t len)
 			const_cast<wchar_t*>(buf.c_str()) , nChars );
 
 	return buf;
-}
-
-char* walcopy(char* outname,WCHAR* inname,int maxlen)
-{
-	if (inname) {
-		WideCharToMultiByte(CP_ACP,0,inname,-1,outname,maxlen,NULL,NULL);
-		outname[maxlen]=0;
-		return outname;
-	} else
-		return NULL;
-}
-
-WCHAR* awlcopy(WCHAR* outname,char* inname,int maxlen)
-{
-	if (inname) {
-		MultiByteToWideChar(CP_ACP,0,inname,-1,outname,maxlen);
-		outname[maxlen]=0;
-		return outname;
-	} else
-		return NULL;
-}
-
-WCHAR* wcslcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
-{
-	if ((int)wcslen(str2)>=imaxlen-1) {
-		wcsncpy(str1,str2,imaxlen-1);
-		str1[imaxlen-1]=0;
-	} else
-		wcscpy(str1,str2);
-	return str1;
-}
-
-WCHAR* wcslcat(wchar_t *str1,const WCHAR *str2,int imaxlen)
-{
-	int l1=(int)wcslen(str1);
-	if ((int)wcslen(str2)+l1>=imaxlen-1) {
-		wcsncpy(str1+l1,str2,imaxlen-1-l1);
-		str1[imaxlen-1]=0;
-	} else
-		wcscat(str1,str2);
-	return str1;
-}
-
-// return true if name wasn't cut
-BOOL MakeExtraLongNameW(WCHAR* outbuf,const WCHAR* inbuf,int maxlen)
-{
-	if (wcslen(inbuf)>259) {
-		wcslcpy(outbuf,L"\\\\?\\",maxlen);
-		wcslcat(outbuf,inbuf,maxlen);
-	} else
-		wcslcpy(outbuf,inbuf,maxlen);
-	return (int)wcslen(inbuf)+4<=maxlen;
 }
