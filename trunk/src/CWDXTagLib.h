@@ -24,7 +24,7 @@
 using namespace std;
 using namespace TagLib;
 
-class CWDXTagLib : public WDX_API::CWDXBase
+class CWDXTagLib : public WDX_API::WDXBase
 {
 	public:
 		CWDXTagLib();
