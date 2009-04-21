@@ -29,8 +29,7 @@ namespace WDX_API
 	/// Basically this class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
 	/// @todo Make use of CFieldList.
-	/// @todo Rename CField to Field.
-	class CField
+	class Field
 	{
 		public:
 			/// Name of a field as it would be shown in TC.
@@ -42,9 +41,9 @@ namespace WDX_API
 			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
-			CField() : m_Type(0), m_Flag(0){};
+			Field() : m_Type(0), m_Flag(0){};
 
-			CField(const std::string& sName, const int iType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
+			Field(const std::string& sName, const int iType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
 			:	m_Name(sName),
 				m_Type(iType),
 				m_Unit(sUnit),
@@ -55,7 +54,7 @@ namespace WDX_API
 	};
 
 	/// Map of fields.
-	typedef map<int, CField> CMapOfFields;
+	typedef map<int, Field> CMapOfFields;
 
 	class CWDXBase
 	{
