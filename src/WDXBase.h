@@ -28,7 +28,6 @@ namespace WDX_API
 {
 	/// Basically this class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
-	/// @todo Make use of CFieldList.
 	class Field
 	{
 		public:
@@ -54,8 +53,12 @@ namespace WDX_API
 	};
 
 	/// Map of fields.
+	/// @todo Create not a map, but a whole class to manage Fields: FieldList.
 	typedef std::map<int, Field> CMapOfFields;
 
+	/// Base class for content plugin.
+	/// To create plugin inherit this class and reimplement its virtual methods.
+	///
 	class WDXBase
 	{
 		public:
@@ -68,7 +71,7 @@ namespace WDX_API
 			void SetIniName(const std::string& sIniName);
 			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
 			int GetSupportedField(const int iFieldIndex, char* pszFieldName,
-														char* pszUnits, const int iMaxLen) ;
+														char* pszUnits, const int iMaxLen);
 
 			int GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, void* pFieldValue,
@@ -81,6 +84,9 @@ namespace WDX_API
 			virtual int GetSupportedFieldFlags(const int iFieldIndex) ;
 
 			void StopGetValue(const string_t& sFileName);
+
+
+			void PluginUnloading();
 
 		protected:
 			std::string GetIniName() const;
@@ -102,6 +108,9 @@ namespace WDX_API
 			virtual std::string OnGetDetectString() const;
 			virtual void OnEndOfSetValue() const;
 
+			/// Method is called before plugin unloading.
+			virtual void OnPluginUnloading();
+
 			/// Check this method on lengthy operations.
 			/// TC set this flag to tell a plugin that a directory change
 			/// has occurred, and the plugin should stop loading a value.
@@ -122,8 +131,11 @@ namespace WDX_API
 			/// 'time to stop' flag
 			bool m_bIsAborted;
 
-			/// Setter for m_bIsAborted.
-			void SetAborted( const bool bValue );
+			/// Raise m_bIsAborted flag.
+			void SetAborted( );
+
+			/// Clear m_bIsAborted flag.
+			void ClearAborted( );
 
 			void SetAbortedFilename(const string_t& sValue);
 	};
