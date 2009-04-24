@@ -31,6 +31,8 @@ class CUtils
 		static string_t formatSeconds( int seconds );
 		static string_t Int2Str( const int num );
 		static void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
+		///@todo ODS() should be inline function.
+		static void ODS(const std::string& Str1, const std::string& Str2 = std::string(""));
 	protected:
 	private:
 		CUtils();

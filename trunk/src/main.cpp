@@ -48,18 +48,22 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
         case DLL_PROCESS_ATTACH:
             // attach to process
             // return FALSE to fail DLL load
+        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH" );
             break;
 
         case DLL_PROCESS_DETACH:
             // detach from process
+        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH" );
             break;
 
         case DLL_THREAD_ATTACH:
             // attach to thread
+        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH" );
             break;
 
         case DLL_THREAD_DETACH:
             // detach from thread
+        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH" );
             break;
     }
     return TRUE; // successful
@@ -68,13 +72,17 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 /// @note ANSI only.
 void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	CUtils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
 }
 
 /// @note ANSI only.
 void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
 {
-	if ( sizeof(ContentDefaultParamStruct) != dps->size)
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
+	if ( sizeof(ContentDefaultParamStruct) > dps->size )
 		return;
 
 	PLUGIN.SetIniName(dps->DefaultIniName);
@@ -85,13 +93,18 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 /// @note ANSI only.
 void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 {
-	// free plugin instance here
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
+	// free plugin instance here, if needed
+	PLUGIN.PluginUnloading();
 }
 
 /// @note ANSI only.
 int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,
 											char* Units,int maxlen)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
@@ -99,6 +112,8 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName
 int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.GetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldValue, maxlen, flags);
 }
@@ -107,12 +122,16 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 							int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 }
 
 /// @note ANSI only.
 int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.GetSupportedFieldFlags(FieldIndex);
 }
 
@@ -120,6 +139,8 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.SetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldType, FieldValue, flags);
 }
@@ -128,17 +149,23 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return PLUGIN.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
 /// @note ANSI and Unicode.
 void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	PLUGIN.StopGetValue(CUtils::toWideString(FileName));
 }
 
 /// @note ANSI and Unicode.
 void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	PLUGIN.StopGetValue(FileName);
 }

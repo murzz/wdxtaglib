@@ -25,26 +25,32 @@ WDXBase::WDXBase()
 :	m_PluginInterfaceVerionHi(0),
 	m_PluginInterfaceVerionLow(0)
 {
-	//ctor
+	CUtils::ODS(__PRETTY_FUNCTION__);
 }
 
 WDXBase::~WDXBase()
 {
-	//dtor
+	CUtils::ODS(__PRETTY_FUNCTION__);
 }
 
 std::string WDXBase::GetDetectString() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return OnGetDetectString();
 }
 
 std::string WDXBase::OnGetDetectString() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return "";
 }
 
 void WDXBase::SetIniName(const std::string& sIniName)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	if (sIniName == m_IniName)
 		return;
 	m_IniName = sIniName;
@@ -52,11 +58,15 @@ void WDXBase::SetIniName(const std::string& sIniName)
 
 std::string WDXBase::GetIniName() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return m_IniName;
 }
 
 void WDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	m_PluginInterfaceVerionHi = dwHi;
 	m_PluginInterfaceVerionLow = dwLow;
 }
@@ -64,6 +74,8 @@ void WDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 int WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 								char* pszUnits, int iMaxLen)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	try
 	{
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
@@ -86,6 +98,8 @@ int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue,
 						const int iMaxLen, const int iFlags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	try
 	{
 		if (iUnitIndex < 0)
@@ -95,7 +109,7 @@ int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 			return ft_nosuchfield;
 
 		// abort flag down
-		SetAborted( false );
+		ClearAborted( );
 
 		return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 	}
@@ -110,6 +124,8 @@ int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 						const int UnitIndex, const int FieldType,
 						const void* FieldValue, const int flags)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	try
 	{
 		if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
@@ -134,11 +150,15 @@ int WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 				const int iUnitIndex, const int iFieldType,
 				const void* pFieldValue, const int iFlags) const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return ft_nosuchfield;
 }
 
 int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	try
 	{
 		if (-1 == iFieldIndex) // we should return a combination of all supported flags here
@@ -170,10 +190,14 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 
 void WDXBase::OnEndOfSetValue() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 }
 
 void WDXBase::ExceptionHandler() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	try
 	{
 		throw;
@@ -190,35 +214,68 @@ void WDXBase::ExceptionHandler() const
 
 void WDXBase::StopGetValue(const string_t& sFileName)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	// abort flag up
 
 	SetAbortedFilename( sFileName );
-	SetAborted( true );
+	SetAborted( );
 }
 
-void WDXBase::SetAborted( const bool bValue )
+void WDXBase::SetAborted( )
 {
-	m_bIsAborted = bValue;
+	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	// clear filename when not in aborted state
-	if (!m_bIsAborted)
+	// aborted!
+	m_bIsAborted = true;
+}
+
+void WDXBase::ClearAborted( )
+{
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
+	// clear filename if previous state was ABORTED
+	if (m_bIsAborted)
+	{
 		SetAbortedFilename(TEXT(""));
+	}
+
+	// clear flag itself
+	m_bIsAborted = false;
 }
 
 bool WDXBase::IsAborted() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return m_bIsAborted;
 }
 
 void WDXBase::SetAbortedFilename(const string_t& sValue)
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	m_sAbortedFilename = sValue;
 }
 
 string_t WDXBase::GetAbortedFilename() const
 {
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
 	return m_sAbortedFilename;
 }
 
+void WDXBase::PluginUnloading()
+{
+	CUtils::ODS(__PRETTY_FUNCTION__);
+
+	OnPluginUnloading();
 }
+
+void WDXBase::OnPluginUnloading()
+{
+	CUtils::ODS(__PRETTY_FUNCTION__);
+}
+
+} // namespace
 

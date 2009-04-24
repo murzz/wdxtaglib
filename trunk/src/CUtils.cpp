@@ -94,3 +94,7 @@ std::wstring CUtils::toWideString(const char* pStr, const size_t len)
 
 	return buf;
 }
+void CUtils::ODS (const std::string& Str1, const std::string& Str2)
+{
+	OutputDebugStringA((Str1 + Str2).c_str());
+}
