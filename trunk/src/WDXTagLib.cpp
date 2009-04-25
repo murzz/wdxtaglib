@@ -55,19 +55,19 @@ typedef enum FieldIndexes
 WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
-	m_Fields[ fiTitle		]	= WDX_API::Field( "Title",					ft_stringw, 		"", "", contflags_edit );
-	m_Fields[ fiArtist		]	= WDX_API::Field( "Artist",					ft_stringw, 		"", "", contflags_edit );
-	m_Fields[ fiAlbum		]	= WDX_API::Field( "Album",					ft_stringw, 		"", "", contflags_edit );
-	m_Fields[ fiYear		]	= WDX_API::Field( "Year",					ft_numeric_32, 		"", "", contflags_edit );
-	m_Fields[ fiTracknumber	]	= WDX_API::Field( "Tracknumber",			ft_numeric_32, 		"", "", contflags_edit );
-	m_Fields[ fiComment		]	= WDX_API::Field( "Comment",				ft_stringw, 		"", "", contflags_edit );
-	m_Fields[ fiGenre		]	= WDX_API::Field( "Genre",					ft_stringw, 		"", "", contflags_edit );
-	m_Fields[ fiBitrate		]	= WDX_API::Field( "Bitrate",				ft_numeric_32, 		"", "", 0 );
-	m_Fields[ fiSamplerate	]	= WDX_API::Field( "Sample rate",			ft_numeric_32, 		"", "", 0 );
-	m_Fields[ fiChannels	]	= WDX_API::Field( "Channels",				ft_numeric_32, 		"", "", 0 );
-	m_Fields[ fiLength_s	]	= WDX_API::Field( "Length",					ft_numeric_32, 		"", "", 0 );
-	m_Fields[ fiLength_m	]	= WDX_API::Field( "Length (formatted)",		ft_stringw,			"", "", 0 );
-	m_Fields[ fiTagType		]	= WDX_API::Field( "Tag type",				ft_stringw,			"", "", 0 );
+	m_Fields[ fiTitle		]	= WDX_API::Field( "Title",					WDX_API::ftWideString, 		"", "", contflags_edit );
+	m_Fields[ fiArtist		]	= WDX_API::Field( "Artist",					WDX_API::ftWideString, 		"", "", contflags_edit );
+	m_Fields[ fiAlbum		]	= WDX_API::Field( "Album",					WDX_API::ftWideString, 		"", "", contflags_edit );
+	m_Fields[ fiYear		]	= WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit );
+	m_Fields[ fiTracknumber	]	= WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit );
+	m_Fields[ fiComment		]	= WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit );
+	m_Fields[ fiGenre		]	= WDX_API::Field( "Genre",					WDX_API::ftWideString, 		"", "", contflags_edit );
+	m_Fields[ fiBitrate		]	= WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 );
+	m_Fields[ fiSamplerate	]	= WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 );
+	m_Fields[ fiChannels	]	= WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 );
+	m_Fields[ fiLength_s	]	= WDX_API::Field( "Length",					WDX_API::ftNumeric32, 		"", "", 0 );
+	m_Fields[ fiLength_m	]	= WDX_API::Field( "Length (formatted)",		WDX_API::ftWideString,		"", "", 0 );
+	m_Fields[ fiTagType		]	= WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 );
 }
 
 WDXTagLib::~WDXTagLib()
