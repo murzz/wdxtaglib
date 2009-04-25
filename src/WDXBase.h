@@ -26,6 +26,23 @@
 /// Namespace where WDX API classes are defined.
 namespace WDX_API
 {
+	/// Field type.
+	typedef enum EFieldType_tag
+	{
+		ftNoMoreFields 			= ft_nomorefields,
+		ftNumeric32 			= ft_numeric_32,
+		ftNumeric64 			= ft_numeric_64,
+		ftNumericFloating 		= ft_numeric_floating,
+		ftDate 					= ft_date,
+		ftTime 					= ft_time,
+		ftBoolean 				= ft_boolean,
+		ftMultipleChoice 		= ft_multiplechoice,
+		ftString 				= ft_string,
+		ftFullText 				= ft_fulltext,
+		ftDateTime 				= ft_datetime,
+		ftWideString 			= ft_stringw,
+	} EFieldType;
+
 	/// Basically this class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
 	class Field
@@ -35,16 +52,16 @@ namespace WDX_API
 			/// @note Consult contentplugin help file for name limitation (ContentGetSupportedField).
 			/// @note Field name must me ANSI.
 			std::string m_Name;
-			int m_Type;			///< Type of a field: ft_numeric_32, ft_string etc.
+			EFieldType m_Type;			///< Type of a field, @sa EFieldType.
 			std::string m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
 			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
-			Field() : m_Type(0), m_Flag(0){};
+			Field() : m_Type(ftNoMoreFields), m_Flag(0){};
 
-			Field(const std::string& sName, const int iType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
+			Field(const std::string& sName, const EFieldType FieldType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
 			:	m_Name(sName),
-				m_Type(iType),
+				m_Type(FieldType),
 				m_Unit(sUnit),
 				m_MultChoice(sMultChoice),
 				m_Flag(iFlag)
@@ -56,9 +73,25 @@ namespace WDX_API
 	/// @todo Create not a map, but a whole class to manage Fields: FieldList.
 	typedef std::map<int, Field> CMapOfFields;
 
+	/// List of fields.
+	class FieldList
+	{
+	private:
+		/// Map of fields.
+		/// @todo Create not a map, but a whole class to manage Fields: FieldList.
+		typedef std::map<int, Field> MapOfFields;
+
+	public:
+		FieldList();
+		virtual ~FieldList();
+
+		size_t Count();
+		void Add(const Field& fld);
+		Field& Find(const int Idx);
+	};
+
 	/// Base class for content plugin.
 	/// To create plugin inherit this class and reimplement its virtual methods.
-	///
 	class WDXBase
 	{
 		public:
@@ -81,10 +114,9 @@ namespace WDX_API
 									const int iUnitIndex, const int iFieldType,
 									const void* pFieldValue, const int iFlags);
 
-			virtual int GetSupportedFieldFlags(const int iFieldIndex) ;
+			virtual int GetSupportedFieldFlags(const int iFieldIndex);
 
 			void StopGetValue(const string_t& sFileName);
-
 
 			void PluginUnloading();
 
@@ -139,7 +171,5 @@ namespace WDX_API
 
 			void SetAbortedFilename(const string_t& sValue);
 	};
-
-
 };
 #endif // CWDXBASE_H

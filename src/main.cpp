@@ -82,7 +82,7 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	if ( sizeof(ContentDefaultParamStruct) > dps->size )
+	if ( (int)sizeof(ContentDefaultParamStruct) > dps->size )
 		return;
 
 	PLUGIN.SetIniName(dps->DefaultIniName);
