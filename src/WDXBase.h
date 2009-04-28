@@ -49,7 +49,7 @@ namespace WDX_API
 	{
 		public:
 			/// Name of a field as it would be shown in TC.
-			/// @note Consult contentplugin help file for name limitation (ContentGetSupportedField).
+			/// The field may not contain the following chars: . (dot) | (vertical line) : (colon).
 			/// @note Field name must me ANSI.
 			std::string m_Name;
 			EFieldType m_Type;			///< Type of a field, @sa EFieldType.
@@ -80,14 +80,15 @@ namespace WDX_API
 		/// Map of fields.
 		/// @todo Create not a map, but a whole class to manage Fields: FieldList.
 		typedef std::map<int, Field> MapOfFields;
+		MapOfFields m_Fields;
 
 	public:
 		FieldList();
 		virtual ~FieldList();
 
-		size_t Count();
-		void Add(const Field& fld);
-		Field& Find(const int Idx);
+		size_t Count() const;
+		void Add(int nIdx, const Field& fld);
+		Field& Find(const int nIdx);
 	};
 
 	/// Base class for content plugin.
@@ -127,7 +128,7 @@ namespace WDX_API
 
 			/// List of fields supported by plugin. Should be defined in descendants.
 			CMapOfFields m_Fields;
-			void ExceptionHandler() const;
+			//void ExceptionHandler() const;
 
 			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
 										const int iUnitIndex, void* pFieldValue,
