@@ -17,7 +17,7 @@
 
 #include "WDXBase.h"
 #include "CUtils.h"
-#include <exception>
+#include <stdexcept>
 
 namespace WDX_API
 {
@@ -76,22 +76,14 @@ int WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	try
-	{
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nomorefields;
-
-		//const Field& f = m_Fields.at( iFieldIndex );
-		const Field& f = m_Fields[ iFieldIndex ];
-		CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
-		CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
-		return f.m_Type;
-	}
-	catch(...)
-	{
-		ExceptionHandler();
+	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 		return ft_nomorefields;
-	}
+
+	//const Field& f = m_Fields.at( iFieldIndex );
+	const Field& f = m_Fields[ iFieldIndex ];
+	CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
+	CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
+	return f.m_Type;
 }
 
 int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
@@ -100,24 +92,16 @@ int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	try
-	{
-		if (iUnitIndex < 0)
-			CUtils::ShowError(CUtils::Int2Str(iUnitIndex));
+	if (iUnitIndex < 0)
+		CUtils::ShowError(CUtils::Int2Str(iUnitIndex));
 
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nosuchfield;
+	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+		return ft_nosuchfield;
 
-		// abort flag down
-		ClearAborted( );
+	// abort flag down
+	ClearAborted( );
 
-		return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
-	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return ft_fileerror;
-	}
+	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 }
 
 int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
@@ -126,24 +110,16 @@ int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	try
+	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
 	{
-		if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
-		{
-			OnEndOfSetValue();
-			return ft_setsuccess;
-		}
-
-		if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
-			return ft_nosuchfield;
-
-		return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+		OnEndOfSetValue();
+		return ft_setsuccess;
 	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return ft_fileerror;
-	}
+
+	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
+		return ft_nosuchfield;
+
+	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
 int WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
@@ -159,57 +135,31 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-	try
+	if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 	{
-		if (-1 == iFieldIndex) // we should return a combination of all supported flags here
+		int iTotalFlags = 0;
+		for (CMapOfFields::const_iterator iter = m_Fields.begin();
+			iter != m_Fields.end();
+			++iter)
 		{
-			int iTotalFlags = 0;
-			for (CMapOfFields::const_iterator iter = m_Fields.begin();
-				iter != m_Fields.end();
-				++iter)
-			{
-				const Field& f = (*iter).second;
-				if (f.m_Flag)
-					iTotalFlags |= f.m_Flag;
-			}
-			return iTotalFlags;
+			const Field& f = (*iter).second;
+			if (f.m_Flag)
+				iTotalFlags |= f.m_Flag;
 		}
-
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nomorefields;
-
-		//return m_Fields.at(iFieldIndex).m_Flag;
-		return m_Fields[iFieldIndex].m_Flag;
+		return iTotalFlags;
 	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return 0; // not sure what to return here
-	}
+
+	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+		return ft_nomorefields;
+
+	//return m_Fields.at(iFieldIndex).m_Flag;
+	return m_Fields[iFieldIndex].m_Flag;
 }
 
 void WDXBase::OnEndOfSetValue() const
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
 
-}
-
-void WDXBase::ExceptionHandler() const
-{
-	CUtils::ODS(__PRETTY_FUNCTION__);
-
-	try
-	{
-		throw;
-	}
-	catch(const std::exception& e)
-	{
-		CUtils::ShowError(CUtils::toWideString(e.what()));
-	}
-	catch(...)
-	{
-		CUtils::ShowError(TEXT("Unknown exception"));
-	}
 }
 
 void WDXBase::StopGetValue(const string_t& sFileName)
@@ -275,6 +225,37 @@ void WDXBase::PluginUnloading()
 void WDXBase::OnPluginUnloading()
 {
 	CUtils::ODS(__PRETTY_FUNCTION__);
+}
+
+FieldList::FieldList()
+{
+
+}
+
+FieldList::~FieldList()
+{
+
+}
+
+size_t FieldList::Count() const
+{
+	return m_Fields.size();
+}
+
+void FieldList::Add(int nIdx, const Field& fld)
+{
+	std::pair<MapOfFields::iterator, bool> ResultPair =
+		m_Fields.insert(MapOfFields::value_type(nIdx, fld));
+
+	if (!ResultPair.second)
+	{
+		throw std::runtime_error("Failed to add field");
+	}
+}
+
+Field& FieldList::Find(const int Idx)
+{
+
 }
 
 } // namespace
