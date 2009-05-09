@@ -116,6 +116,7 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iMaxLen, const int iFlags)
 
 {
+	///@todo cache opened files here like in OnSetValue() to improve performance
 	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
 
 	// no file, no tags or no properties
