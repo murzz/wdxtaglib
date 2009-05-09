@@ -21,7 +21,6 @@
 #include <string>
 #include <sstream>
 #include <tchar.h>
-//#include <assert.h>
 
 namespace utils
 {
@@ -65,32 +64,23 @@ void ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)
 	MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
 }
 
-std::wstring toWideString(const std::string& str)
+std::wstring toWideString(const std::string& sNarrow)
 {
-	return toWideString(str.c_str(), str.length());
-}
-
-///@todo Polish it.
-std::wstring toWideString(const char* pStr, const size_t len)
-{
-	//ASSERT_PTR( pStr );
-	//ASSERT( len >= 0 || len == -1 , _T("Invalid string length: ") << len );
-
 	// figure out how many wide characters we are going to get
-	int nChars = MultiByteToWideChar(CP_ACP, 0, pStr, len, NULL, 0);
-	if (len == -1)
-		--nChars;
+	int nChars = MultiByteToWideChar(CP_ACP, 0, sNarrow.c_str(), -1, NULL, 0);
 	if (nChars == 0)
+	{
 		return L"" ;
+	}
 
 	// convert the narrow string to a wide string
-	// nb: slightly naughty to write directly into the string like this
-	std::wstring buf;
-	buf.resize( nChars );
-	MultiByteToWideChar( CP_ACP , 0 , pStr , len ,
-			const_cast<wchar_t*>(buf.c_str()) , nChars );
+	// slightly naughty to write directly into the string like this
+	std::wstring sWide(nChars, '\0');
+	//sWide.resize( nChars );
+	MultiByteToWideChar( CP_ACP, 0, sNarrow.c_str(), -1,
+			const_cast<WCHAR*>(sWide.c_str()), sWide.length() );
 
-	return buf;
+	return sWide;
 }
 
 } // namespace utils
