@@ -23,6 +23,7 @@
 
 namespace utils
 {
+	std::wstring widen( const std::string& in, std::locale loc  = std::locale() );
 	std::wstring toWideString(const std::string& sNarrow);
 	char* strlcpy( char* p, const char* p2, int maxlen );
 	WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
