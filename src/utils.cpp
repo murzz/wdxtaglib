@@ -83,4 +83,17 @@ std::wstring toWideString(const std::string& sNarrow)
 	return sWide;
 }
 
+std::wstring widen( const std::string& in, std::locale loc )
+{
+	std::wstring out( in.length(), 0 );
+	std::string::const_iterator i = in.begin(), ie = in.end();
+	//std::wstring::const_iterator j = out.begin();
+	std::wstring::iterator j = out.begin();
+
+	for( ; i!=ie; ++i, ++j )
+		*j = std::use_facet< std::ctype< wchar_t > > ( loc ).widen( *i );
+
+	return out;
+}
+
 } // namespace utils
