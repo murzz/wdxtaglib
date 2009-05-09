@@ -23,8 +23,7 @@
 
 namespace utils
 {
-	std::wstring toWideString(const char* pStr, const size_t len);
-	std::wstring toWideString(const std::string& str);
+	std::wstring toWideString(const std::string& sNarrow);
 	char* strlcpy( char* p, const char* p2, int maxlen );
 	WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
 	string_t formatSeconds( int seconds );
