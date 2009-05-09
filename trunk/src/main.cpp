@@ -19,7 +19,7 @@
 
 #include "main.h"
 #include "WDXTagLib.h"
-#include "CUtils.h"
+#include "utils.h"
 
 ///@todo move singleton to utils namespace.
 template <class T>
@@ -50,22 +50,22 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
         case DLL_PROCESS_ATTACH:
             // attach to process
             // return FALSE to fail DLL load
-        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH" );
+        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH" );
             break;
 
         case DLL_PROCESS_DETACH:
             // detach from process
-        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH" );
+        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH" );
             break;
 
         case DLL_THREAD_ATTACH:
             // attach to thread
-        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH" );
+        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH" );
             break;
 
         case DLL_THREAD_DETACH:
             // detach from thread
-        	CUtils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH" );
+        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH" );
             break;
     }
     return TRUE; // successful
@@ -74,7 +74,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 /// Global exception handler.
 void ExceptionHandler( const std::string& sWhere )
 {
-	CUtils::ODS(__PRETTY_FUNCTION__);
+	utils::ODS(__PRETTY_FUNCTION__);
 
 	try
 	{
@@ -82,16 +82,16 @@ void ExceptionHandler( const std::string& sWhere )
 	}
 	catch(const std::runtime_error& e)
 	{
-		CUtils::ShowError(CUtils::toWideString(e.what()), TEXT("Unhandled error"));
+		utils::ShowError(utils::toWideString(e.what()), TEXT("Unhandled error"));
 	}
 	catch(const std::exception& e)
 	{
-		CUtils::ShowError(CUtils::toWideString(e.what()), TEXT("Unhandled error"));
+		utils::ShowError(utils::toWideString(e.what()), TEXT("Unhandled error"));
 	}
 	catch(...)
 	{
-		string_t sText = CUtils::toWideString( std::string("Unknown exception in ") + sWhere );
-		CUtils::ShowError(sText, TEXT("Unhandled error"));
+		string_t sText = utils::toWideString( std::string("Unknown exception in ") + sWhere );
+		utils::ShowError(sText, TEXT("Unhandled error"));
 	}
 }
 
@@ -100,9 +100,9 @@ void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
-		CUtils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
+		utils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
 	}
 	catch(...)
 	{
@@ -115,7 +115,7 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		if ( (int)sizeof(ContentDefaultParamStruct) > dps->size )
 		{
@@ -138,7 +138,7 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		// free plugin instance here, if needed
 		PLUGIN.PluginUnloading();
@@ -155,7 +155,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex, char* FieldNam
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		return PLUGIN.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 	}
@@ -172,9 +172,9 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
+		return PLUGIN.GetValue(utils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldValue, maxlen, flags);
 	}
 	catch(...)
@@ -190,7 +190,7 @@ int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		return PLUGIN.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
 	}
@@ -206,7 +206,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		return PLUGIN.GetSupportedFieldFlags(FieldIndex);
 	}
@@ -223,9 +223,9 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.SetValue(CUtils::toWideString(FileName).c_str(), FieldIndex,
+		return PLUGIN.SetValue(utils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldType, FieldValue, flags);
 	}
 	catch(...)
@@ -241,7 +241,7 @@ int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		return PLUGIN.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 	}
@@ -257,9 +257,9 @@ void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
-		PLUGIN.StopGetValue(CUtils::toWideString(FileName));
+		PLUGIN.StopGetValue(utils::toWideString(FileName));
 	}
 	catch(...)
 	{
@@ -272,7 +272,7 @@ void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
 {
 	try
 	{
-		CUtils::ODS(__PRETTY_FUNCTION__);
+		utils::ODS(__PRETTY_FUNCTION__);
 
 		PLUGIN.StopGetValue(FileName);
 	}

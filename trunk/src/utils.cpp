@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "CUtils.h"
+#include "utils.h"
 #include <windows.h>
 #include <iostream>
 #include <string>
@@ -23,12 +23,10 @@
 #include <tchar.h>
 //#include <assert.h>
 
-CUtils::CUtils()
+namespace utils
 {
-	//ctor
-}
 
-char* CUtils::strlcpy(char* p, const char* p2, int maxlen)
+char* strlcpy(char* p, const char* p2, int maxlen)
 {
 	if ((int)strlen(p2)>=maxlen) {
 			strncpy(p,p2,maxlen);
@@ -38,7 +36,7 @@ char* CUtils::strlcpy(char* p, const char* p2, int maxlen)
 	return p;
 }
 
-WCHAR* CUtils::strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
+WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
 {
 	if ((int)wcslen(str2)>=imaxlen-1) {
 		wcsncpy(str1,str2,imaxlen-1);
@@ -48,32 +46,32 @@ WCHAR* CUtils::strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
 	return str1;
 }
 
-string_t CUtils::formatSeconds(int seconds)
+string_t formatSeconds(int seconds)
 {
   TCHAR secondsString[3] = {0};
   _stprintf(secondsString, TEXT("%02i"), seconds);
   return secondsString;
 }
 
-string_t CUtils::Int2Str(const int num)
+string_t Int2Str(const int num)
 {
     tstringstream os;
     os << num;
     return (os.str());
 }
 
-void CUtils::ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)
+void ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)
 {
 	MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
 }
 
-std::wstring CUtils::toWideString(const std::string& str)
+std::wstring toWideString(const std::string& str)
 {
 	return toWideString(str.c_str(), str.length());
 }
 
 ///@todo Polish it.
-std::wstring CUtils::toWideString(const char* pStr, const size_t len)
+std::wstring toWideString(const char* pStr, const size_t len)
 {
 	//ASSERT_PTR( pStr );
 	//ASSERT( len >= 0 || len == -1 , _T("Invalid string length: ") << len );
@@ -94,7 +92,5 @@ std::wstring CUtils::toWideString(const char* pStr, const size_t len)
 
 	return buf;
 }
-void CUtils::ODS (const std::string& Str1, const std::string& Str2)
-{
-	OutputDebugStringA((Str1 + Str2).c_str());
-}
+
+} // namespace utils
