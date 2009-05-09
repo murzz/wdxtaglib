@@ -15,27 +15,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CUTILS_H
-#define CUTILS_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include "CustomTypes.h"
 #include <windows.h>
 
-class CUtils
+namespace utils
 {
-	public:
-		static std::wstring toWideString(const char* pStr, const size_t len);
-		static std::wstring toWideString(const std::string& str);
-		static char* strlcpy( char* p, const char* p2, int maxlen );
-		static WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
-		static string_t formatSeconds( int seconds );
-		static string_t Int2Str( const int num );
-		static void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
-		///@todo ODS() should be inline function.
-		static void ODS(const std::string& Str1, const std::string& Str2 = std::string(""));
-	protected:
-	private:
-		CUtils();
-};
+	std::wstring toWideString(const char* pStr, const size_t len);
+	std::wstring toWideString(const std::string& str);
+	char* strlcpy( char* p, const char* p2, int maxlen );
+	WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen);
+	string_t formatSeconds( int seconds );
+	string_t Int2Str( const int num );
+	void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 
-#endif // CUTILS_H
+	/// OutputDebugString() wrapper.
+	inline void ODS (const std::string& Str)
+	{
+		OutputDebugStringA(Str.c_str());
+	}
+
+	inline void ODS (const std::string& Str1, const std::string& Str2)
+	{
+		OutputDebugStringA((Str1 + Str2).c_str());
+	}
+} // namespace utils
+
+#endif // UTILS_H
