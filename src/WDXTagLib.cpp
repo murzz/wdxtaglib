@@ -32,9 +32,6 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
-///@todo Use full qualified names.
-using namespace TagLib;
-
 typedef enum FieldIndexes
 {
 	fiTitle = 0,
@@ -105,7 +102,7 @@ TagLib::FileRef& WDXTagLib::OpenFile( const string_t& sFileName )
 
 	if ( m_Files2Write.end() == iter )
 	{
-		m_Files2Write[sFileName] = FileRef( sFileName.c_str() );
+		m_Files2Write[sFileName] = TagLib::FileRef( sFileName.c_str() );
 		return m_Files2Write[sFileName];
 	}
 	else
@@ -119,7 +116,7 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iMaxLen, const int iFlags)
 
 {
-	TagLib::FileRef file( sFileName.c_str(), true, AudioProperties::Accurate );
+	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
 
 	// no file, no tags or no properties
 	if ( file.isNull() )
@@ -245,13 +242,13 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
-	ID3v2::Tag *pId3v2 = NULL;
-	ID3v1::Tag *pId3v1 = NULL;
-	APE::Tag *pApe = NULL;
-	Ogg::XiphComment *pXiph = NULL;
+	TagLib::ID3v2::Tag *pId3v2 = NULL;
+	TagLib::ID3v1::Tag *pId3v1 = NULL;
+	TagLib::APE::Tag *pApe = NULL;
+	TagLib::Ogg::XiphComment *pXiph = NULL;
 
 	// get pointers to tags
-	MPEG::File* pMpegFile = dynamic_cast<MPEG::File*>(pFile);
+	TagLib::MPEG::File* pMpegFile = dynamic_cast<TagLib::MPEG::File*>(pFile);
 	if (pMpegFile && pMpegFile->isValid())
 	{
 		pId3v2 = pMpegFile->ID3v2Tag();
@@ -259,7 +256,7 @@ string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 		pApe = pMpegFile->APETag();
 	}
 
-	FLAC::File* pFlacFile = dynamic_cast<FLAC::File*>(pFile);
+	TagLib::FLAC::File* pFlacFile = dynamic_cast<TagLib::FLAC::File*>(pFile);
 	if (pFlacFile && pFlacFile->isValid())
 	{
 		pId3v2 = pFlacFile->ID3v2Tag();
@@ -267,24 +264,24 @@ string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 		pXiph = pFlacFile->xiphComment();
 	}
 
-	MPC::File* pMpcFile =  dynamic_cast<MPC::File*>(pFile);
+	TagLib::MPC::File* pMpcFile =  dynamic_cast<TagLib::MPC::File*>(pFile);
 	if (pMpcFile && pMpcFile->isValid())
 	{
 		pId3v1 = pMpcFile->ID3v1Tag();
 		pApe = pMpcFile->APETag();
 	}
 
-	Ogg::File* pOggFile =  dynamic_cast<Ogg::File*>(pFile);
+	TagLib::Ogg::File* pOggFile =  dynamic_cast<TagLib::Ogg::File*>(pFile);
 	bool bJustSayXiph = pOggFile && pOggFile->isValid(); // ogg files could have only xiph comments
 
-	TrueAudio::File* pTAFile = dynamic_cast<TrueAudio::File*>(pFile);
+	TagLib::TrueAudio::File* pTAFile = dynamic_cast<TagLib::TrueAudio::File*>(pFile);
 	if (pTAFile && pTAFile->isValid())
 	{
 		pId3v2 = pTAFile->ID3v2Tag();
 		pId3v1 = pTAFile->ID3v1Tag();
 	}
 
-	WavPack::File* pWPFile =  dynamic_cast<WavPack::File*>(pFile);
+	TagLib::WavPack::File* pWPFile =  dynamic_cast<TagLib::WavPack::File*>(pFile);
 	if (pWPFile && pWPFile->isValid())
 	{
 		pId3v1 = pWPFile->ID3v1Tag();
@@ -329,7 +326,7 @@ int WDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	//if ( !TagLib::File::isWritable(sFileName.c_str()) )
 		//return ft_fileerror;
 
-	FileRef file = OpenFile( sFileName );
+	TagLib::FileRef file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
 		return ft_fileerror;

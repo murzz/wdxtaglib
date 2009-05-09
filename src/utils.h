@@ -37,6 +37,7 @@ namespace utils
 		OutputDebugStringA(Str.c_str());
 	}
 
+	/// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
 	inline void ODS (const std::string& Str1, const std::string& Str2)
 	{
 		OutputDebugStringA((Str1 + Str2).c_str());
