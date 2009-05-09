@@ -16,32 +16,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdexcept>
-
 #include "main.h"
 #include "WDXTagLib.h"
 #include "utils.h"
 
-///@todo move singleton to utils namespace.
-template <class T>
-class singleton : private T
-{
-public:
-    /// creates global instance of singleton and returns it
-    static T& instance()
-    {
-        static singleton<T> global_instance;
-        return global_instance;
-    }
-
-private:
-    /// private constructor - to prevent direct object creation
-    inline singleton() {}
-    /// private destructor - to prevent direct object destruction
-    inline ~singleton() {}
-};
-
-typedef singleton<WDXTagLib> GPlugin;
-#define PLUGIN (GPlugin::instance())
+typedef utils::singleton<WDXTagLib> Plugin;
+#define PLUGIN (Plugin::instance())
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {

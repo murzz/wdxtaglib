@@ -57,7 +57,7 @@ string_t Int2Str(const int num)
 {
     tstringstream os;
     os << num;
-    return (os.str());
+    return os.str();
 }
 
 void ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)

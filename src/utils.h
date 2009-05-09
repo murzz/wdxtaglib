@@ -34,14 +34,35 @@ namespace utils
 	/// OutputDebugString() wrapper.
 	inline void ODS (const std::string& Str)
 	{
+		// do not throw any exceptions here
 		OutputDebugStringA(Str.c_str());
 	}
 
 	/// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
 	inline void ODS (const std::string& Str1, const std::string& Str2)
 	{
+		// do not throw any exceptions here
 		OutputDebugStringA((Str1 + Str2).c_str());
 	}
+
+	/// Singleton.
+	template <class T>
+	class singleton : private T
+	{
+	public:
+	    /// creates global instance of singleton and returns it
+	    static T& instance()
+	    {
+	        static singleton<T> global_instance;
+	        return global_instance;
+	    }
+
+	private:
+	    /// private constructor - to prevent direct object creation
+	    singleton() {}
+	    /// private destructor - to prevent direct object destruction
+	    ~singleton() {}
+	};
 } // namespace utils
 
 #endif // UTILS_H
