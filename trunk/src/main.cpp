@@ -62,16 +62,16 @@ void ExceptionHandler( const std::string& sWhere )
 	}
 	catch(const std::runtime_error& e)
 	{
-		utils::ShowError(utils::toWideString(e.what()), TEXT("Unhandled error"));
+		utils::ShowError(utils::toWideString(e.what()), TEXT("Runtime error"));
 	}
 	catch(const std::exception& e)
 	{
-		utils::ShowError(utils::toWideString(e.what()), TEXT("Unhandled error"));
+		utils::ShowError(utils::toWideString(e.what()), TEXT("Exception"));
 	}
 	catch(...)
 	{
 		string_t sText = utils::toWideString( std::string("Unknown exception in ") + sWhere );
-		utils::ShowError(sText, TEXT("Unhandled error"));
+		utils::ShowError(sText, TEXT("Unknown exception"));
 	}
 }
 
@@ -120,8 +120,9 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		// free plugin instance here, if needed
 		PLUGIN.PluginUnloading();
+
+		///@todo free plugin instance here, if needed
 	}
 	catch(...)
 	{
@@ -154,8 +155,13 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetValue(utils::toWideString(FileName).c_str(), FieldIndex,
-			UnitIndex, FieldValue, maxlen, flags);
+		return PLUGIN.GetValue(
+					utils::toWideString(FileName).c_str(),
+					FieldIndex,
+					UnitIndex,
+					FieldValue,
+					maxlen,
+					flags );
 	}
 	catch(...)
 	{
@@ -172,7 +178,13 @@ int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+		return PLUGIN.GetValue(
+				FileName,
+				FieldIndex,
+				UnitIndex,
+				FieldValue,
+				maxlen,
+				flags );
 	}
 	catch(...)
 	{

@@ -319,9 +319,9 @@ string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 	return sResult.str();
 }
 
-int WDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+WDX_API::EFieldType WDXTagLib::OnSetValue( const string_t& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
-								const void* pFieldValue, const int iFlags)
+								const void* pFieldValue, const int iFlags )
 {
 	///@todo use unicode here
 	//if ( !TagLib::File::isWritable(sFileName.c_str()) )
@@ -330,7 +330,7 @@ int WDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 	TagLib::FileRef file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
-		return ft_fileerror;
+		return WDX_API::ftFileError;
 
 	TagLib::Tag* pTag = file.tag();
 
@@ -343,10 +343,10 @@ int WDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 		case fiTracknumber:		pTag->setTrack(*(__int32*)pFieldValue);		break;
 		case fiComment:			pTag->setComment((PTCHAR)pFieldValue);		break;
 		case fiGenre:			pTag->setGenre((PTCHAR)pFieldValue);		break;
-		default: 				return ft_nosuchfield;						break;
+		default: 				return WDX_API::ftNoSuchField;				break;
 	}
 
-	return ft_setsuccess;
+	return WDX_API::ftSetSuccess;
 }
 
 void WDXTagLib::OnEndOfSetValue()

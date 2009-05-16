@@ -32,8 +32,7 @@ class WDXTagLib : public WDX_API::WDXBase
 									const int UnitIndex, void* FieldValue,
 									const int maxlen, const int flags );
 
-		///@todo return enum here
-		int OnSetValue( const string_t& sFileName, const int FieldIndex,
+		WDX_API::EFieldType OnSetValue( const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType,
 									const void* FieldValue, const int flags );
 
