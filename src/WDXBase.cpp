@@ -105,16 +105,16 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 }
 
-int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
+EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 						const int UnitIndex, const int FieldType,
-						const void* FieldValue, const int flags)
+						const void* FieldValue, const int flags )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
 	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
 	{
 		OnEndOfSetValue();
-		return ft_setsuccess;
+		return ftSetSuccess;
 	}
 
 	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
@@ -123,7 +123,7 @@ int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
-int WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+EFieldType WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 				const int iUnitIndex, const int iFieldType,
 				const void* pFieldValue, const int iFlags) const
 {

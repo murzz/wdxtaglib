@@ -125,9 +125,9 @@ namespace WDX_API
 										const int iUnitIndex, void* pFieldValue,
 										const int iMaxLen, const int iFlags );
 
-			int SetValue(const WCHAR* pszFileName, const int iFieldIndex,
+			EFieldType SetValue( const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, const int iFieldType,
-									const void* pFieldValue, const int iFlags);
+									const void* pFieldValue, const int iFlags );
 
 			virtual int GetSupportedFieldFlags(const int iFieldIndex);
 
@@ -147,10 +147,9 @@ namespace WDX_API
 										const int iUnitIndex, void* pFieldValue,
 										const int iMaxLen, const int iFlags ) = 0;
 
-			///@todo return enum here
-			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
+			virtual EFieldType OnSetValue( const string_t& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
-								const void* pFieldValue, const int iFlags) const;
+								const void* pFieldValue, const int iFlags ) const;
 
 			virtual std::string OnGetDetectString() const;
 			virtual void OnEndOfSetValue() const;
