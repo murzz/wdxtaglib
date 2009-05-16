@@ -27,13 +27,16 @@ class WDXTagLib : public WDX_API::WDXBase
 	public:
 		WDXTagLib();
 		virtual ~WDXTagLib();
-		int OnGetValue(const string_t& sFileName, const int FieldIndex,
-									const int UnitIndex, void* FieldValue,
-									const int maxlen, const int flags);
 
-		int OnSetValue(const string_t& sFileName, const int FieldIndex,
+		///@todo return enum here
+		int OnGetValue( const string_t& sFileName, const int FieldIndex,
+									const int UnitIndex, void* FieldValue,
+									const int maxlen, const int flags );
+
+		///@todo return enum here
+		int OnSetValue( const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType,
-									const void* FieldValue, const int flags);
+									const void* FieldValue, const int flags );
 
 	protected:
 		std::string OnGetDetectString() const;
