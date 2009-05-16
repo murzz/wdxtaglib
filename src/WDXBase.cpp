@@ -63,7 +63,7 @@ std::string WDXBase::GetIniName() const
 	return m_IniName;
 }
 
-void WDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
+void WDXBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
@@ -71,13 +71,13 @@ void WDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 	m_PluginInterfaceVerionLow = dwLow;
 }
 
-int WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
-								char* pszUnits, int iMaxLen)
+EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
+								char* pszUnits, int iMaxLen )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
 	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nomorefields;
+		return ftNoMoreFields;
 
 	//const Field& f = m_Fields.at( iFieldIndex );
 	const Field& f = m_Fields[ iFieldIndex ];
@@ -86,9 +86,9 @@ int WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 	return f.m_Type;
 }
 
-int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
+int WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue,
-						const int iMaxLen, const int iFlags)
+						const int iMaxLen, const int iFlags )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
@@ -96,7 +96,7 @@ int WDXBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 		utils::ShowError(utils::Int2Str(iUnitIndex));
 
 	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nosuchfield;
+		return ftNoSuchField;
 
 	// abort flag down
 	ClearAborted( );
@@ -150,7 +150,7 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 	}
 
 	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-		return ft_nomorefields;
+		return ftNoMoreFields;
 
 	//return m_Fields.at(iFieldIndex).m_Flag;
 	return m_Fields[iFieldIndex].m_Flag;

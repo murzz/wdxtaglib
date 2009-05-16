@@ -29,6 +29,7 @@ namespace WDX_API
 	/// Field type.
 	typedef enum EFieldType_tag
 	{
+		ftNoSuchField 			= ft_nosuchfield,
 		ftNoMoreFields 			= ft_nomorefields,
 		ftNumeric32 			= ft_numeric_32,
 		ftNumeric64 			= ft_numeric_64,
@@ -102,10 +103,10 @@ namespace WDX_API
 			/// @note should be ASCII anyway.
 			virtual std::string GetDetectString() const;
 
-			void SetIniName(const std::string& sIniName);
-			void SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow);
-			int GetSupportedField(const int iFieldIndex, char* pszFieldName,
-														char* pszUnits, const int iMaxLen);
+			void SetIniName( const std::string& sIniName );
+			void SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow );
+			EFieldType GetSupportedField( const int iFieldIndex, char* pszFieldName,
+												char* pszUnits, const int iMaxLen );
 
 			int GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, void* pFieldValue,
@@ -128,12 +129,13 @@ namespace WDX_API
 
 			/// List of fields supported by plugin. Should be defined in descendants.
 			CMapOfFields m_Fields;
-			//void ExceptionHandler() const;
 
+			///@todo return enum here
 			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
 										const int iUnitIndex, void* pFieldValue,
 										const int iMaxLen, const int iFlags) = 0;
 
+			///@todo return enum here
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags) const;
