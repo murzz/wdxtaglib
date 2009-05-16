@@ -32,7 +32,7 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
-typedef enum FieldIndexes
+typedef enum EFieldIndexes_tag
 {
 	fiTitle = 0,
 	fiArtist,
@@ -47,24 +47,24 @@ typedef enum FieldIndexes
 	fiLength_s,
 	fiLength_m,
 	fiTagType,
-} CFieldIndexes;
+} EFieldIndexes;
 
 WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
-	m_Fields[ fiTitle		]	= WDX_API::Field( "Title",					WDX_API::ftWideString, 		"", "", contflags_edit );
-	m_Fields[ fiArtist		]	= WDX_API::Field( "Artist",					WDX_API::ftWideString, 		"", "", contflags_edit );
-	m_Fields[ fiAlbum		]	= WDX_API::Field( "Album",					WDX_API::ftWideString, 		"", "", contflags_edit );
-	m_Fields[ fiYear		]	= WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit );
-	m_Fields[ fiTracknumber	]	= WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit );
-	m_Fields[ fiComment		]	= WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit );
-	m_Fields[ fiGenre		]	= WDX_API::Field( "Genre",					WDX_API::ftWideString, 		"", "", contflags_edit );
-	m_Fields[ fiBitrate		]	= WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 );
-	m_Fields[ fiSamplerate	]	= WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 );
-	m_Fields[ fiChannels	]	= WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 );
-	m_Fields[ fiLength_s	]	= WDX_API::Field( "Length",					WDX_API::ftNumeric32, 		"", "", 0 );
-	m_Fields[ fiLength_m	]	= WDX_API::Field( "Length (formatted)",		WDX_API::ftWideString,		"", "", 0 );
-	m_Fields[ fiTagType		]	= WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 );
+	m_Fields.Add( fiTitle,			WDX_API::Field( "Title",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
+	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
+	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
 }
 
 WDXTagLib::~WDXTagLib()
@@ -237,8 +237,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const string_t& sFileName, const int i
 		}
 	}
 
-	//return m_Fields.at(iFieldIndex).m_Type;
-	return m_Fields[iFieldIndex].m_Type;
+	return m_Fields.Find( iFieldIndex ).m_Type;
 }
 
 string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
