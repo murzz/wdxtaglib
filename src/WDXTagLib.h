@@ -28,8 +28,7 @@ class WDXTagLib : public WDX_API::WDXBase
 		WDXTagLib();
 		virtual ~WDXTagLib();
 
-		///@todo return enum here
-		int OnGetValue( const string_t& sFileName, const int FieldIndex,
+		WDX_API::EFieldType OnGetValue( const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, void* FieldValue,
 									const int maxlen, const int flags );
 

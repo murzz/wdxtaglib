@@ -86,12 +86,13 @@ EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName
 	return f.m_Type;
 }
 
-int WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
+EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue,
 						const int iMaxLen, const int iFlags )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
+	///@todo do parameter checking properly
 	if (iUnitIndex < 0)
 		utils::ShowError(utils::Int2Str(iUnitIndex));
 
@@ -117,7 +118,7 @@ int WDXBase::SetValue(const WCHAR* FileName, const int FieldIndex,
 	}
 
 	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
-		return ft_nosuchfield;
+		return ftNoSuchField;
 
 	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
@@ -128,7 +129,7 @@ int WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
-	return ft_nosuchfield;
+	return ftNoSuchField;
 }
 
 int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
@@ -159,7 +160,6 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 void WDXBase::OnEndOfSetValue() const
 {
 	utils::ODS(__PRETTY_FUNCTION__);
-
 }
 
 void WDXBase::StopGetValue(const string_t& sFileName)

@@ -111,7 +111,7 @@ TagLib::FileRef& WDXTagLib::OpenFile( const string_t& sFileName )
 	}
 }
 
-int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
+WDX_API::EFieldType WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 							const int iUnitIndex, void* pFieldValue,
 							const int iMaxLen, const int iFlags)
 
@@ -121,10 +121,10 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 	// no file, no tags or no properties
 	if ( file.isNull() )
-		return ft_fileerror;
+		return WDX_API::ftFileError;
 
 	if ( IsAborted() )
-		return ft_fieldempty; // return ft_fieldempty here, according to contentplugin help
+		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
 
 	TagLib::Tag* pTag = file.tag();
 	TagLib::AudioProperties* pProp = file.audioProperties();
@@ -134,88 +134,88 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		case fiTitle:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			utils::strlcpy( (PTCHAR)pFieldValue, pTag->title().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiArtist:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			utils::strlcpy( (PTCHAR)pFieldValue, pTag->artist().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiAlbum:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			utils::strlcpy( (PTCHAR)pFieldValue, pTag->album().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiYear:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			if (!pTag->year())
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pTag->year();
 			break;
 		}
 		case fiTracknumber:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			if (!pTag->track())
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pTag->track();
 			break;
 		}
 		case fiComment:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			utils::strlcpy( (PTCHAR)pFieldValue, pTag->comment().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiGenre:
 		{
 			if (!pTag)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			utils::strlcpy( (PTCHAR)pFieldValue, pTag->genre().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiBitrate:
 		{
 			if (!pProp)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pProp->bitrate();
 			break;
 		}
 		case fiSamplerate:
 		{
 			if (!pProp)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pProp->sampleRate();
 			break;
 		}
 		case fiChannels:
 		{
 			if (!pProp)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pProp->channels();
 			break;
 		}
 		case fiLength_s:
 		{
 			if (!pProp)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			*(__int32*)pFieldValue = pProp->length();
 			break;
 		}
 		case fiLength_m:
 		{
 			if (!pProp)
-				return ft_fieldempty;
+				return WDX_API::ftFieldEmpty;
 			int nSeconds = pProp->length() % 60;
 			int nMinutes = (pProp->length() - nSeconds) / 60;
 
@@ -232,7 +232,7 @@ int WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 		}
 		default:
 		{
-			return ft_nosuchfield;
+			return WDX_API::ftNoSuchField;
 			break;
 		}
 	}
