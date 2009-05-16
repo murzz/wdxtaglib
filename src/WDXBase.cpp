@@ -76,11 +76,10 @@ EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoMoreFields;
 
-	//const Field& f = m_Fields.at( iFieldIndex );
-	const Field& f = m_Fields[ iFieldIndex ];
+	const Field& f = m_Fields.Find( iFieldIndex );
 	utils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
 	utils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
 	return f.m_Type;
@@ -96,7 +95,7 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 	if (iUnitIndex < 0)
 		utils::ShowError(utils::Int2Str(iUnitIndex));
 
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoSuchField;
 
 	// abort flag down
@@ -117,7 +116,7 @@ EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 		return ftSetSuccess;
 	}
 
-	if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
+	if ( FieldIndex < 0 || FieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoSuchField;
 
 	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
@@ -138,23 +137,15 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 
 	if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 	{
-		int iTotalFlags = 0;
-		for (CMapOfFields::const_iterator iter = m_Fields.begin();
-			iter != m_Fields.end();
-			++iter)
-		{
-			const Field& f = (*iter).second;
-			if (f.m_Flag)
-				iTotalFlags |= f.m_Flag;
-		}
-		return iTotalFlags;
+		return m_Fields.GetAllFlags();
 	}
 
-	if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
+	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
+	{
 		return ftNoMoreFields;
+	}
 
-	//return m_Fields.at(iFieldIndex).m_Flag;
-	return m_Fields[iFieldIndex].m_Flag;
+	return m_Fields.Find( iFieldIndex ).m_Flag;
 }
 
 void WDXBase::OnEndOfSetValue() const
@@ -262,6 +253,20 @@ Field& FieldList::Find(const int Idx)
 	}
 
 	return (*iter).second;
+}
+
+int FieldList::GetAllFlags()
+{
+	int iTotalFlags = 0;
+	for (MapOfFields::const_iterator iter = m_Fields.begin();
+		iter != m_Fields.end();
+		++iter)
+	{
+		const Field& f = (*iter).second;
+		if (f.m_Flag)
+			iTotalFlags |= f.m_Flag;
+	}
+	return iTotalFlags;
 }
 
 } // namespace

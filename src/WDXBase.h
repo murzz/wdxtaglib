@@ -67,6 +67,8 @@ namespace WDX_API
 			EFieldType m_Type;			///< Type of a field, @sa EFieldType.
 			std::string m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
 			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+
+			///@todo use enum
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
 			Field() : m_Type(ftNoMoreFields), m_Flag(0){};
@@ -81,16 +83,11 @@ namespace WDX_API
 			}
 	};
 
-	/// Map of fields.
-	/// @todo Create not a map, but a whole class to manage Fields: FieldList.
-	typedef std::map<int, Field> CMapOfFields;
-
 	/// List of fields.
 	class FieldList
 	{
 	private:
 		/// Map of fields.
-		/// @todo Create not a map, but a whole class to manage Fields: FieldList.
 		typedef std::map<int, Field> MapOfFields;
 		MapOfFields m_Fields;
 
@@ -101,6 +98,7 @@ namespace WDX_API
 		size_t Count() const;
 		void Add(int nIdx, const Field& fld);
 		Field& Find(const int nIdx);
+		int GetAllFlags();
 	};
 
 	/// Base class for content plugin.
@@ -140,8 +138,8 @@ namespace WDX_API
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
 
-			/// List of fields supported by plugin. Should be defined in descendants.
-			CMapOfFields m_Fields;
+			/// Fields supported by plugin. Add supported fields in descendant.
+			FieldList m_Fields;
 
 			virtual EFieldType OnGetValue( const string_t& sFileName, const int iFieldIndex,
 										const int iUnitIndex, void* pFieldValue,
