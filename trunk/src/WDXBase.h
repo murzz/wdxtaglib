@@ -29,7 +29,6 @@ namespace WDX_API
 	/// Field type.
 	typedef enum EFieldType_tag
 	{
-		ftNoSuchField 			= ft_nosuchfield,
 		ftNoMoreFields 			= ft_nomorefields,
 		ftNumeric32 			= ft_numeric_32,
 		ftNumeric64 			= ft_numeric_64,
@@ -42,6 +41,18 @@ namespace WDX_API
 		ftFullText 				= ft_fulltext,
 		ftDateTime 				= ft_datetime,
 		ftWideString 			= ft_stringw,
+
+		// for ContentGetValue
+		ftNoSuchField 			= ft_nosuchfield,	///< error, invalid field number given
+		ftFileError				= ft_fileerror,		///< file i/o error
+		ftFieldEmpty			= ft_fieldempty,	///< field valid, but empty
+		ftOnDemand				= ft_ondemand,		///< field will be retrieved only when user presses <SPACEBAR>
+		ftNotSupported			= ft_notsupported,	///< function not supported
+		ftSetCancel				= ft_setcancel,		///< user clicked cancel in field editor
+		ftDelayed				= ft_delayed,		///< Field takes a long time to extract -> try again in background.
+
+		// for ContentSetValue
+		ftSetSuccess			= ft_setsuccess,	///< Setting of the attribute succeeded.
 	} EFieldType;
 
 	/// Basically this class represents a field (property) of a file we want to expose.
@@ -104,13 +115,15 @@ namespace WDX_API
 			virtual std::string GetDetectString() const;
 
 			void SetIniName( const std::string& sIniName );
+
 			void SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow );
+
 			EFieldType GetSupportedField( const int iFieldIndex, char* pszFieldName,
 												char* pszUnits, const int iMaxLen );
 
-			int GetValue(const WCHAR* pszFileName, const int iFieldIndex,
-									const int iUnitIndex, void* pFieldValue,
-									const int iMaxLen, const int iFlags);
+			EFieldType GetValue( const WCHAR* pszFileName, const int iFieldIndex,
+										const int iUnitIndex, void* pFieldValue,
+										const int iMaxLen, const int iFlags );
 
 			int SetValue(const WCHAR* pszFileName, const int iFieldIndex,
 									const int iUnitIndex, const int iFieldType,
@@ -130,10 +143,9 @@ namespace WDX_API
 			/// List of fields supported by plugin. Should be defined in descendants.
 			CMapOfFields m_Fields;
 
-			///@todo return enum here
-			virtual int OnGetValue(const string_t& sFileName, const int iFieldIndex,
+			virtual EFieldType OnGetValue( const string_t& sFileName, const int iFieldIndex,
 										const int iUnitIndex, void* pFieldValue,
-										const int iMaxLen, const int iFlags) = 0;
+										const int iMaxLen, const int iFlags ) = 0;
 
 			///@todo return enum here
 			virtual int OnSetValue(const string_t& sFileName, const int iFieldIndex,
