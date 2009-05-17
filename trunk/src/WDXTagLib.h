@@ -28,6 +28,12 @@ class WDXTagLib : public WDX_API::WDXBase
 		WDXTagLib();
 		virtual ~WDXTagLib();
 
+	protected:
+		std::string OnGetDetectString() const;
+		void OnEndOfSetValue();
+
+	private:
+
 		WDX_API::EFieldType OnGetValue( const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, void* FieldValue,
 									const int maxlen, const int flags );
@@ -35,12 +41,6 @@ class WDXTagLib : public WDX_API::WDXBase
 		WDX_API::EFieldType OnSetValue( const string_t& sFileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType,
 									const void* FieldValue, const int flags );
-
-	protected:
-		std::string OnGetDetectString() const;
-		void OnEndOfSetValue();
-
-	private:
 
 		TagLib::FileRef& OpenFile( const string_t& sFileName );
 		string_t GetTagType( TagLib::File* pFile ) const;

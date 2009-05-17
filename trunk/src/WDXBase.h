@@ -164,6 +164,12 @@ namespace WDX_API
 			/// @return Filename of the processed file in the time when abort flag was up.
 			string_t GetAbortedFilename() const;
 
+			/// That one is called when TC passing its plugin interface version.
+			virtual void OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow );
+
+			/// That one is called when TC passing recommended ini file name.
+			virtual void OnSetIniName( const std::string& sIniName );
+
 		private:
 			std::string m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
