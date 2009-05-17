@@ -176,10 +176,10 @@ namespace WDX_API
 			bool m_bIsAborted;
 
 			/// Raise m_bIsAborted flag.
-			void SetAborted( );
+			void SetAbortedFlag( );
 
 			/// Clear m_bIsAborted flag.
-			void ClearAborted( );
+			void ClearAbortedFlag( );
 
 			void SetAbortedFilename(const string_t& sValue);
 	};

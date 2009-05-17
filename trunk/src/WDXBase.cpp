@@ -26,6 +26,8 @@ WDXBase::WDXBase()
 	m_PluginInterfaceVerionLow(0)
 {
 	utils::ODS(__PRETTY_FUNCTION__);
+
+	ClearAbortedFlag();
 }
 
 WDXBase::~WDXBase()
@@ -100,7 +102,7 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 		return ftNoSuchField;
 
 	// abort flag down
-	ClearAborted( );
+	ClearAbortedFlag( );
 
 	///@todo make interface easier, hide field value in Field class and so on
 	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
@@ -163,10 +165,10 @@ void WDXBase::StopGetValue(const string_t& sFileName)
 	// abort flag up
 
 	SetAbortedFilename( sFileName );
-	SetAborted( );
+	SetAbortedFlag( );
 }
 
-void WDXBase::SetAborted( )
+void WDXBase::SetAbortedFlag( )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
@@ -174,7 +176,7 @@ void WDXBase::SetAborted( )
 	m_bIsAborted = true;
 }
 
-void WDXBase::ClearAborted( )
+void WDXBase::ClearAbortedFlag( )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
