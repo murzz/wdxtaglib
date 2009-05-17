@@ -95,12 +95,14 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 	if (iUnitIndex < 0)
 		utils::ShowError(utils::Int2Str(iUnitIndex));
 
+	///@todo encapsulate this into FieldList, or throw NoSuchField exception
 	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoSuchField;
 
 	// abort flag down
 	ClearAborted( );
 
+	///@todo make interface easier, hide field value in Field class and so on
 	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 }
 
@@ -110,6 +112,7 @@ EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
+	///@todo here it should be &&, no ||
 	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
 	{
 		OnEndOfSetValue();
