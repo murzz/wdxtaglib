@@ -322,10 +322,6 @@ WDX_API::EFieldType WDXTagLib::OnSetValue( const string_t& sFileName, const int 
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags )
 {
-	///@todo use unicode here
-	//if ( !TagLib::File::isWritable(sFileName.c_str()) )
-		//return ft_fileerror;
-
 	TagLib::FileRef file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
@@ -350,8 +346,11 @@ WDX_API::EFieldType WDXTagLib::OnSetValue( const string_t& sFileName, const int 
 
 void WDXTagLib::OnEndOfSetValue()
 {
+	// commit unsaved changes
 	for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+	{
 		(*iter).second.save();
+	}
 
 	m_Files2Write.clear();
 }

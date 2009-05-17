@@ -49,13 +49,19 @@ std::string WDXBase::OnGetDetectString() const
 	return "";
 }
 
-void WDXBase::SetIniName(const std::string& sIniName)
+void WDXBase::SetIniName( const std::string& sIniName )
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
 	if (sIniName == m_IniName)
 		return;
 	m_IniName = sIniName;
+	OnSetIniName( m_IniName );
+}
+
+void WDXBase::OnSetIniName( const std::string& sIniName )
+{
+	utils::ODS(__PRETTY_FUNCTION__);
 }
 
 std::string WDXBase::GetIniName() const
@@ -71,6 +77,13 @@ void WDXBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 
 	m_PluginInterfaceVerionHi = dwHi;
 	m_PluginInterfaceVerionLow = dwLow;
+
+	OnSetPluginInterfaceVersion( m_PluginInterfaceVerionHi, m_PluginInterfaceVerionLow );
+}
+
+void WDXBase::OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
+{
+	utils::ODS(__PRETTY_FUNCTION__);
 }
 
 EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
