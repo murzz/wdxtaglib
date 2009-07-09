@@ -16,10 +16,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "utils.h"
-#include <windows.h>
-#include <iostream>
-#include <string>
-#include <sstream>
 #include <tchar.h>
 
 namespace utils
