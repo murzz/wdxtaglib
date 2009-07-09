@@ -31,7 +31,7 @@ char* strlcpy(char* p, const char* p2, int maxlen)
 	return p;
 }
 
-WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
+WCHAR* strlcpyw(WCHAR *str1,const WCHAR *str2,int imaxlen)
 {
 	if ((int)wcslen(str2)>=imaxlen-1) {
 		wcsncpy(str1,str2,imaxlen-1);
