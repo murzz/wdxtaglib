@@ -18,10 +18,10 @@
 #ifndef WDXBASE_H
 #define WDXBASE_H
 
-#include "CustomTypes.h"
 #include <windows.h>
 #include "contentplug.h"
 #include <map>
+#include <string>
 
 /// Namespace where WDX API classes are defined.
 namespace WDX_API
