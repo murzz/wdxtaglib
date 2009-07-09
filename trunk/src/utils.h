@@ -1,4 +1,4 @@
-// 	WDXTagLib is a content plugin for Total Commander that allows you to show audio
+// WDXTagLib is a content plugin for Total Commander that allows you to show audio
 // file tags in columns, edit tags and search in tags.
 // Copyright (C) 2008 Dmitrie Murzaikin (murzzz@gmail.com)
 //
@@ -13,7 +13,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef UTILS_H
 #define UTILS_H
