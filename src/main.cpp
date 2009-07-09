@@ -21,7 +21,10 @@
 #include "utils.h"
 
 typedef utils::singleton<WDXTagLib> Plugin;
-#define PLUGIN (Plugin::instance())
+inline WDXTagLib& PluginInst()
+{
+	return Plugin::instance();
+}
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -82,7 +85,7 @@ void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		utils::strlcpy(DetectString, PLUGIN.GetDetectString().c_str(), maxlen);
+		utils::strlcpy(DetectString, PluginInst().GetDetectString().c_str(), maxlen);
 	}
 	catch(...)
 	{
@@ -103,8 +106,8 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 			return;
 		}
 
-		PLUGIN.SetIniName(dps->DefaultIniName);
-		PLUGIN.SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
+		PluginInst().SetIniName(dps->DefaultIniName);
+		PluginInst().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
 										dps->PluginInterfaceVersionLow);
 	}
 	catch(...)
@@ -120,7 +123,7 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		PLUGIN.PluginUnloading();
+		PluginInst().PluginUnloading();
 
 		///@todo free plugin instance here, if needed
 	}
@@ -138,7 +141,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex, char* FieldNam
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
+		return PluginInst().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 	}
 	catch(...)
 	{
@@ -155,7 +158,7 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetValue(
+		return PluginInst().GetValue(
 					utils::toWideString(FileName).c_str(),
 					FieldIndex,
 					UnitIndex,
@@ -178,7 +181,7 @@ int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetValue(
+		return PluginInst().GetValue(
 				FileName,
 				FieldIndex,
 				UnitIndex,
@@ -200,7 +203,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.GetSupportedFieldFlags(FieldIndex);
+		return PluginInst().GetSupportedFieldFlags(FieldIndex);
 	}
 	catch(...)
 	{
@@ -217,7 +220,7 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.SetValue(utils::toWideString(FileName).c_str(), FieldIndex,
+		return PluginInst().SetValue(utils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldType, FieldValue, flags);
 	}
 	catch(...)
@@ -235,7 +238,7 @@ int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		return PLUGIN.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+		return PluginInst().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 	}
 	catch(...)
 	{
@@ -251,7 +254,7 @@ void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		PLUGIN.StopGetValue(utils::toWideString(FileName));
+		PluginInst().StopGetValue(utils::toWideString(FileName));
 	}
 	catch(...)
 	{
@@ -266,7 +269,7 @@ void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
 	{
 		utils::ODS(__PRETTY_FUNCTION__);
 
-		PLUGIN.StopGetValue(FileName);
+		PluginInst().StopGetValue(FileName);
 	}
 	catch(...)
 	{

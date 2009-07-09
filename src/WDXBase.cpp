@@ -127,7 +127,7 @@ EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
-	///@todo here it should be &&, no ||
+	///@todo here it should be &&, not ||
 	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
 	{
 		OnEndOfSetValue();
