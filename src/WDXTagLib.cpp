@@ -136,21 +136,21 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const i
 		{
 			if (!pTag)
 				return WDX_API::ftFieldEmpty;
-			utils::strlcpy( (PTCHAR)pFieldValue, pTag->title().toWString().c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiArtist:
 		{
 			if (!pTag)
 				return WDX_API::ftFieldEmpty;
-			utils::strlcpy( (PTCHAR)pFieldValue, pTag->artist().toWString().c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->artist().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiAlbum:
 		{
 			if (!pTag)
 				return WDX_API::ftFieldEmpty;
-			utils::strlcpy( (PTCHAR)pFieldValue, pTag->album().toWString().c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->album().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiYear:
@@ -175,14 +175,14 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const i
 		{
 			if (!pTag)
 				return WDX_API::ftFieldEmpty;
-			utils::strlcpy( (PTCHAR)pFieldValue, pTag->comment().toWString().c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->comment().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiGenre:
 		{
 			if (!pTag)
 				return WDX_API::ftFieldEmpty;
-			utils::strlcpy( (PTCHAR)pFieldValue, pTag->genre().toWString().c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->genre().toWString().c_str(), iMaxLen );
 			break;
 		}
 		case fiBitrate:
@@ -220,7 +220,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const i
 			int nSeconds = pProp->length() % 60;
 			int nMinutes = (pProp->length() - nSeconds) / 60;
 
-			utils::strlcpy((PTCHAR)pFieldValue,
+			utils::strlcpyw(reinterpret_cast<wchar_t*>(pFieldValue),
 					std::wstring(utils::Int2Str(nMinutes) + TEXT("m ") +
 									utils::formatSeconds(nSeconds) + TEXT("s")).c_str(),
 							iMaxLen);
@@ -228,7 +228,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const i
 		}
 		case fiTagType:
 		{
-			utils::strlcpy( (PTCHAR)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );
+			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), GetTagType(file.file()).c_str(), iMaxLen );
 			break;
 		}
 		default:
