@@ -140,7 +140,7 @@ EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
-EFieldType WDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+EFieldType WDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 				const int iUnitIndex, const int iFieldType,
 				const void* pFieldValue, const int iFlags) const
 {
@@ -171,7 +171,7 @@ void WDXBase::OnEndOfSetValue() const
 	utils::ODS(__PRETTY_FUNCTION__);
 }
 
-void WDXBase::StopGetValue(const string_t& sFileName)
+void WDXBase::StopGetValue(const std::wstring& sFileName)
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
@@ -210,14 +210,14 @@ bool WDXBase::IsAborted() const
 	return m_bIsAborted;
 }
 
-void WDXBase::SetAbortedFilename(const string_t& sValue)
+void WDXBase::SetAbortedFilename(const std::wstring& sValue)
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 
 	m_sAbortedFilename = sValue;
 }
 
-string_t WDXBase::GetAbortedFilename() const
+std::wstring WDXBase::GetAbortedFilename() const
 {
 	utils::ODS(__PRETTY_FUNCTION__);
 

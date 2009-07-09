@@ -34,18 +34,18 @@ class WDXTagLib : public WDX_API::WDXBase
 
 	private:
 
-		WDX_API::EFieldType OnGetValue( const string_t& sFileName, const int FieldIndex,
+		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
 									const int UnitIndex, void* FieldValue,
 									const int maxlen, const int flags );
 
-		WDX_API::EFieldType OnSetValue( const string_t& sFileName, const int FieldIndex,
+		WDX_API::EFieldType OnSetValue( const std::wstring& sFileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType,
 									const void* FieldValue, const int flags );
 
-		TagLib::FileRef& OpenFile( const string_t& sFileName );
-		string_t GetTagType( TagLib::File* pFile ) const;
+		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
+		std::wstring GetTagType( TagLib::File* pFile ) const;
 
-		typedef std::map<string_t, TagLib::FileRef> CMapOfFiles;
+		typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
 		typedef CMapOfFiles::iterator CFilesIter;
 		CMapOfFiles m_Files2Write;
 };

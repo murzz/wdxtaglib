@@ -18,8 +18,18 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "CustomTypes.h"
+#include <string>
+#include <iostream>
+#include <sstream>
 #include <windows.h>
+
+#ifdef _UNICODE
+	#define string_t std::wstring
+	#define tstringstream std::wstringstream
+#else
+	#define string_t std::string
+	#define tstringstream std::ostringstream
+#endif
 
 namespace utils
 {

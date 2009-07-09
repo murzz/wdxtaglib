@@ -94,7 +94,7 @@ std::string WDXTagLib::OnGetDetectString() const
 	return sExtList.toCString();
 }
 
-TagLib::FileRef& WDXTagLib::OpenFile( const string_t& sFileName )
+TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference
@@ -111,12 +111,13 @@ TagLib::FileRef& WDXTagLib::OpenFile( const string_t& sFileName )
 	}
 }
 
-WDX_API::EFieldType WDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
+WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 							const int iUnitIndex, void* pFieldValue,
 							const int iMaxLen, const int iFlags)
 
 {
-	///@todo cache opened files here like in OnSetValue() to improve performance
+	///@todo cache opened files here like in OnSetValue() to improve performance.
+	///@todo close cache on timer event.
 	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
 
 	// no file, no tags or no properties
@@ -220,7 +221,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const string_t& sFileName, const int i
 			int nMinutes = (pProp->length() - nSeconds) / 60;
 
 			utils::strlcpy((PTCHAR)pFieldValue,
-							string_t(utils::Int2Str(nMinutes) + TEXT("m ") +
+					std::wstring(utils::Int2Str(nMinutes) + TEXT("m ") +
 									utils::formatSeconds(nSeconds) + TEXT("s")).c_str(),
 							iMaxLen);
 			break;
@@ -240,7 +241,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const string_t& sFileName, const int i
 	return m_Fields.Find( iFieldIndex ).m_Type;
 }
 
-string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
+std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
 	TagLib::ID3v2::Tag *pId3v2 = NULL;
 	TagLib::ID3v1::Tag *pId3v1 = NULL;
@@ -318,7 +319,7 @@ string_t WDXTagLib::GetTagType( TagLib::File* pFile ) const
 	return sResult.str();
 }
 
-WDX_API::EFieldType WDXTagLib::OnSetValue( const string_t& sFileName, const int iFieldIndex,
+WDX_API::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags )
 {

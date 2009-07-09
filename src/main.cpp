@@ -73,7 +73,7 @@ void ExceptionHandler( const std::string& sWhere )
 	}
 	catch(...)
 	{
-		string_t sText = utils::toWideString( std::string("Unknown exception in ") + sWhere );
+		std::wstring sText = utils::toWideString( std::string("Unknown exception in ") + sWhere );
 		utils::ShowError(sText, TEXT("Unknown exception"));
 	}
 }
