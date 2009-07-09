@@ -55,7 +55,7 @@ namespace WDX_API
 		ftSetSuccess			= ft_setsuccess,	///< Setting of the attribute succeeded.
 	} EFieldType;
 
-	/// Basically this class represents a field (property) of a file we want to expose.
+	/// This class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
 	class Field
 	{
@@ -129,7 +129,7 @@ namespace WDX_API
 
 			virtual int GetSupportedFieldFlags(const int iFieldIndex);
 
-			void StopGetValue(const string_t& sFileName);
+			void StopGetValue(const std::wstring& sFileName);
 
 			void PluginUnloading();
 
@@ -141,11 +141,11 @@ namespace WDX_API
 			/// Fields supported by plugin. Add supported fields in descendant.
 			FieldList m_Fields;
 
-			virtual EFieldType OnGetValue( const string_t& sFileName, const int iFieldIndex,
+			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
 										const int iUnitIndex, void* pFieldValue,
 										const int iMaxLen, const int iFlags ) = 0;
 
-			virtual EFieldType OnSetValue( const string_t& sFileName, const int iFieldIndex,
+			virtual EFieldType OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
 								const int iUnitIndex, const int iFieldType,
 								const void* pFieldValue, const int iFlags ) const;
 
@@ -162,7 +162,7 @@ namespace WDX_API
 
 			///  Get aborted filename.
 			/// @return Filename of the processed file in the time when abort flag was up.
-			string_t GetAbortedFilename() const;
+			std::wstring GetAbortedFilename() const;
 
 			/// That one is called when TC passing its plugin interface version.
 			virtual void OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow );
@@ -176,7 +176,7 @@ namespace WDX_API
 			DWORD m_PluginInterfaceVerionLow;
 
 			/// File should be aborted
-			string_t m_sAbortedFilename;
+			std::wstring m_sAbortedFilename;
 
 			/// 'time to stop' flag
 			bool m_bIsAborted;
@@ -187,7 +187,7 @@ namespace WDX_API
 			/// Clear m_bIsAborted flag.
 			void ClearAbortedFlag( );
 
-			void SetAbortedFilename(const string_t& sValue);
+			void SetAbortedFilename(const std::wstring& sValue);
 	};
 };
 #endif // CWDXBASE_H
