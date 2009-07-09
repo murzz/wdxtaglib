@@ -5,14 +5,14 @@ echo Generate version info resource...
 rem Configuration starts here
 rem ---------------------------------------------------
 
-rem That tool should be in the PATH already. Usually it is placed in %ProgramFiles%\TortoiseSVN\bin\SubWCRev.exe
+rem That tool should be in the PATH already. Usually it is placed in %ProgramFiles%\TortoiseSVN\bin
 set subwcrev=SubWCRev.exe
 set project_root=%1
 set output_root=%2
 set rc_remplate=%project_root%\src\VerInfo.rc.template
 set rc_script=%output_root%\VerInfo.rc
 
-rem that tool should be in the path already, usually it is placed in %MinGW%\bin\windres.exe
+rem that tool should be in the path already, usually it is placed in %MinGW%\bin
 set windres=windres.exe
 set libverinfo=%output_root%\libverinfo.a
 
@@ -26,8 +26,8 @@ rem Build resource file from script
 set build=%windres% %rc_script% %libverinfo%
 
 rem Clear old stuff
-del /q  %rc_script%
-del /q %libverinfo%
+del /q  %rc_script% >nul
+del /q %libverinfo% >nul
 
 rem Create new stuff
 %create% && %build%
