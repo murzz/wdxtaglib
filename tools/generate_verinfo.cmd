@@ -26,8 +26,8 @@ rem Build resource file from script
 set build=%windres% %rc_script% %libverinfo%
 
 rem Clear old stuff
-del /q  %rc_script% >nul
-del /q %libverinfo% >nul
+del /q  %rc_script% 2>nul
+del /q %libverinfo% 2>nul
 
 rem Create new stuff
 %create% && %build%
