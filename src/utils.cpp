@@ -43,16 +43,16 @@ WCHAR* strlcpy(WCHAR *str1,const WCHAR *str2,int imaxlen)
 
 string_t formatSeconds(int seconds)
 {
-  TCHAR secondsString[3] = {0};
-  _stprintf(secondsString, TEXT("%02i"), seconds);
-  return secondsString;
+	TCHAR secondsString[3] = {0};
+	_stprintf(secondsString, TEXT("%02i"), seconds);
+	return secondsString;
 }
 
 string_t Int2Str(const int num)
 {
-    tstringstream os;
-    os << num;
-    return os.str();
+	tstringstream os;
+	os << num;
+	return os.str();
 }
 
 void ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)

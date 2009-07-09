@@ -28,30 +28,30 @@ inline WDXTagLib& PluginInst()
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-    switch (fdwReason)
-    {
-        case DLL_PROCESS_ATTACH:
-            // attach to process
-            // return FALSE to fail DLL load
-        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH" );
-            break;
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_ATTACH:
+		// attach to process
+		// return FALSE to fail DLL load
+		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH");
+		break;
 
-        case DLL_PROCESS_DETACH:
-            // detach from process
-        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH" );
-            break;
+	case DLL_PROCESS_DETACH:
+		// detach from process
+		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH");
+		break;
 
-        case DLL_THREAD_ATTACH:
-            // attach to thread
-        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH" );
-            break;
+	case DLL_THREAD_ATTACH:
+		// attach to thread
+		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH");
+		break;
 
-        case DLL_THREAD_DETACH:
-            // detach from thread
-        	utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH" );
-            break;
-    }
-    return TRUE; // successful
+	case DLL_THREAD_DETACH:
+		// detach from thread
+		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH");
+		break;
+	}
+	return TRUE; // successful
 }
 
 /// Global exception handler.

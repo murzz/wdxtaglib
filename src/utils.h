@@ -60,18 +60,18 @@ namespace utils
 	class singleton : private T
 	{
 	public:
-	    /// creates global instance of singleton and returns it
-	    static T& instance()
-	    {
-	        static singleton<T> global_instance;
-	        return global_instance;
-	    }
+		/// creates global instance of singleton and returns it
+		static T& instance()
+		{
+			static singleton<T> global_instance;
+			return global_instance;
+		}
 
 	private:
-	    /// private constructor - to prevent direct object creation
-	    singleton() {}
-	    /// private destructor - to prevent direct object destruction
-	    ~singleton() {}
+		/// private constructor - to prevent direct object creation
+		singleton() {}
+		/// private destructor - to prevent direct object destruction
+		~singleton() {}
 	};
 } // namespace utils
 
