@@ -33,22 +33,22 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	case DLL_PROCESS_ATTACH:
 		// attach to process
 		// return FALSE to fail DLL load
-		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH");
+		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH");
 		break;
 
 	case DLL_PROCESS_DETACH:
 		// detach from process
-		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH");
+		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH");
 		break;
 
 	case DLL_THREAD_ATTACH:
 		// attach to thread
-		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH");
+		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH");
 		break;
 
 	case DLL_THREAD_DETACH:
 		// detach from thread
-		utils::ODS(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH");
+		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH");
 		break;
 	}
 	return TRUE; // successful
@@ -57,7 +57,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 /// Global exception handler.
 void ExceptionHandler( const std::string& sWhere )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	try
 	{
@@ -83,7 +83,7 @@ void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		utils::strlcpy(DetectString, PluginInst().GetDetectString().c_str(), maxlen);
 	}
@@ -98,7 +98,7 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		if ( (int)sizeof(ContentDefaultParamStruct) > dps->size )
 		{
@@ -121,7 +121,7 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void)
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		PluginInst().PluginUnloading();
 
@@ -139,7 +139,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex, char* FieldNam
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 	}
@@ -156,7 +156,7 @@ int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().GetValue(
 					utils::toWideString(FileName).c_str(),
@@ -179,7 +179,7 @@ int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().GetValue(
 				FileName,
@@ -201,7 +201,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().GetSupportedFieldFlags(FieldIndex);
 	}
@@ -218,7 +218,7 @@ int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().SetValue(utils::toWideString(FileName).c_str(), FieldIndex,
 			UnitIndex, FieldType, FieldValue, flags);
@@ -236,7 +236,7 @@ int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		return PluginInst().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 	}
@@ -252,7 +252,7 @@ void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		PluginInst().StopGetValue(utils::toWideString(FileName));
 	}
@@ -267,7 +267,7 @@ void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
 {
 	try
 	{
-		utils::ODS(__PRETTY_FUNCTION__);
+		utils::DbgStr(__PRETTY_FUNCTION__);
 
 		PluginInst().StopGetValue(FileName);
 	}

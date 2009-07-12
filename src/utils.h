@@ -41,19 +41,29 @@ namespace utils
 	string_t Int2Str( const int num );
 	void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 
+#ifdef DEBUG
 	/// OutputDebugString() wrapper.
-	inline void ODS (const std::string& Str)
+	inline void DbgStr (const std::string& Str)
 	{
 		// do not throw any exceptions here
 		OutputDebugStringA(Str.c_str());
 	}
 
 	/// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
-	inline void ODS (const std::string& Str1, const std::string& Str2)
+	inline void DbgStr (const std::string& Str1, const std::string& Str2)
 	{
 		// do not throw any exceptions here
 		OutputDebugStringA((Str1 + Str2).c_str());
 	}
+#else
+	inline void DbgStr (const std::string& Str)
+	{
+	}
+
+	inline void DbgStr (const std::string& Str1, const std::string& Str2)
+	{
+	}
+#endif
 
 	/// Singleton.
 	template <class T>

@@ -25,33 +25,33 @@ WDXBase::WDXBase()
 :	m_PluginInterfaceVerionHi(0),
 	m_PluginInterfaceVerionLow(0)
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	ClearAbortedFlag();
 }
 
 WDXBase::~WDXBase()
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 std::string WDXBase::GetDetectString() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return OnGetDetectString();
 }
 
 std::string WDXBase::OnGetDetectString() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return "";
 }
 
 void WDXBase::SetIniName( const std::string& sIniName )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	if (sIniName == m_IniName)
 		return;
@@ -61,19 +61,19 @@ void WDXBase::SetIniName( const std::string& sIniName )
 
 void WDXBase::OnSetIniName( const std::string& sIniName )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 std::string WDXBase::GetIniName() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return m_IniName;
 }
 
 void WDXBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	m_PluginInterfaceVerionHi = dwHi;
 	m_PluginInterfaceVerionLow = dwLow;
@@ -83,13 +83,13 @@ void WDXBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 
 void WDXBase::OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName,
 								char* pszUnits, int iMaxLen )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoMoreFields;
@@ -104,7 +104,7 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue,
 						const int iMaxLen, const int iFlags )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	///@todo do parameter checking properly
 	if (iUnitIndex < 0)
@@ -125,7 +125,7 @@ EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
 						const int UnitIndex, const int FieldType,
 						const void* FieldValue, const int flags )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	///@todo here it should be &&, not ||
 	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
@@ -144,14 +144,14 @@ EFieldType WDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIn
 				const int iUnitIndex, const int iFieldType,
 				const void* pFieldValue, const int iFlags) const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return ftNoSuchField;
 }
 
 int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 	{
@@ -168,12 +168,12 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 
 void WDXBase::OnEndOfSetValue() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 void WDXBase::StopGetValue(const std::wstring& sFileName)
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	// abort flag up
 
@@ -183,7 +183,7 @@ void WDXBase::StopGetValue(const std::wstring& sFileName)
 
 void WDXBase::SetAbortedFlag( )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	// aborted!
 	m_bIsAborted = true;
@@ -191,7 +191,7 @@ void WDXBase::SetAbortedFlag( )
 
 void WDXBase::ClearAbortedFlag( )
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	// clear filename if previous state was ABORTED
 	if (m_bIsAborted)
@@ -205,35 +205,35 @@ void WDXBase::ClearAbortedFlag( )
 
 bool WDXBase::IsAborted() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return m_bIsAborted;
 }
 
 void WDXBase::SetAbortedFilename(const std::wstring& sValue)
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	m_sAbortedFilename = sValue;
 }
 
 std::wstring WDXBase::GetAbortedFilename() const
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	return m_sAbortedFilename;
 }
 
 void WDXBase::PluginUnloading()
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	OnPluginUnloading();
 }
 
 void WDXBase::OnPluginUnloading()
 {
-	utils::ODS(__PRETTY_FUNCTION__);
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 FieldList::FieldList()
