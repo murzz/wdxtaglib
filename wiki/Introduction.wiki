@@ -15,8 +15,9 @@ Supported file formats:
  * MPC,
  * FLAC,
  * Ogg FLAC,
- * Ogg Vorbis and
- * Speex.
+ * Ogg Vorbis,
+ * Speex and
+ * etc.
 
 =Functionality=
 Tags supported for reading and writing:
