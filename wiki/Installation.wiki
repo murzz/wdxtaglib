@@ -21,4 +21,4 @@ There are two ways to install plugin in Total Commander:
  * Done!
 
 = Automatic installation =
-For now it is not possible to install plugin automatically due to statical linkage with TagLib library.
+For now it is not possible to install plugin automatically due to statical linkage with msvcrt.dll library.
