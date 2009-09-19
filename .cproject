@@ -23,16 +23,16 @@
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
 <configuration artifactExtension="wdx" artifactName="WDXTagLibDebug" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.MakeErrorParser" id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370" name="Debug" parent="cdt.managedbuild.config.gnu.mingw.so.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370." name="/" resourcePath="">
-<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.586917960" name="MinGW GCC" resourceTypeBasedDiscovery="true" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
+<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.586917960" name="MinGW GCC" resourceTypeBasedDiscovery="false" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.base.677631167" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
-<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.746991191" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" parallelizationNumber="-1" stopOnErr="false" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.746991191" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" parallelizationNumber="-1" stopOnErr="true" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.base.324241522" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.918836702" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.795209131" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1742330202" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 <option id="gnu.cpp.compiler.option.include.paths.711501936" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/debug/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.preprocessor.def.866549154" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="BUILD_DLL"/>
@@ -54,10 +54,10 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1362068097" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 <option id="gnu.cpp.link.option.libs.396039425" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="tagd.dll"/>
+<listOptionValue builtIn="false" value="tag"/>
 </option>
 <option id="gnu.cpp.link.option.paths.1150180213" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/debug/lib}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/lib}&quot;"/>
 </option>
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1804792422" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.flags.1167340645" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
@@ -1184,7 +1184,7 @@
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
 <configuration artifactExtension="wdx" artifactName="WDXTagLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.MakeErrorParser" id="cdt.managedbuild.config.gnu.mingw.so.release.530680242" name="Release" parent="cdt.managedbuild.config.gnu.mingw.so.release" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="Create version info resource" prebuildStep="${ProjDirPath}\tools\generate_verinfo.cmd ${ProjDirPath} ${CWD}">
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.release.530680242." name="/" resourcePath="">
-<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.so.release.2057944411" name="MinGW GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" resourceTypeBasedDiscovery="true" superClass="cdt.managedbuild.toolchain.gnu.mingw.so.release">
+<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.so.release.2057944411" name="MinGW GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" resourceTypeBasedDiscovery="false" superClass="cdt.managedbuild.toolchain.gnu.mingw.so.release">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.so.release.626494090" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.so.release"/>
 <builder autoBuildTarget="all" buildPath="${workspace_loc:/WDXTagLib/Release}" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.779652250" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="false" parallelizationNumber="-1" stopOnErr="false" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.so.release.1648230530" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.so.release">
@@ -1195,7 +1195,7 @@
 <option id="gnu.cpp.compiler.mingw.so.release.option.optimization.level.608395227" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.so.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.mingw.so.release.option.debugging.level.1613289513" name="Debug Level" superClass="gnu.cpp.compiler.mingw.so.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.756360069" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/release/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.preprocessor.def.1836556592" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="BUILD_DLL"/>
@@ -1217,11 +1217,11 @@
 <tool errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.release.1155562017" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.so.release">
 <option defaultValue="true" id="gnu.cpp.link.mingw.so.release.option.shared.1892004193" name="Shared (-shared)" superClass="gnu.cpp.link.mingw.so.release.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.paths.238552571" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/release/lib}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/WDXTagLib/taglib/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${CWD}&quot;"/>
 </option>
 <option id="gnu.cpp.link.option.libs.1466937148" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="tag.dll"/>
+<listOptionValue builtIn="false" value="tag"/>
 <listOptionValue builtIn="false" value="VerInfo"/>
 </option>
 <option id="gnu.cpp.link.option.other.2029524069" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other" valueType="stringList">
