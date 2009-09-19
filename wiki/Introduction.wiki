@@ -8,7 +8,7 @@ by Dmitry Murzaikin
 
 =Description=
 This is a content plugin for Total Commander that allows you to show audio
-file tags in columns, edit tags and search in tags.
+file tags in columns, edit tags, search in tags, etc.
 
 Supported file formats:
  * MP3,
@@ -36,17 +36,17 @@ Readonly tags:
  * length;
  * tag type.
 
-It has been tested with Total Commander 7.02a under Windows XP.
+It has been tested with Total Commander 7.5 under Windows XP.
 
 =Known issues=
- * National characters are not supported yet.
+ * No auto install feature (because of statical dependency from msvcrt.dll).
 
 =License Agreement=
 This software is distributed under the GNU General Public License (*[http://www.fsf.org/licensing/licenses/gpl.html GPL]*)
 version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
 =Requirements=
- * Total Commander 7.02 or higher (7.5 for Unicode support).
+ * Total Commander 7.02 or higher (7.5 for Unicode support);
  * msvcrt.dll (included).
 
 =Installation=
@@ -59,13 +59,9 @@ version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/l
 [http://code.google.com/p/wdxtaglib/wiki/History Look here]
 
 =Special thanks=
- * Christian Ghisler, author of [http://www.ghisler.com Total Commander].
- * [http://developer.kde.org/~wheeler/taglib.html TagLib] project.
+ * Christian Ghisler, author of [http://www.ghisler.com Total Commander];
+ * [http://developer.kde.org/~wheeler/taglib.html TagLib] project;
  * Andrey "Ergo" Pyasetskiy, maintainer of [http://www.wincmd.ru wincmd.ru] and [http://totalcmd.net totalcmd.net].
 
 =Support=
  * [http://code.google.com/p/wdxtaglib/ WDXTagLib at Google Code]
- * author's [mailto:murzzz@gmail.com e-mail]
- * [http://www.totalcmd.net/plugring/wdxtaglib.html plugin's page] on *totalcmd.net* (en)
- * [http://wincmd.ru/plugring/wdxtaglib.html plugin's page] on *wincmd.ru* (ru)
- * [http://ghisler.ch/board/viewtopic.php?p=145149 plugin's thread] on *Total Commander forum*
