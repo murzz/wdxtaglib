@@ -25,7 +25,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.586917960" name="MinGW GCC" resourceTypeBasedDiscovery="false" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.base.677631167" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
-<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.746991191" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" parallelizationNumber="-1" stopOnErr="true" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.1628708921" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" parallelizationNumber="-1" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.base.324241522" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.918836702" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
@@ -39,6 +39,7 @@
 <listOptionValue builtIn="false" value="DEBUG"/>
 <listOptionValue builtIn="false" value="UNICODE"/>
 <listOptionValue builtIn="false" value="_UNICODE"/>
+<listOptionValue builtIn="false" value="TAGLIB_STATIC"/>
 </option>
 <option id="gnu.cpp.compiler.option.optimization.level.129745753" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.debugging.level.611237360" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
@@ -1202,13 +1203,16 @@
 <listOptionValue builtIn="false" value="NDEBUG"/>
 <listOptionValue builtIn="false" value="UNICODE"/>
 <listOptionValue builtIn="false" value="_UNICODE"/>
+<listOptionValue builtIn="false" value="TAGLIB_STATIC"/>
 </option>
 <option id="gnu.cpp.compiler.option.optimization.flags.641163921" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="" valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.toerrors.137494349" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1533535883" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release.2032997678" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.so.release">
 <option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.mingw.so.release.option.optimization.level.382020220" name="Optimization Level" superClass="gnu.c.compiler.mingw.so.release.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.mingw.so.release.option.debugging.level.733448966" name="Debug Level" superClass="gnu.c.compiler.mingw.so.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.warnings.toerrors.1355843126" name="Warnings as errors (-Werror)" superClass="gnu.c.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2077953866" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.so.release.1362788724" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.so.release">
