@@ -46,8 +46,7 @@ This software is distributed under the GNU General Public License (*[http://www.
 version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
 =Requirements=
- * Total Commander 7.02 or higher.
- * libtag.dll (included).
+ * Total Commander 7.02 or higher (7.5 for Unicode support).
  * msvcrt.dll (included).
 
 =Installation=
