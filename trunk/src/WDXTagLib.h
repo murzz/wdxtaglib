@@ -34,13 +34,13 @@ class WDXTagLib : public WDX_API::WDXBase
 
 	private:
 
-		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
-									const int UnitIndex, void* FieldValue,
-									const int maxlen, const int flags );
+//		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
+//									const int UnitIndex, void* FieldValue,
+//									const int maxlen, const int flags );
 
-		WDX_API::EFieldType OnSetValue( const std::wstring& sFileName, const int FieldIndex,
-									const int UnitIndex, const int FieldType,
-									const void* FieldValue, const int flags );
+//		WDX_API::EFieldType OnSetValue( const std::wstring& sFileName, const int FieldIndex,
+//									const int UnitIndex, const int FieldType,
+//									const void* FieldValue, const int flags );
 
 		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
 		std::wstring GetTagType( TagLib::File* pFile ) const;

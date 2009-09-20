@@ -88,9 +88,12 @@ namespace WDX_API
 			std::string GetMultChoice() const;
 			int GetFlag() const;
 
-			virtual void OnGetValue(const std::wstring& sFileNamee,
+			/// Implement it in every custom field.
+			virtual void OnGetValue(const std::wstring& sFileName,
 					const int iUnitIndex, void* pFieldValue,
 					const int iMaxLen, const int iFlags) = 0;
+
+			///@todo still requires an effort
 			virtual void OnSetValue();
 	};
 
@@ -152,13 +155,13 @@ namespace WDX_API
 			/// Fields supported by plugin. Add supported fields in descendant.
 			FieldList m_Fields;
 
-			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
-										const int iUnitIndex, void* pFieldValue,
-										const int iMaxLen, const int iFlags ) = 0;
+//			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
+//										const int iUnitIndex, void* pFieldValue,
+//										const int iMaxLen, const int iFlags ) = 0;
 
-			virtual EFieldType OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
-								const int iUnitIndex, const int iFieldType,
-								const void* pFieldValue, const int iFlags ) const;
+//			virtual EFieldType OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
+//								const int iUnitIndex, const int iFieldType,
+//								const void* pFieldValue, const int iFlags ) const;
 
 			virtual std::string OnGetDetectString() const;
 			virtual void OnEndOfSetValue() const;

@@ -48,9 +48,23 @@ string_t formatSeconds(int seconds)
 	return secondsString;
 }
 
-string_t Int2Str(const int num)
+//string_t Int2Str(const int num)
+//{
+//	tstringstream os;
+//	os << num;
+//	return os.str();
+//}
+
+std::wstring Int2StrW(const int num)
 {
-	tstringstream os;
+	std::wstringstream os;
+	os << num;
+	return os.str();
+}
+
+std::string Int2Str(const int num)
+{
+	std::ostringstream os;
 	os << num;
 	return os.str();
 }

@@ -146,38 +146,40 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 
 	f.OnGetValue( pszFileName, iUnitIndex, pFieldValue, iMaxLen, iFlags );
 	return f.GetType();
-
-	///@todo make interface easier, hide field value in Field class and so on
-	//return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 }
 
-EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
-						const int UnitIndex, const int FieldType,
-						const void* FieldValue, const int flags )
+EFieldType WDXBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex,
+						const int iUnitIndex, const int iFieldType,
+						const void* pFieldValue, const int iFlags )
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	///@todo here it should be &&, not ||
-	if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
+	if ( !pszFileName || (-1 == iFieldIndex) ) // this indicates end of changing attributes
 	{
 		OnEndOfSetValue();
 		return ftSetSuccess;
 	}
 
-	if ( FieldIndex < 0 || FieldIndex >= static_cast<int>(m_Fields.Count()) )
+	///@todo perform checking inside FieldBase class and throw an exception.
+	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoSuchField;
 
-	return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+	FieldBase& f = m_Fields.Find( iFieldIndex );
+
+	//f.OnSetValue( pszFileName, iUnitIndex, pFieldValue, iMaxLen, iFlags );
+	return f.GetType();
+	//return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
 }
 
-EFieldType WDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
-				const int iUnitIndex, const int iFieldType,
-				const void* pFieldValue, const int iFlags) const
-{
-	utils::DbgStr(__PRETTY_FUNCTION__);
-
-	return ftNoSuchField;
-}
+//EFieldType WDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
+//				const int iUnitIndex, const int iFieldType,
+//				const void* pFieldValue, const int iFlags) const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//
+//	return ftNoSuchField;
+//}
 
 int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
@@ -302,7 +304,7 @@ FieldBase& FieldList::Find(const int Idx)
 	MapOfFields::iterator iter = m_Fields.find(Idx);
 	if (m_Fields.end() == iter)
 	{
-		throw std::runtime_error("Failed to find field by index");
+		throw std::runtime_error((std::string("Failed to find field by index: ") + utils::Int2Str(Idx)).c_str());
 	}
 
 	return *((*iter).second);

@@ -53,8 +53,8 @@ WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
 
-	FieldTitle* p = new FieldTitle();
-	m_Fields.Add( fiTitle,			p );
+	FieldTitle* pTitle = new FieldTitle();
+	m_Fields.Add( fiTitle,			pTitle );
 //	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
@@ -113,135 +113,135 @@ TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 	}
 }
 
-WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
-							const int iUnitIndex, void* pFieldValue,
-							const int iMaxLen, const int iFlags)
-
-{
-	///@todo cache opened files here like in OnSetValue() to improve performance.
-	///@todo close cache on timer event.
-	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
-
-	// no file, no tags or no properties
-	if ( file.isNull() )
-		return WDX_API::ftFileError;
-
-	if ( IsAborted() )
-		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
-
-	TagLib::Tag* pTag = file.tag();
-	TagLib::AudioProperties* pProp = file.audioProperties();
-
-	switch (iFieldIndex)
-	{
-		case fiTitle:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
-			break;
-		}
-		case fiArtist:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->artist().toWString().c_str(), iMaxLen );
-			break;
-		}
-		case fiAlbum:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->album().toWString().c_str(), iMaxLen );
-			break;
-		}
-		case fiYear:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			if (!pTag->year())
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pTag->year();
-			break;
-		}
-		case fiTracknumber:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			if (!pTag->track())
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pTag->track();
-			break;
-		}
-		case fiComment:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->comment().toWString().c_str(), iMaxLen );
-			break;
-		}
-		case fiGenre:
-		{
-			if (!pTag)
-				return WDX_API::ftFieldEmpty;
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->genre().toWString().c_str(), iMaxLen );
-			break;
-		}
-		case fiBitrate:
-		{
-			if (!pProp)
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pProp->bitrate();
-			break;
-		}
-		case fiSamplerate:
-		{
-			if (!pProp)
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pProp->sampleRate();
-			break;
-		}
-		case fiChannels:
-		{
-			if (!pProp)
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pProp->channels();
-			break;
-		}
-		case fiLength_s:
-		{
-			if (!pProp)
-				return WDX_API::ftFieldEmpty;
-			*(__int32*)pFieldValue = pProp->length();
-			break;
-		}
-		case fiLength_m:
-		{
-			if (!pProp)
-				return WDX_API::ftFieldEmpty;
-			int nSeconds = pProp->length() % 60;
-			int nMinutes = (pProp->length() - nSeconds) / 60;
-
-			utils::strlcpyw(reinterpret_cast<wchar_t*>(pFieldValue),
-					std::wstring(utils::Int2Str(nMinutes) + TEXT("m ") +
-									utils::formatSeconds(nSeconds) + TEXT("s")).c_str(),
-							iMaxLen);
-			break;
-		}
-		case fiTagType:
-		{
-			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), GetTagType(file.file()).c_str(), iMaxLen );
-			break;
-		}
-		default:
-		{
-			return WDX_API::ftNoSuchField;
-			break;
-		}
-	}
-
-	return m_Fields.Find( iFieldIndex ).GetType();
-}
+//WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
+//							const int iUnitIndex, void* pFieldValue,
+//							const int iMaxLen, const int iFlags)
+//
+//{
+//	///@todo cache opened files here like in OnSetValue() to improve performance.
+//	///@todo close cache on timer event.
+//	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
+//
+//	// no file, no tags or no properties
+//	if ( file.isNull() )
+//		return WDX_API::ftFileError;
+//
+//	if ( IsAborted() )
+//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+//
+//	TagLib::Tag* pTag = file.tag();
+//	TagLib::AudioProperties* pProp = file.audioProperties();
+//
+//	switch (iFieldIndex)
+//	{
+//		case fiTitle:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
+//			break;
+//		}
+//		case fiArtist:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->artist().toWString().c_str(), iMaxLen );
+//			break;
+//		}
+//		case fiAlbum:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->album().toWString().c_str(), iMaxLen );
+//			break;
+//		}
+//		case fiYear:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			if (!pTag->year())
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pTag->year();
+//			break;
+//		}
+//		case fiTracknumber:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			if (!pTag->track())
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pTag->track();
+//			break;
+//		}
+//		case fiComment:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->comment().toWString().c_str(), iMaxLen );
+//			break;
+//		}
+//		case fiGenre:
+//		{
+//			if (!pTag)
+//				return WDX_API::ftFieldEmpty;
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->genre().toWString().c_str(), iMaxLen );
+//			break;
+//		}
+//		case fiBitrate:
+//		{
+//			if (!pProp)
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pProp->bitrate();
+//			break;
+//		}
+//		case fiSamplerate:
+//		{
+//			if (!pProp)
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pProp->sampleRate();
+//			break;
+//		}
+//		case fiChannels:
+//		{
+//			if (!pProp)
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pProp->channels();
+//			break;
+//		}
+//		case fiLength_s:
+//		{
+//			if (!pProp)
+//				return WDX_API::ftFieldEmpty;
+//			*(__int32*)pFieldValue = pProp->length();
+//			break;
+//		}
+//		case fiLength_m:
+//		{
+//			if (!pProp)
+//				return WDX_API::ftFieldEmpty;
+//			int nSeconds = pProp->length() % 60;
+//			int nMinutes = (pProp->length() - nSeconds) / 60;
+//
+//			utils::strlcpyw(reinterpret_cast<wchar_t*>(pFieldValue),
+//					std::wstring(utils::Int2Str(nMinutes) + TEXT("m ") +
+//									utils::formatSeconds(nSeconds) + TEXT("s")).c_str(),
+//							iMaxLen);
+//			break;
+//		}
+//		case fiTagType:
+//		{
+//			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), GetTagType(file.file()).c_str(), iMaxLen );
+//			break;
+//		}
+//		default:
+//		{
+//			return WDX_API::ftNoSuchField;
+//			break;
+//		}
+//	}
+//
+//	return m_Fields.Find( iFieldIndex ).GetType();
+//}
 
 std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
@@ -321,31 +321,31 @@ std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
 	return sResult.str();
 }
 
-WDX_API::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
-								const int iUnitIndex, const int iFieldType,
-								const void* pFieldValue, const int iFlags )
-{
-	TagLib::FileRef file = OpenFile( sFileName );
-
-	if ( file.isNull() || !file.tag() )
-		return WDX_API::ftFileError;
-
-	TagLib::Tag* pTag = file.tag();
-
-	switch (iFieldIndex)
-	{
-		case fiTitle:			pTag->setTitle((PTCHAR)pFieldValue);		break;
-		case fiArtist:			pTag->setArtist((PTCHAR)pFieldValue);		break;
-		case fiAlbum:			pTag->setAlbum((PTCHAR)pFieldValue);		break;
-		case fiYear:			pTag->setYear(*(__int32*)pFieldValue);		break;
-		case fiTracknumber:		pTag->setTrack(*(__int32*)pFieldValue);		break;
-		case fiComment:			pTag->setComment((PTCHAR)pFieldValue);		break;
-		case fiGenre:			pTag->setGenre((PTCHAR)pFieldValue);		break;
-		default: 				return WDX_API::ftNoSuchField;				break;
-	}
-
-	return WDX_API::ftSetSuccess;
-}
+//WDX_API::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
+//								const int iUnitIndex, const int iFieldType,
+//								const void* pFieldValue, const int iFlags )
+//{
+//	TagLib::FileRef file = OpenFile( sFileName );
+//
+//	if ( file.isNull() || !file.tag() )
+//		return WDX_API::ftFileError;
+//
+//	TagLib::Tag* pTag = file.tag();
+//
+//	switch (iFieldIndex)
+//	{
+//		case fiTitle:			pTag->setTitle((PTCHAR)pFieldValue);		break;
+//		case fiArtist:			pTag->setArtist((PTCHAR)pFieldValue);		break;
+//		case fiAlbum:			pTag->setAlbum((PTCHAR)pFieldValue);		break;
+//		case fiYear:			pTag->setYear(*(__int32*)pFieldValue);		break;
+//		case fiTracknumber:		pTag->setTrack(*(__int32*)pFieldValue);		break;
+//		case fiComment:			pTag->setComment((PTCHAR)pFieldValue);		break;
+//		case fiGenre:			pTag->setGenre((PTCHAR)pFieldValue);		break;
+//		default: 				return WDX_API::ftNoSuchField;				break;
+//	}
+//
+//	return WDX_API::ftSetSuccess;
+//}
 
 void WDXTagLib::OnEndOfSetValue()
 {
