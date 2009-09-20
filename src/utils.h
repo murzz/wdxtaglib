@@ -38,7 +38,9 @@ namespace utils
 	char* strlcpy( char* p, const char* p2, int maxlen );
 	WCHAR* strlcpyw(WCHAR *str1,const WCHAR *str2,int imaxlen);
 	string_t formatSeconds( int seconds );
-	string_t Int2Str( const int num );
+	//string_t Int2Str( const int num );
+	std::wstring Int2StrW( const int num );
+	std::string Int2Str( const int num );
 	void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 
 #ifdef DEBUG
