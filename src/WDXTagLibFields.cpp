@@ -32,10 +32,10 @@ FieldTitle::FieldTitle()
 	SetFlag(contflags_edit);
 }
 
-FieldTitle::~FieldTitle()
-{
-
-}
+//FieldTitle::~FieldTitle()
+//{
+//
+//}
 
 void FieldTitle::OnGetValue(const std::wstring& sFileName,
 		const int iUnitIndex, void* pFieldValue,
@@ -69,10 +69,10 @@ FieldArtist::FieldArtist()
 	SetFlag(contflags_edit);
 }
 
-FieldArtist::~FieldArtist()
-{
-
-}
+//FieldArtist::~FieldArtist()
+//{
+//
+//}
 
 void FieldArtist::OnGetValue(const std::wstring& sFileName,
 		const int iUnitIndex, void* pFieldValue,

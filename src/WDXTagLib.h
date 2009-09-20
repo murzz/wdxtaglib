@@ -45,9 +45,9 @@ class WDXTagLib : public WDX_API::WDXBase
 		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
 		//std::wstring GetTagType( TagLib::File* pFile ) const;
 
-		typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
-		typedef CMapOfFiles::iterator CFilesIter;
-		CMapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
+		typedef std::map<std::wstring, TagLib::FileRef> MapOfFiles;
+		typedef MapOfFiles::iterator FilesIter;
+		MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
 };
 
 #endif // CWDXTAGLIB_H

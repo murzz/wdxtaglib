@@ -57,6 +57,7 @@ namespace WDX_API
 
 	/// This class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
+	//template <class T>
 	class FieldBase
 	{
 	private:
@@ -70,6 +71,9 @@ namespace WDX_API
 
 			///@todo use enum
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+
+			/// Pointer to file object shared between all fields.
+			//void* m_FileObjPtr;
 
 	protected:
 			void SetName( const std::string& sName);
@@ -88,6 +92,9 @@ namespace WDX_API
 			std::string GetMultChoice() const;
 			int GetFlag() const;
 
+			//void* GetFileObjPtr() const;
+			//void SetFileObjPtr( void* pFileObj );
+
 			/// Implement it in every custom field.
 			virtual void OnGetValue(const std::wstring& sFileName,
 					const int iUnitIndex, void* pFieldValue,
@@ -98,6 +105,7 @@ namespace WDX_API
 	};
 
 	/// List of fields.
+	//template <class type_name>
 	class FieldList
 	{
 	private:
@@ -105,11 +113,16 @@ namespace WDX_API
 		typedef std::map<int, FieldBase*> MapOfFields;
 		MapOfFields m_Fields;
 
+		/// File object used for cashing file between different fields.
+		void* m_FileObjPtr;
+
 	public:
 		FieldList();
 		virtual ~FieldList();
 
 		size_t Count() const;
+
+		/// @param nIdx index of field, it should be unique upon all fields.
 		void Add(int nIdx, FieldBase* pField);
 		FieldBase& Find(const int nIdx);
 		int GetAllFlags();
@@ -153,6 +166,7 @@ namespace WDX_API
 			DWORD GetPluginInterfaceVersionLow() const;
 
 			/// Fields supported by plugin. Add supported fields in descendant.
+			/// @todo hide field to private scope, export only essential methods of it.
 			FieldList m_Fields;
 
 //			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
