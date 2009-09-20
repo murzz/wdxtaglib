@@ -43,22 +43,11 @@ class WDXTagLib : public WDX_API::WDXBase
 //									const void* FieldValue, const int flags );
 
 		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
-		std::wstring GetTagType( TagLib::File* pFile ) const;
+		//std::wstring GetTagType( TagLib::File* pFile ) const;
 
 		typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
 		typedef CMapOfFiles::iterator CFilesIter;
 		CMapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
-};
-
-class FieldTitle : public WDX_API::FieldBase
-{
-public:
-	FieldTitle();
-	virtual ~FieldTitle();
-
-	void OnGetValue(const std::wstring& sFileName,
-			const int iUnitIndex, void* pFieldValue,
-			const int iMaxLen, const int iFlags);
 };
 
 #endif // CWDXTAGLIB_H
