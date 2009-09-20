@@ -16,11 +16,12 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "WDXTagLib.h"
+#include "WDXTagLibFields.h"
 #include "utils.h"
+
+// TagLib includes
 #include <tag.h>
-
-#include "mpegfile.h"
-
+//#include "mpegfile.h"
 #include "id3v2tag.h"
 #include "id3v2header.h"
 #include "id3v1tag.h"
@@ -32,29 +33,14 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
-typedef enum EFieldIndexes_tag
-{
-	fiTitle = 0,
-	fiArtist,
-	fiAlbum,
-	fiYear,
-	fiTracknumber,
-	fiComment,
-	fiGenre,
-	fiBitrate,
-	fiSamplerate,
-	fiChannels,
-	fiLength_s,
-	fiLength_m,
-	fiTagType,
-} EFieldIndexes;
-
 WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
 
-	FieldTitle* pTitle = new FieldTitle();
-	m_Fields.Add( fiTitle,			pTitle );
+	///@todo implement something like FieldFactory here
+	m_Fields.Add( fiTitle,			new FieldTitle() );
+	m_Fields.Add( fiArtist,			new FieldArtist() );
+
 //	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
@@ -243,83 +229,83 @@ TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 //	return m_Fields.Find( iFieldIndex ).GetType();
 //}
 
-std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
-{
-	TagLib::ID3v2::Tag *pId3v2 = NULL;
-	TagLib::ID3v1::Tag *pId3v1 = NULL;
-	TagLib::APE::Tag *pApe = NULL;
-	TagLib::Ogg::XiphComment *pXiph = NULL;
-
-	// get pointers to tags
-	TagLib::MPEG::File* pMpegFile = dynamic_cast<TagLib::MPEG::File*>(pFile);
-	if (pMpegFile && pMpegFile->isValid())
-	{
-		pId3v2 = pMpegFile->ID3v2Tag();
-		pId3v1 = pMpegFile->ID3v1Tag();
-		pApe = pMpegFile->APETag();
-	}
-
-	TagLib::FLAC::File* pFlacFile = dynamic_cast<TagLib::FLAC::File*>(pFile);
-	if (pFlacFile && pFlacFile->isValid())
-	{
-		pId3v2 = pFlacFile->ID3v2Tag();
-		pId3v1 = pFlacFile->ID3v1Tag();
-		pXiph = pFlacFile->xiphComment();
-	}
-
-	TagLib::MPC::File* pMpcFile =  dynamic_cast<TagLib::MPC::File*>(pFile);
-	if (pMpcFile && pMpcFile->isValid())
-	{
-		pId3v1 = pMpcFile->ID3v1Tag();
-		pApe = pMpcFile->APETag();
-	}
-
-	TagLib::Ogg::File* pOggFile =  dynamic_cast<TagLib::Ogg::File*>(pFile);
-	bool bJustSayXiph = pOggFile && pOggFile->isValid(); // ogg files could have only xiph comments
-
-	TagLib::TrueAudio::File* pTAFile = dynamic_cast<TagLib::TrueAudio::File*>(pFile);
-	if (pTAFile && pTAFile->isValid())
-	{
-		pId3v2 = pTAFile->ID3v2Tag();
-		pId3v1 = pTAFile->ID3v1Tag();
-	}
-
-	TagLib::WavPack::File* pWPFile =  dynamic_cast<TagLib::WavPack::File*>(pFile);
-	if (pWPFile && pWPFile->isValid())
-	{
-		pId3v1 = pWPFile->ID3v1Tag();
-		pApe = pWPFile->APETag();
-	}
-
-	// format text
-	tstringstream sResult;
-	bool bUseSeparator = false;
-	if ( pId3v2 && !pId3v2->isEmpty())
-	{
-		sResult << TEXT("ID3v2.")
-			<< pId3v2->header()->majorVersion()
-			<< TEXT(".")
-			<< pId3v2->header()->revisionNumber();
-		bUseSeparator = true;
-	}
-
-	if ( pId3v1 && !pId3v1->isEmpty() )
-	{
-		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
-		bUseSeparator = true;
-	}
-
-	if ( pApe && !pApe->isEmpty() )
-	{
-		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
-		bUseSeparator = true;
-	}
-
-	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
-		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
-
-	return sResult.str();
-}
+//std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
+//{
+//	TagLib::ID3v2::Tag *pId3v2 = NULL;
+//	TagLib::ID3v1::Tag *pId3v1 = NULL;
+//	TagLib::APE::Tag *pApe = NULL;
+//	TagLib::Ogg::XiphComment *pXiph = NULL;
+//
+//	// get pointers to tags
+//	TagLib::MPEG::File* pMpegFile = dynamic_cast<TagLib::MPEG::File*>(pFile);
+//	if (pMpegFile && pMpegFile->isValid())
+//	{
+//		pId3v2 = pMpegFile->ID3v2Tag();
+//		pId3v1 = pMpegFile->ID3v1Tag();
+//		pApe = pMpegFile->APETag();
+//	}
+//
+//	TagLib::FLAC::File* pFlacFile = dynamic_cast<TagLib::FLAC::File*>(pFile);
+//	if (pFlacFile && pFlacFile->isValid())
+//	{
+//		pId3v2 = pFlacFile->ID3v2Tag();
+//		pId3v1 = pFlacFile->ID3v1Tag();
+//		pXiph = pFlacFile->xiphComment();
+//	}
+//
+//	TagLib::MPC::File* pMpcFile =  dynamic_cast<TagLib::MPC::File*>(pFile);
+//	if (pMpcFile && pMpcFile->isValid())
+//	{
+//		pId3v1 = pMpcFile->ID3v1Tag();
+//		pApe = pMpcFile->APETag();
+//	}
+//
+//	TagLib::Ogg::File* pOggFile =  dynamic_cast<TagLib::Ogg::File*>(pFile);
+//	bool bJustSayXiph = pOggFile && pOggFile->isValid(); // ogg files could have only xiph comments
+//
+//	TagLib::TrueAudio::File* pTAFile = dynamic_cast<TagLib::TrueAudio::File*>(pFile);
+//	if (pTAFile && pTAFile->isValid())
+//	{
+//		pId3v2 = pTAFile->ID3v2Tag();
+//		pId3v1 = pTAFile->ID3v1Tag();
+//	}
+//
+//	TagLib::WavPack::File* pWPFile =  dynamic_cast<TagLib::WavPack::File*>(pFile);
+//	if (pWPFile && pWPFile->isValid())
+//	{
+//		pId3v1 = pWPFile->ID3v1Tag();
+//		pApe = pWPFile->APETag();
+//	}
+//
+//	// format text
+//	tstringstream sResult;
+//	bool bUseSeparator = false;
+//	if ( pId3v2 && !pId3v2->isEmpty())
+//	{
+//		sResult << TEXT("ID3v2.")
+//			<< pId3v2->header()->majorVersion()
+//			<< TEXT(".")
+//			<< pId3v2->header()->revisionNumber();
+//		bUseSeparator = true;
+//	}
+//
+//	if ( pId3v1 && !pId3v1->isEmpty() )
+//	{
+//		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+//		bUseSeparator = true;
+//	}
+//
+//	if ( pApe && !pApe->isEmpty() )
+//	{
+//		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+//		bUseSeparator = true;
+//	}
+//
+//	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
+//		sResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
+//
+//	return sResult.str();
+//}
 
 //WDX_API::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
 //								const int iUnitIndex, const int iFieldType,
@@ -356,41 +342,4 @@ void WDXTagLib::OnEndOfSetValue()
 	}
 
 	m_Files2Write.clear();
-}
-
-FieldTitle::FieldTitle()
-: FieldBase()
-{
-	SetName("Title");
-	SetType(WDX_API::ftWideString);
-	//m_Unit("");
-	//m_MultChoice("");
-	SetFlag(contflags_edit);
-}
-
-FieldTitle::~FieldTitle()
-{
-
-}
-
-void FieldTitle::OnGetValue(const std::wstring& sFileName,
-		const int iUnitIndex, void* pFieldValue,
-		const int iMaxLen, const int iFlags)
-{
-	///@todo cache opened files here like in OnSetValue() to improve performance.
-	///@todo close cache on timer event.
-	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
-
-	// no file, no tags or no properties
-//	if ( file.isNull() )
-//		return WDX_API::ftFileError;
-//
-//	if ( IsAborted() )
-//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
-	TagLib::Tag* pTag = file.tag();
-
-	///@todo throw exception here
-	//if (!pTag)
-	//	return WDX_API::ftFieldEmpty;
-	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 }
