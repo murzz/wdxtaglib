@@ -57,9 +57,9 @@ namespace WDX_API
 
 	/// This class represents a field (property) of a file we want to expose.
 	/// @note Field name and unit must me ANSI, use LNG file to translate it.
-	class Field
+	class FieldBase
 	{
-		public:
+	private:
 			/// Name of a field as it would be shown in TC.
 			/// The field may not contain the following chars: . (dot) | (vertical line) : (colon).
 			/// @note Field name must me ANSI.
@@ -71,16 +71,27 @@ namespace WDX_API
 			///@todo use enum
 			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
-			Field() : m_Type(ftNoMoreFields), m_Flag(0){};
+	protected:
+			void SetName( const std::string& sName);
+			void SetType( const EFieldType& ftType );
+			void SetUnit( const std::string& sUnit );
+			void SetMultChoice( const std::string& sMultChoice );
+			void SetFlag( const int& nFlag );
 
-			Field(const std::string& sName, const EFieldType FieldType, const std::string& sUnit, const std::string& sMultChoice, const int iFlag)
-			:	m_Name(sName),
-				m_Type(FieldType),
-				m_Unit(sUnit),
-				m_MultChoice(sMultChoice),
-				m_Flag(iFlag)
-			{
-			}
+	public:
+			FieldBase();
+			virtual ~FieldBase();
+
+			std::string GetName() const;
+			EFieldType GetType() const;
+			std::string GetUnit() const;
+			std::string GetMultChoice() const;
+			int GetFlag() const;
+
+			virtual void OnGetValue(const std::wstring& sFileNamee,
+					const int iUnitIndex, void* pFieldValue,
+					const int iMaxLen, const int iFlags) = 0;
+			virtual void OnSetValue();
 	};
 
 	/// List of fields.
@@ -88,7 +99,7 @@ namespace WDX_API
 	{
 	private:
 		/// Map of fields.
-		typedef std::map<int, Field> MapOfFields;
+		typedef std::map<int, FieldBase*> MapOfFields;
 		MapOfFields m_Fields;
 
 	public:
@@ -96,8 +107,8 @@ namespace WDX_API
 		virtual ~FieldList();
 
 		size_t Count() const;
-		void Add(int nIdx, const Field& fld);
-		Field& Find(const int nIdx);
+		void Add(int nIdx, FieldBase* pField);
+		FieldBase& Find(const int nIdx);
 		int GetAllFlags();
 	};
 

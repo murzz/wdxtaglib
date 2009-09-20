@@ -94,10 +94,10 @@ EFieldType WDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName
 	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
 		return ftNoMoreFields;
 
-	const Field& f = m_Fields.Find( iFieldIndex );
-	utils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
-	utils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
-	return f.m_Type;
+	const FieldBase& f = m_Fields.Find( iFieldIndex );
+	utils::strlcpy( pszFieldName, f.GetName().c_str(), iMaxLen - 1 );
+	utils::strlcpy( pszUnits, f.GetMultChoice().c_str(), iMaxLen - 1 );
+	return f.GetType();
 }
 
 EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
@@ -106,19 +106,49 @@ EFieldType WDXBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex,
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
-	///@todo do parameter checking properly
-	if (iUnitIndex < 0)
-		utils::ShowError(utils::Int2Str(iUnitIndex));
+	// parameter checking
+
+	if ( !pszFileName )
+	{
+		throw std::runtime_error("pszFileName is NULL");
+	}
 
 	///@todo encapsulate this into FieldList, or throw NoSuchField exception
 	if ( iFieldIndex < 0 || iFieldIndex >= static_cast<int>(m_Fields.Count()) )
+	{
 		return ftNoSuchField;
+	}
+
+	if ( iUnitIndex < 0 )
+	{
+		throw std::runtime_error("iUnitIndex is negative");
+	}
+
+	if ( !pFieldValue )
+	{
+		throw std::runtime_error("pFieldValue is NULL");
+	}
+
+	if ( iMaxLen < 0 )
+	{
+		throw std::runtime_error("iMaxLen is negative");
+	}
+
+	if ( iFlags < 0 )
+	{
+		throw std::runtime_error("iFlags is negative");
+	}
 
 	// abort flag down
 	ClearAbortedFlag( );
 
+	FieldBase& f = m_Fields.Find( iFieldIndex );
+
+	f.OnGetValue( pszFileName, iUnitIndex, pFieldValue, iMaxLen, iFlags );
+	return f.GetType();
+
 	///@todo make interface easier, hide field value in Field class and so on
-	return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
+	//return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
 }
 
 EFieldType WDXBase::SetValue( const WCHAR* FileName, const int FieldIndex,
@@ -163,7 +193,7 @@ int WDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 		return ftNoMoreFields;
 	}
 
-	return m_Fields.Find( iFieldIndex ).m_Flag;
+	return m_Fields.Find( iFieldIndex ).GetFlag();
 }
 
 void WDXBase::OnEndOfSetValue() const
@@ -243,7 +273,7 @@ FieldList::FieldList()
 
 FieldList::~FieldList()
 {
-
+///@todo destroy all fields here
 }
 
 size_t FieldList::Count() const
@@ -251,10 +281,15 @@ size_t FieldList::Count() const
 	return m_Fields.size();
 }
 
-void FieldList::Add(int nIdx, const Field& fld)
+void FieldList::Add(int nIdx, FieldBase* pField)
 {
+	if ( !pField )
+	{
+		throw std::runtime_error("Failed add field: pointer is empty");
+	}
+
 	std::pair<MapOfFields::iterator, bool> ResultPair =
-		m_Fields.insert(MapOfFields::value_type(nIdx, fld));
+		m_Fields.insert(MapOfFields::value_type(nIdx, pField));
 
 	if (!ResultPair.second)
 	{
@@ -262,7 +297,7 @@ void FieldList::Add(int nIdx, const Field& fld)
 	}
 }
 
-Field& FieldList::Find(const int Idx)
+FieldBase& FieldList::Find(const int Idx)
 {
 	MapOfFields::iterator iter = m_Fields.find(Idx);
 	if (m_Fields.end() == iter)
@@ -270,7 +305,7 @@ Field& FieldList::Find(const int Idx)
 		throw std::runtime_error("Failed to find field by index");
 	}
 
-	return (*iter).second;
+	return *((*iter).second);
 }
 
 int FieldList::GetAllFlags()
@@ -280,11 +315,80 @@ int FieldList::GetAllFlags()
 		iter != m_Fields.end();
 		++iter)
 	{
-		const Field& f = (*iter).second;
-		if (f.m_Flag)
-			iTotalFlags |= f.m_Flag;
+		const FieldBase& f = *((*iter).second);
+		if (f.GetFlag())
+			iTotalFlags |= f.GetFlag();
 	}
 	return iTotalFlags;
+}
+
+FieldBase::FieldBase()
+:	m_Name("Unnamed field"),
+	m_Type( ftNoMoreFields ),
+	m_Unit(""),
+	m_MultChoice(""),
+	m_Flag(0)
+{
+
+}
+
+FieldBase::~FieldBase()
+{
+
+}
+
+void FieldBase::OnSetValue()
+{
+}
+
+void FieldBase::SetName( const std::string& sName)
+{
+	m_Name = sName;
+}
+
+void FieldBase::SetType( const EFieldType& ftType )
+{
+	m_Type = ftType;
+}
+
+void FieldBase::SetUnit( const std::string& sUnit )
+{
+	m_Unit = sUnit;
+}
+
+void FieldBase::SetMultChoice( const std::string& sMultChoice )
+{
+	m_MultChoice = sMultChoice;
+}
+
+void FieldBase::SetFlag( const int& nFlag )
+{
+	m_Flag = nFlag;
+}
+
+std::string FieldBase::GetName() const
+{
+	return m_Name;
+}
+
+EFieldType FieldBase::GetType() const
+{
+	return m_Type;
+}
+
+std::string FieldBase::GetUnit() const
+{
+	return m_Unit;
+}
+
+std::string FieldBase::GetMultChoice() const
+{
+	return m_MultChoice;
+}
+
+int FieldBase::GetFlag() const
+{
+	return m_Flag;
 }
 
 } // namespace

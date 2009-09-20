@@ -52,19 +52,21 @@ typedef enum EFieldIndexes_tag
 WDXTagLib::WDXTagLib()
 {
 	// fill data for all supported fields here
-	m_Fields.Add( fiTitle,			WDX_API::Field( "Title",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
-	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
-	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
+
+	FieldTitle* p = new FieldTitle();
+	m_Fields.Add( fiTitle,			p );
+//	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+//	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
+//	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
+//	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
+//	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
+//	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
+//	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
 }
 
 WDXTagLib::~WDXTagLib()
@@ -238,7 +240,7 @@ WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const i
 		}
 	}
 
-	return m_Fields.Find( iFieldIndex ).m_Type;
+	return m_Fields.Find( iFieldIndex ).GetType();
 }
 
 std::wstring WDXTagLib::GetTagType( TagLib::File* pFile ) const
@@ -354,4 +356,41 @@ void WDXTagLib::OnEndOfSetValue()
 	}
 
 	m_Files2Write.clear();
+}
+
+FieldTitle::FieldTitle()
+: FieldBase()
+{
+	SetName("Title");
+	SetType(WDX_API::ftWideString);
+	//m_Unit("");
+	//m_MultChoice("");
+	SetFlag(contflags_edit);
+}
+
+FieldTitle::~FieldTitle()
+{
+
+}
+
+void FieldTitle::OnGetValue(const std::wstring& sFileName,
+		const int iUnitIndex, void* pFieldValue,
+		const int iMaxLen, const int iFlags)
+{
+	///@todo cache opened files here like in OnSetValue() to improve performance.
+	///@todo close cache on timer event.
+	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
+
+	// no file, no tags or no properties
+//	if ( file.isNull() )
+//		return WDX_API::ftFileError;
+//
+//	if ( IsAborted() )
+//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+	TagLib::Tag* pTag = file.tag();
+
+	///@todo throw exception here
+	//if (!pTag)
+	//	return WDX_API::ftFieldEmpty;
+	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 }
