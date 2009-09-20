@@ -37,22 +37,27 @@ typedef enum EFieldIndexes_tag
 //	fiTagType,
 } EFieldIndexes;
 
-class FieldTitle : public WDX_API::FieldBase
+class WDXTagLibField : public WDX_API::FieldBase
+{
+///@todo sdesj sdelaj cache
+};
+
+class FieldTitle : public WDXTagLibField
 {
 public:
 	FieldTitle();
-	virtual ~FieldTitle();
+	//virtual ~FieldTitle();
 
 	void OnGetValue(const std::wstring& sFileName,
 			const int iUnitIndex, void* pFieldValue,
 			const int iMaxLen, const int iFlags);
 };
 
-class FieldArtist : public WDX_API::FieldBase
+class FieldArtist : public WDXTagLibField
 {
 public:
 	FieldArtist();
-	virtual ~FieldArtist();
+	//virtual ~FieldArtist();
 
 	void OnGetValue(const std::wstring& sFileName,
 			const int iUnitIndex, void* pFieldValue,

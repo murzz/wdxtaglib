@@ -339,6 +339,16 @@ FieldBase::~FieldBase()
 
 }
 
+//void* FieldBase::GetFileObjPtr() const
+//{
+//	return m_FileObjPtr;
+//}
+//
+//void FieldBase::SetFileObjPtr( void* pFileObj )
+//{
+//	m_FileObjPtr = pFileObj;
+//}
+
 void FieldBase::OnSetValue()
 {
 }

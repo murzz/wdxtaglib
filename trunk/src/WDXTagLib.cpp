@@ -41,7 +41,6 @@ WDXTagLib::WDXTagLib()
 	m_Fields.Add( fiTitle,			new FieldTitle() );
 	m_Fields.Add( fiArtist,			new FieldArtist() );
 
-//	m_Fields.Add( fiArtist,			WDX_API::Field( "Artist",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
@@ -86,7 +85,7 @@ TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference
-	CFilesIter iter = m_Files2Write.find( sFileName );
+	FilesIter iter = m_Files2Write.find( sFileName );
 
 	if ( m_Files2Write.end() == iter )
 	{
@@ -336,7 +335,7 @@ TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 void WDXTagLib::OnEndOfSetValue()
 {
 	// commit unsaved changes
-	for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+	for (FilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
 	{
 		(*iter).second.save();
 	}
