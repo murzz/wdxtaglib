@@ -22,8 +22,7 @@
 #include <tag.h>
 #include "fileref.h"
 
-FieldTitle::FieldTitle()
-: FieldBase()
+void FieldTitle::Configure()
 {
 	SetName("Title");
 	SetType(WDX_API::ftWideString);
@@ -59,8 +58,7 @@ void FieldTitle::OnGetValue(const std::wstring& sFileName,
 	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 }
 
-FieldArtist::FieldArtist()
-: FieldBase()
+void FieldArtist::Configure()
 {
 	SetName("Artist");
 	SetType(WDX_API::ftWideString);

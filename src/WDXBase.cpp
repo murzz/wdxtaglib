@@ -331,7 +331,7 @@ FieldBase::FieldBase()
 	m_MultChoice(""),
 	m_Flag(0)
 {
-
+	Configure();
 }
 
 FieldBase::~FieldBase()
@@ -401,6 +401,11 @@ std::string FieldBase::GetMultChoice() const
 int FieldBase::GetFlag() const
 {
 	return m_Flag;
+}
+
+void FieldBase::Configure()
+{
+
 }
 
 } // namespace
