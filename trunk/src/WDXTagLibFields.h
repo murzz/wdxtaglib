@@ -44,10 +44,8 @@ class WDXTagLibField : public WDX_API::FieldBase
 
 class FieldTitle : public WDXTagLibField
 {
-public:
-	FieldTitle();
-	//virtual ~FieldTitle();
-
+private:
+	void Configure();
 	void OnGetValue(const std::wstring& sFileName,
 			const int iUnitIndex, void* pFieldValue,
 			const int iMaxLen, const int iFlags);
@@ -55,10 +53,8 @@ public:
 
 class FieldArtist : public WDXTagLibField
 {
-public:
-	FieldArtist();
-	//virtual ~FieldArtist();
-
+private:
+	void Configure();
 	void OnGetValue(const std::wstring& sFileName,
 			const int iUnitIndex, void* pFieldValue,
 			const int iMaxLen, const int iFlags);

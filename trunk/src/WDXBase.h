@@ -82,6 +82,9 @@ namespace WDX_API
 			void SetMultChoice( const std::string& sMultChoice );
 			void SetFlag( const int& nFlag );
 
+			/// Implement it to configure field parameters.
+			virtual void Configure();
+
 	public:
 			FieldBase();
 			virtual ~FieldBase();
