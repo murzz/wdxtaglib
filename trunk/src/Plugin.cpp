@@ -33,6 +33,56 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
+PluginFieldList::PluginFieldList()
+{
+
+}
+
+PluginFieldList::~PluginFieldList()
+{
+
+}
+
+void PluginFieldList::OnAddFields()
+{
+	AddField( new FieldTitle(m_File));
+	AddField( new FieldArtist(m_File));
+
+	//	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	//	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+	//	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+	//	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	//	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+	//	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	//	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
+	//	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	//	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
+	//	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
+	//	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
+
+}
+
+void PluginFieldList::OpenFile(const std::wstring& sFileName)
+{
+	if (!m_File.isNull() && m_File.file() && (std::wstring(
+			m_File.file()->name()) == sFileName))
+	{
+		// already have this file opened
+		return;
+	}
+	TagLib::FileRef File(sFileName.c_str(), true,
+			TagLib::AudioProperties::Accurate);
+	m_File = File;
+}
+void PluginFieldList::CloseFile()
+{
+	if (!m_File.isNull() && m_File.file())
+	{
+		///@todo close file here, use pointer to file and delete it here
+		//m_File.file()->clear();
+	}
+}
+
 Plugin::Plugin()
 {
 }
@@ -43,25 +93,11 @@ Plugin::~Plugin()
 
 void Plugin::OnAddFields()
 {
-	// fill data for all supported fields here
-
-	///@todo implement something like FieldFactory here
-	//AddField( fiTitle,			new FieldTitle() );
-	//AddField( fiArtist,			new FieldArtist() );
-
-//	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-//	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-//	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-//	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-//	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-//	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
-//	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
-//	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
-//	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
-//	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
-//	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
 }
-
+WDX_API::FieldListBase* Plugin::OnRegisterFieldList()
+{
+	return new PluginFieldList();
+}
 std::string Plugin::OnGetDetectString() const
 {
 	// take supported extensions from FileRef.
@@ -80,7 +116,9 @@ std::string Plugin::OnGetDetectString() const
 
 	// remove last sOr
 	if (!sExtList.isEmpty())
+	{
 		sExtList = sExtList.substr(0, sExtList.size() - sOr.size());
+	}
 
 	return sExtList.toCString();
 }

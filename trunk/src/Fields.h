@@ -21,6 +21,7 @@
 #include <fileref.h>
 
 ///@todo use ID in each field
+/*
 typedef enum EFieldIndexes_tag
 {
 	fiTitle = 0, fiArtist,
@@ -35,7 +36,7 @@ typedef enum EFieldIndexes_tag
 //	fiLength_s,
 //	fiLength_m,
 //	fiTagType,
-} EFieldIndexes;
+} EFieldIndexes;*/
 
 class Field: public WDX_API::FieldBase
 {
@@ -50,7 +51,7 @@ protected:
 		return m_File;
 	}
 private:
-	/// File cached between fields.
+	/// File shared between fields.
 	TagLib::FileRef& m_File;
 };
 

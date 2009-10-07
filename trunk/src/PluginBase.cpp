@@ -32,7 +32,7 @@ PluginBase::PluginBase() :
 
 	ClearAbortedFlag();
 
-	OnAddFields();
+	m_pFields->AddFields();
 }
 
 PluginBase::~PluginBase()
@@ -41,22 +41,10 @@ PluginBase::~PluginBase()
 	FreeFieldList();
 }
 
-void PluginBase::OnAddFields()
-{
-	utils::DbgStr(__PRETTY_FUNCTION__);
- // that one should be reimplemented in descendants
-}
-
-FieldList* PluginBase::OnRegisterFieldList( )
+FieldListBase* PluginBase::OnRegisterFieldList( )
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 	return new FieldList;
-}
-
-void PluginBase::AddField(int nIdx, FieldBase* pField)
-{
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	m_pFields->Add(nIdx, pField);
 }
 
 void PluginBase::FreeFieldList()
@@ -177,10 +165,11 @@ EFieldType PluginBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 	// abort flag down
 	ClearAbortedFlag();
 
-	FieldBase& f = m_pFields->Find(iFieldIndex);
+	m_pFields->OpenFile(pszFileName);
+	FieldBase& Field = m_pFields->Find(iFieldIndex);
 
-	f.OnGetValue(/*pszFileName,*/ iUnitIndex, pFieldValue, iMaxLen, iFlags);
-	return f.GetType();
+	Field.OnGetValue(/*pszFileName,*/ iUnitIndex, pFieldValue, iMaxLen, iFlags);
+	return Field.GetType();
 }
 
 EFieldType PluginBase::SetValue(const WCHAR* pszFileName, const int iFieldIndex,
@@ -303,7 +292,7 @@ void PluginBase::OnPluginUnloading()
 	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
-void PluginBase::RegisterFieldList(FieldList* pFieldList)
+void PluginBase::RegisterFieldList(FieldListBase* pFieldList)
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 	if (m_pFields)
@@ -315,57 +304,75 @@ void PluginBase::RegisterFieldList(FieldList* pFieldList)
 	m_pFields = pFieldList;
 }
 
-FieldList::FieldList()
+FieldListBase::FieldListBase()
 {
-
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
-FieldList::~FieldList()
+FieldListBase::~FieldListBase()
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
 	///@todo destroy all fields here
 }
 
-size_t FieldList::Count() const
+size_t FieldListBase::Count() const
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
+
 	return m_Fields.size();
 }
 
-void FieldList::Add(int nIdx, FieldBase* pField)
+void FieldListBase::AddFields()
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
+
+	OnAddFields();
+}
+
+void FieldListBase::AddField( FieldBase* pField)
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+
 	if (!pField)
 	{
 		throw std::runtime_error("Failed add field: pointer is empty");
 	}
-
-	std::pair<MapOfFields::iterator, bool> ResultPair = m_Fields.insert(
-			MapOfFields::value_type(nIdx, pField));
-
-	if (!ResultPair.second)
-	{
-		throw std::runtime_error("Failed to add field");
-	}
+	m_Fields.push_back(pField);
+//	std::pair<MapOfFields::iterator, bool> ResultPair = m_Fields.insert(
+//			MapOfFields::value_type(nIdx, pField));
+//
+//	if (!ResultPair.second)
+//	{
+//		throw std::runtime_error("Failed to add field");
+//	}
 }
 
-FieldBase& FieldList::Find(const int Idx)
+FieldBase& FieldListBase::Find(const int Idx)
 {
-	MapOfFields::iterator iter = m_Fields.find(Idx);
-	if (m_Fields.end() == iter)
-	{
-		throw std::runtime_error(
-				(std::string("Failed to find field by index: ")
-						+ utils::Int2Str(Idx)).c_str());
-	}
+	utils::DbgStr(__PRETTY_FUNCTION__);
 
-	return *((*iter).second);
+	return *(m_Fields.at(Idx));
+//	MapOfFields::iterator iter = m_Fields.find(Idx);
+//	if (m_Fields.end() == iter)
+//	{
+//		throw std::runtime_error(
+//				(std::string("Failed to find field by index: ")
+//						+ utils::Int2Str(Idx)).c_str());
+//	}
+//
+//	return *((*iter).second);
 }
 
-int FieldList::GetAllFlags()
+int FieldListBase::GetAllFlags()
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
+
 	int iTotalFlags = 0;
-	for (MapOfFields::const_iterator iter = m_Fields.begin(); iter
+	for (CollectionOfFields::const_iterator iter = m_Fields.begin(); iter
 			!= m_Fields.end(); ++iter)
 	{
-		const FieldBase& f = *((*iter).second);
+		//const FieldBase& f = *((*iter).second);
+		const FieldBase& f = **iter;
 		if (f.GetFlag())
 			iTotalFlags |= f.GetFlag();
 	}
