@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#include "WDXTagLibFields.h"
+#include "Fields.h"
 #include "utils.h"
 
 // TagLib includes
@@ -36,13 +36,11 @@ void FieldTitle::Configure()
 //
 //}
 
-void FieldTitle::OnGetValue(const std::wstring& sFileName,
+void FieldTitle::OnGetValue(/*const std::wstring& sFileName,*/
 		const int iUnitIndex, void* pFieldValue,
 		const int iMaxLen, const int iFlags)
 {
-	///@todo cache opened files here like in OnSetValue() to improve performance.
-	///@todo close cache on timer event.
-	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
+	TagLib::FileRef& file = GetFile();
 
 	// no file, no tags or no properties
 //	if ( file.isNull() )
@@ -72,13 +70,12 @@ void FieldArtist::Configure()
 //
 //}
 
-void FieldArtist::OnGetValue(const std::wstring& sFileName,
+void FieldArtist::OnGetValue(/*const std::wstring& sFileName,*/
 		const int iUnitIndex, void* pFieldValue,
 		const int iMaxLen, const int iFlags)
 {
-	///@todo cache opened files here like in OnSetValue() to improve performance.
-	///@todo close cache on timer event.
-	TagLib::FileRef file( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
+	TagLib::FileRef& file = GetFile();
+	//( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
 
 	// no file, no tags or no properties
 //	if ( file.isNull() )
