@@ -20,10 +20,10 @@
 #include "PluginBase.h"
 #include <fileref.h>
 
+///@todo use ID in each field
 typedef enum EFieldIndexes_tag
 {
-	fiTitle = 0,
-	fiArtist,
+	fiTitle = 0, fiArtist,
 //	fiAlbum,
 //	fiYear,
 //	fiTracknumber,
@@ -37,29 +37,41 @@ typedef enum EFieldIndexes_tag
 //	fiTagType,
 } EFieldIndexes;
 
-class Field : public WDX_API::FieldBase
+class Field: public WDX_API::FieldBase
 {
+public:
+	Field(TagLib::FileRef& File) :
+		FieldBase(), m_File(File)
+	{
+	}
 protected:
-	TagLib::FileRef& GetFile(){return m_File;};
+	TagLib::FileRef& GetFile()
+	{
+		return m_File;
+	}
 private:
 	/// File cached between fields.
-	static TagLib::FileRef m_File;
+	TagLib::FileRef& m_File;
 };
 
-class FieldTitle : public Field
+class FieldTitle: public Field
 {
+public:
+	FieldTitle(TagLib::FileRef& File):Field(File){}
 private:
 	void Configure();
 	void OnGetValue(/*const std::wstring& sFileName,*/
-			const int iUnitIndex, void* pFieldValue,
-			const int iMaxLen, const int iFlags);
+	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
+			const int iFlags);
 };
 
-class FieldArtist : public Field
+class FieldArtist: public Field
 {
+public:
+	FieldArtist(TagLib::FileRef& File):Field(File){}
 private:
 	void Configure();
 	void OnGetValue(/*const std::wstring& sFileName,*/
-			const int iUnitIndex, void* pFieldValue,
-			const int iMaxLen, const int iFlags);
+	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
+			const int iFlags);
 };
