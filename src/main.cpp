@@ -17,13 +17,13 @@
 
 #include <stdexcept>
 #include "main.h"
-#include "WDXTagLib.h"
+#include "Plugin.h"
 #include "utils.h"
 
-typedef utils::singleton<WDXTagLib> Plugin;
-inline WDXTagLib& PluginInst()
+typedef utils::singleton<Plugin> WDXPlugin;
+inline Plugin& PluginInst()
 {
-	return Plugin::instance();
+	return WDXPlugin::instance();
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

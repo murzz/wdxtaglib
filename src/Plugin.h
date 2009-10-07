@@ -18,21 +18,27 @@
 #ifndef WDXTAGLIB_H
 #define WDXTAGLIB_H
 
-#include "WDXBase.h"
+#include "PluginBase.h"
 #include <fileref.h>
 #include <map>
 
-class WDXTagLib : public WDX_API::WDXBase
+class WDXTagLibFieldList : public WDX_API::FieldList
+{
+
+};
+
+class Plugin : public WDX_API::PluginBase
 {
 	public:
-		WDXTagLib();
-		virtual ~WDXTagLib();
+		Plugin();
+		virtual ~Plugin();
 
 	protected:
 		std::string OnGetDetectString() const;
 		void OnEndOfSetValue();
 
 	private:
+		void OnAddFields();
 
 //		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
 //									const int UnitIndex, void* FieldValue,

@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#include "WDXTagLib.h"
-#include "WDXTagLibFields.h"
+#include "Plugin.h"
+#include "Fields.h"
 #include "utils.h"
 
 // TagLib includes
@@ -33,13 +33,21 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
-WDXTagLib::WDXTagLib()
+Plugin::Plugin()
+{
+}
+
+Plugin::~Plugin()
+{
+}
+
+void Plugin::OnAddFields()
 {
 	// fill data for all supported fields here
 
 	///@todo implement something like FieldFactory here
-	m_Fields.Add( fiTitle,			new FieldTitle() );
-	m_Fields.Add( fiArtist,			new FieldArtist() );
+	AddField( fiTitle,			new FieldTitle() );
+	AddField( fiArtist,			new FieldArtist() );
 
 //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
@@ -54,11 +62,7 @@ WDXTagLib::WDXTagLib()
 //	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
 }
 
-WDXTagLib::~WDXTagLib()
-{
-}
-
-std::string WDXTagLib::OnGetDetectString() const
+std::string Plugin::OnGetDetectString() const
 {
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
@@ -81,7 +85,7 @@ std::string WDXTagLib::OnGetDetectString() const
 	return sExtList.toCString();
 }
 
-TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
+TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference
@@ -332,7 +336,7 @@ TagLib::FileRef& WDXTagLib::OpenFile( const std::wstring& sFileName )
 //	return WDX_API::ftSetSuccess;
 //}
 
-void WDXTagLib::OnEndOfSetValue()
+void Plugin::OnEndOfSetValue()
 {
 	// commit unsaved changes
 	for (FilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)

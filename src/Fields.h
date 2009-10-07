@@ -18,7 +18,8 @@
 #ifndef WDXTAGLIBFIELDS_H_
 #define WDXTAGLIBFIELDS_H_
 
-#include "WDXBase.h"
+#include "PluginBase.h"
+#include <fileref.h>
 
 typedef enum EFieldIndexes_tag
 {
@@ -37,25 +38,29 @@ typedef enum EFieldIndexes_tag
 //	fiTagType,
 } EFieldIndexes;
 
-class WDXTagLibField : public WDX_API::FieldBase
+class Field : public WDX_API::FieldBase
 {
-///@todo sdesj sdelaj cache
+protected:
+	TagLib::FileRef& GetFile(){return m_File;};
+private:
+	/// File cached between fields.
+	static TagLib::FileRef m_File;
 };
 
-class FieldTitle : public WDXTagLibField
+class FieldTitle : public Field
 {
 private:
 	void Configure();
-	void OnGetValue(const std::wstring& sFileName,
+	void OnGetValue(/*const std::wstring& sFileName,*/
 			const int iUnitIndex, void* pFieldValue,
 			const int iMaxLen, const int iFlags);
 };
 
-class FieldArtist : public WDXTagLibField
+class FieldArtist : public Field
 {
 private:
 	void Configure();
-	void OnGetValue(const std::wstring& sFileName,
+	void OnGetValue(/*const std::wstring& sFileName,*/
 			const int iUnitIndex, void* pFieldValue,
 			const int iMaxLen, const int iFlags);
 };
