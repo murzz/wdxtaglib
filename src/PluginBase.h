@@ -17,7 +17,7 @@
 #pragma once
 #include <windows.h>
 #include "contentplug.h"
-#include <map>
+#include <vector>
 #include <string>
 
 /// Namespace where WDX API classes are defined.
@@ -98,23 +98,39 @@ namespace WDX_API
 	};
 
 	/// List of fields.
-	class FieldList
+	class FieldListBase
 	{
 	private:
-		/// Map of fields.
-		typedef std::map<int, FieldBase*> MapOfFields;
-		MapOfFields m_Fields;
+		/// Collection of fields.
+		typedef std::vector<FieldBase*> CollectionOfFields;
+		CollectionOfFields m_Fields;
+
+	protected:
+		/// Reimplement it. Add fields there.
+		virtual void OnAddFields();
+		/// Should be used to add field to collection.
+		void AddField(FieldBase* pField);
 
 	public:
-		FieldList();
-		virtual ~FieldList();
-
+		FieldListBase();
+		virtual ~FieldListBase();
 		size_t Count() const;
-
-		/// @param nIdx index of field, it should be unique upon all fields.
-		void Add(int nIdx, FieldBase* pField);
 		FieldBase& Find(const int nIdx);
 		int GetAllFlags();
+
+		/// Method called by base class to populate list of supported fields.
+		void AddFields();
+
+		virtual void OpenFile(const std::wstring& sFile) = 0;
+		virtual void CloseFile() = 0;
+	};
+
+	/// Default field list
+	class FieldList : public FieldListBase
+	{
+	public:
+		virtual void OpenFile(const std::wstring& sFile){};
+		virtual void CloseFile(){};
 	};
 
 	/// Base class for content plugin.
@@ -154,9 +170,9 @@ namespace WDX_API
 			DWORD GetPluginInterfaceVersionHi() const;
 			DWORD GetPluginInterfaceVersionLow() const;
 
-			virtual FieldList* OnRegisterFieldList();
+			virtual FieldListBase* OnRegisterFieldList();
 
-			void AddField(int nIdx, FieldBase* pField);
+			//void AddField(int nIdx, FieldBase* pField);
 
 //			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
 //										const int iUnitIndex, void* pFieldValue,
@@ -187,13 +203,13 @@ namespace WDX_API
 			/// That one is called when TC passing recommended ini file name.
 			virtual void OnSetIniName( const std::string& sIniName );
 
-			virtual void OnAddFields();
+			//virtual void OnAddFields();
 
 		private:
 
 			/// Fields supported by plugin. Add supported fields in descendant.
 			/// @todo allow to inherit own implementations of FieldList. Cache files there.
-			FieldList* m_pFields;
+			FieldListBase* m_pFields;
 
 			std::string m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
@@ -213,7 +229,7 @@ namespace WDX_API
 
 			void SetAbortedFilename(const std::wstring& sValue);
 
-			void RegisterFieldList(FieldList* pFieldList);
+			void RegisterFieldList(FieldListBase* pFieldList);
 			void FreeFieldList();
 	};
 };

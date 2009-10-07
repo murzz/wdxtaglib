@@ -21,9 +21,17 @@
 #include <fileref.h>
 #include <map>
 
-class PluginFieldList : public WDX_API::FieldList
+class PluginFieldList : public WDX_API::FieldListBase
 {
+public:
+	PluginFieldList();
+	virtual ~PluginFieldList();
 
+private:
+	TagLib::FileRef m_File;
+	void OnAddFields();
+	void OpenFile(const std::wstring& sFileName);
+	void CloseFile();
 };
 
 class Plugin : public WDX_API::PluginBase
@@ -38,6 +46,8 @@ class Plugin : public WDX_API::PluginBase
 
 	private:
 		void OnAddFields();
+
+		WDX_API::FieldListBase* OnRegisterFieldList();
 
 //		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
 //									const int UnitIndex, void* FieldValue,
