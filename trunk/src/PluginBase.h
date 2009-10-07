@@ -14,10 +14,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-#ifndef WDXBASE_H
-#define WDXBASE_H
-
+#pragma once
 #include <windows.h>
 #include "contentplug.h"
 #include <map>
@@ -220,4 +217,3 @@ namespace WDX_API
 			void FreeFieldList();
 	};
 };
-#endif // CWDXBASE_H

@@ -15,9 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
+#pragma once
 #include <windows.h>
 #include "contentplug.h"
 
@@ -53,4 +51,4 @@ extern "C"
 			int UnitIndex, int FieldType, void* FieldValue, int flags);
 }
 
-#endif // __MAIN_H__
+#pragma once

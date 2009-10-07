@@ -1,5 +1,4 @@
-#ifndef contentplug_H
-#define contentplug_H
+#pragma once
 
 // Contents of file contplug.h version 2.0
 
@@ -91,4 +90,4 @@ int __stdcall ContentEditValue(HWND ParentWin,int FieldIndex,int UnitIndex,int F
                 void* FieldValue,int maxlen,int flags,char* langidentifier);
 void __stdcall ContentSendStateInformation(int state,char* path);
 */
-#endif
+

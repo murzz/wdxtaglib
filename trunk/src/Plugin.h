@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef WDXTAGLIB_H
-#define WDXTAGLIB_H
+#pragma once
 
 #include "PluginBase.h"
 #include <fileref.h>
@@ -55,5 +54,3 @@ class Plugin : public WDX_API::PluginBase
 		typedef MapOfFiles::iterator FilesIter;
 		MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
 };
-
-#endif // CWDXTAGLIB_H
