@@ -46,8 +46,8 @@ void Plugin::OnAddFields()
 	// fill data for all supported fields here
 
 	///@todo implement something like FieldFactory here
-	AddField( fiTitle,			new FieldTitle() );
-	AddField( fiArtist,			new FieldArtist() );
+	//AddField( fiTitle,			new FieldTitle() );
+	//AddField( fiArtist,			new FieldArtist() );
 
 //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));

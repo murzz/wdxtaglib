@@ -21,7 +21,7 @@
 #include <fileref.h>
 #include <map>
 
-class WDXTagLibFieldList : public WDX_API::FieldList
+class PluginFieldList : public WDX_API::FieldList
 {
 
 };
