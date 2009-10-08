@@ -129,6 +129,8 @@ namespace WDX_API
 	class FieldList : public FieldListBase
 	{
 	public:
+		FieldList(){};
+		~FieldList(){};
 		virtual void OpenFile(const std::wstring& sFile){};
 		virtual void CloseFile(){};
 	};
@@ -172,7 +174,7 @@ namespace WDX_API
 
 			virtual FieldListBase* OnRegisterFieldList();
 
-			//void AddField(int nIdx, FieldBase* pField);
+			void AddField(int nIdx, FieldBase* pField);
 
 //			virtual EFieldType OnGetValue( const std::wstring& sFileName, const int iFieldIndex,
 //										const int iUnitIndex, void* pFieldValue,
