@@ -16,27 +16,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
-
 #include "PluginBase.h"
 #include <fileref.h>
-
-///@todo use ID in each field
-/*
-typedef enum EFieldIndexes_tag
-{
-	fiTitle = 0, fiArtist,
-//	fiAlbum,
-//	fiYear,
-//	fiTracknumber,
-//	fiComment,
-//	fiGenre,
-//	fiBitrate,
-//	fiSamplerate,
-//	fiChannels,
-//	fiLength_s,
-//	fiLength_m,
-//	fiTagType,
-} EFieldIndexes;*/
 
 class Field: public WDX_API::FieldBase
 {
@@ -60,10 +41,15 @@ class FieldTitle: public Field
 public:
 	FieldTitle(TagLib::FileRef& File):Field(File){}
 private:
-	void Configure();
+	std::string OnGetName() const;
+	WDX_API::EFieldType OnGetType() const;
+	std::string OnGetUnit() const;
+	std::string OnGetMultChoice() const;
+	int OnGetFlag() const;
 	void OnGetValue(/*const std::wstring& sFileName,*/
 	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
 			const int iFlags);
+
 };
 
 class FieldArtist: public Field
@@ -71,7 +57,11 @@ class FieldArtist: public Field
 public:
 	FieldArtist(TagLib::FileRef& File):Field(File){}
 private:
-	void Configure();
+	std::string OnGetName() const;
+	WDX_API::EFieldType OnGetType() const;
+	std::string OnGetUnit() const;
+	std::string OnGetMultChoice() const;
+	int OnGetFlag() const;
 	void OnGetValue(/*const std::wstring& sFileName,*/
 	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
 			const int iFlags);

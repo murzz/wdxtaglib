@@ -15,15 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-#include <stdexcept>
 #include "main.h"
 #include "Plugin.h"
 #include "utils.h"
+#include <stdexcept>
 
-typedef utils::singleton<Plugin> WDXPlugin;
+typedef utils::singleton<Plugin> PluginSingleton;
 inline Plugin& PluginInst()
 {
-	return WDXPlugin::instance();
+	return PluginSingleton::instance();
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

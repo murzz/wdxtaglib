@@ -22,15 +22,13 @@
 namespace WDX_API
 {
 PluginBase::PluginBase() :
-	m_pFields(NULL),
+m_FieldsPtr(NULL),
 	m_PluginInterfaceVerionHi(0),
 	m_PluginInterfaceVerionLow(0)
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
-	RegisterFieldList( OnRegisterFieldList() );
 	ClearAbortedFlag();
-	m_pFields->AddFields();
 }
 
 PluginBase::~PluginBase()
@@ -42,16 +40,16 @@ PluginBase::~PluginBase()
 FieldListBase* PluginBase::OnRegisterFieldList( )
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
-	return new FieldList;
+	return NULL;//new FieldList;
 }
 
 void PluginBase::FreeFieldList()
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
-	if (m_pFields)
+	if (m_FieldsPtr)
 	{
-		delete m_pFields;
-		m_pFields = NULL;
+		delete m_FieldsPtr;
+		m_FieldsPtr = NULL;
 	}
 }
 
@@ -74,7 +72,10 @@ void PluginBase::SetIniName(const std::string& sIniName)
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	if (sIniName == m_IniName)
+	{
 		return;
+	}
+
 	m_IniName = sIniName;
 	OnSetIniName(m_IniName);
 }
@@ -112,13 +113,16 @@ EFieldType PluginBase::GetSupportedField(const int iFieldIndex,
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
-	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (m_pFields->Count()))
+	///@todo throw ENoMoreFields
+	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (GetFields()->Count()))
+	{
 		return ftNoMoreFields;
+	}
 
-	const FieldBase& f = m_pFields->Find(iFieldIndex);
-	utils::strlcpy(pszFieldName, f.GetName().c_str(), iMaxLen - 1);
-	utils::strlcpy(pszUnits, f.GetMultChoice().c_str(), iMaxLen - 1);
-	return f.GetType();
+	const FieldBase& fld = GetFields()->Find(iFieldIndex);
+	utils::strlcpy(pszFieldName, fld.GetName().c_str(), iMaxLen - 1);
+	utils::strlcpy(pszUnits, fld.GetMultChoice().c_str(), iMaxLen - 1);
+	return fld.GetType();
 }
 
 EFieldType PluginBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
@@ -135,7 +139,7 @@ EFieldType PluginBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 	}
 
 	///@todo encapsulate this into FieldList, or throw NoSuchField exception
-	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (m_pFields->Count()))
+	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (GetFields()->Count()))
 	{
 		return ftNoSuchField;
 	}
@@ -163,11 +167,26 @@ EFieldType PluginBase::GetValue(const WCHAR* pszFileName, const int iFieldIndex,
 	// abort flag down
 	ClearAbortedFlag();
 
-	m_pFields->OpenFile(pszFileName);
-	FieldBase& Field = m_pFields->Find(iFieldIndex);
+	GetFields()->OpenFile(pszFileName);
+	FieldBase& Field = GetFields()->Find(iFieldIndex);
 
 	Field.OnGetValue(/*pszFileName,*/ iUnitIndex, pFieldValue, iMaxLen, iFlags);
 	return Field.GetType();
+}
+
+FieldListBase* PluginBase::GetFields( )
+{
+	utils::DbgStr( __PRETTY_FUNCTION__ );
+	if ( !m_FieldsPtr )
+	{
+		m_FieldsPtr = OnRegisterFieldList( );
+		if ( !m_FieldsPtr )
+		{
+			throw std::runtime_error( "Failed to register field list" );
+		}
+		m_FieldsPtr->AddFields( );
+	}
+	return m_FieldsPtr;
 }
 
 EFieldType PluginBase::SetValue(const WCHAR* pszFileName, const int iFieldIndex,
@@ -184,10 +203,10 @@ EFieldType PluginBase::SetValue(const WCHAR* pszFileName, const int iFieldIndex,
 	}
 
 	///@todo perform checking inside FieldBase class and throw an exception.
-	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (m_pFields->Count()))
+	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (GetFields()->Count()))
 		return ftNoSuchField;
 
-	FieldBase& f = m_pFields->Find(iFieldIndex);
+	FieldBase& f = GetFields()->Find(iFieldIndex);
 
 	//f.OnSetValue( pszFileName, iUnitIndex, pFieldValue, iMaxLen, iFlags );
 	return f.GetType();
@@ -209,15 +228,15 @@ int PluginBase::GetSupportedFieldFlags(const int iFieldIndex)
 
 	if (-1 == iFieldIndex) // we should return a combination of all supported flags here
 	{
-		return m_pFields->GetAllFlags();
+		return GetFields()->GetAllFlags();
 	}
 
-	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (m_pFields->Count()))
+	if (iFieldIndex < 0 || iFieldIndex >= static_cast<int> (GetFields()->Count()))
 	{
 		return ftNoMoreFields;
 	}
 
-	return m_pFields->Find(iFieldIndex).GetFlag();
+	return GetFields()->Find(iFieldIndex).GetFlag();
 }
 
 void PluginBase::OnEndOfSetValue() const
@@ -290,17 +309,17 @@ void PluginBase::OnPluginUnloading()
 	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
-void PluginBase::RegisterFieldList(FieldListBase* pFieldList)
-{
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	if (m_pFields)
-	{
-		delete m_pFields;
-		m_pFields = NULL;
-	}
-
-	m_pFields = pFieldList;
-}
+//void PluginBase::RegisterFieldList(FieldListBase* pFieldList)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	if (m_pFields)
+//	{
+//		delete m_pFields;
+//		m_pFields = NULL;
+//	}
+//
+//	m_pFields = pFieldList;
+//}
 
 FieldListBase::FieldListBase()
 {
@@ -381,16 +400,19 @@ int FieldListBase::GetAllFlags()
 	return iTotalFlags;
 }
 
-FieldBase::FieldBase() :
-	m_Name("Unnamed field"), m_Type(ftNoMoreFields), m_Unit(""), m_MultChoice(
-			""), m_Flag(0)
+FieldBase::FieldBase()
+//:
+//	m_Name("Unnamed field"), m_Type(ftNoMoreFields), m_Unit(""), m_MultChoice(
+//			""), m_Flag(0)
 {
-	Configure();
+	utils::DbgStr(__PRETTY_FUNCTION__);
+
+	//Configure();
 }
 
 FieldBase::~FieldBase()
 {
-
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 //void* FieldBase::GetFileObjPtr() const
@@ -403,64 +425,75 @@ FieldBase::~FieldBase()
 //	m_FileObjPtr = pFileObj;
 //}
 
-void FieldBase::OnSetValue()
-{
-}
-
-void FieldBase::SetName(const std::string& sName)
-{
-	m_Name = sName;
-}
-
-void FieldBase::SetType(const EFieldType& ftType)
-{
-	m_Type = ftType;
-}
-
-void FieldBase::SetUnit(const std::string& sUnit)
-{
-	m_Unit = sUnit;
-}
-
-void FieldBase::SetMultChoice(const std::string& sMultChoice)
-{
-	m_MultChoice = sMultChoice;
-}
-
-void FieldBase::SetFlag(const int& nFlag)
-{
-	m_Flag = nFlag;
-}
-
-std::string FieldBase::GetName() const
-{
-	return m_Name;
-}
-
-EFieldType FieldBase::GetType() const
-{
-	return m_Type;
-}
-
-std::string FieldBase::GetUnit() const
-{
-	return m_Unit;
-}
-
-std::string FieldBase::GetMultChoice() const
-{
-	return m_MultChoice;
-}
-
-int FieldBase::GetFlag() const
-{
-	return m_Flag;
-}
-
-void FieldBase::Configure()
-{
-
-}
+//void FieldBase::OnSetValue()
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//}
+//
+//void FieldBase::SetName(const std::string& sName)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	m_Name = sName;
+//}
+//
+//void FieldBase::SetType(const EFieldType& ftType)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	m_Type = ftType;
+//}
+//
+//void FieldBase::SetUnit(const std::string& sUnit)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	m_Unit = sUnit;
+//}
+//
+//void FieldBase::SetMultChoice(const std::string& sMultChoice)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	m_MultChoice = sMultChoice;
+//}
+//
+//void FieldBase::SetFlag(const int& nFlag)
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	m_Flag = nFlag;
+//}
+//
+//std::string FieldBase::GetName() const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	return m_Name;
+//}
+//
+//EFieldType FieldBase::GetType() const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	return m_Type;
+//}
+//
+//std::string FieldBase::GetUnit() const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	return m_Unit;
+//}
+//
+//std::string FieldBase::GetMultChoice() const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	return m_MultChoice;
+//}
+//
+//int FieldBase::GetFlag() const
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	return m_Flag;
+//}
+//
+//void FieldBase::Configure()
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//}
 
 } // namespace
 

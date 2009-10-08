@@ -22,13 +22,44 @@
 #include <tag.h>
 #include "fileref.h"
 
-void FieldTitle::Configure()
+//void FieldTitle::Configure()
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	SetName("Title");
+//	SetType(WDX_API::ftWideString);
+//	//m_Unit("");
+//	//m_MultChoice("");
+//	SetFlag(contflags_edit);
+//}
+
+std::string FieldTitle::OnGetName() const
 {
-	SetName("Title");
-	SetType(WDX_API::ftWideString);
-	//m_Unit("");
-	//m_MultChoice("");
-	SetFlag(contflags_edit);
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "Title";
+}
+
+WDX_API::EFieldType FieldTitle::OnGetType() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return WDX_API::ftWideString;
+}
+
+std::string FieldTitle::OnGetUnit() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "";
+}
+
+std::string FieldTitle::OnGetMultChoice() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "";
+}
+
+int FieldTitle::OnGetFlag() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return contflags_edit; // this field is editable
 }
 
 //FieldTitle::~FieldTitle()
@@ -40,6 +71,7 @@ void FieldTitle::OnGetValue(/*const std::wstring& sFileName,*/
 		const int iUnitIndex, void* pFieldValue,
 		const int iMaxLen, const int iFlags)
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
 	TagLib::FileRef& file = GetFile();
 
 	// no file, no tags or no properties
@@ -56,15 +88,44 @@ void FieldTitle::OnGetValue(/*const std::wstring& sFileName,*/
 	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 }
 
-void FieldArtist::Configure()
+//void FieldArtist::Configure()
+//{
+//	utils::DbgStr(__PRETTY_FUNCTION__);
+//	SetName("Artist");
+//	SetType(WDX_API::ftWideString);
+//	//m_Unit("");
+//	//m_MultChoice("");
+//	SetFlag(contflags_edit);
+//}
+std::string FieldArtist::OnGetName() const
 {
-	SetName("Artist");
-	SetType(WDX_API::ftWideString);
-	//m_Unit("");
-	//m_MultChoice("");
-	SetFlag(contflags_edit);
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "Artist";
 }
 
+WDX_API::EFieldType FieldArtist::OnGetType() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return WDX_API::ftWideString;
+}
+
+std::string FieldArtist::OnGetUnit() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "";
+}
+
+std::string FieldArtist::OnGetMultChoice() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return "";
+}
+
+int FieldArtist::OnGetFlag() const
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
+	return contflags_edit; // this field is editable
+}
 //FieldArtist::~FieldArtist()
 //{
 //
@@ -74,6 +135,7 @@ void FieldArtist::OnGetValue(/*const std::wstring& sFileName,*/
 		const int iUnitIndex, void* pFieldValue,
 		const int iMaxLen, const int iFlags)
 {
+	utils::DbgStr(__PRETTY_FUNCTION__);
 	TagLib::FileRef& file = GetFile();
 	//( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
 

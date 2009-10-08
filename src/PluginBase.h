@@ -60,33 +60,37 @@ namespace WDX_API
 			/// Name of a field as it would be shown in TC.
 			/// The field may not contain the following chars: . (dot) | (vertical line) : (colon).
 			/// @note Field name must me ANSI.
-			std::string m_Name;
-			EFieldType m_Type;			///< Type of a field, @sa EFieldType.
-			std::string m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
-			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
-
-			///@todo use enum
-			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+//			std::string m_Name;
+//			EFieldType m_Type;			///< Type of a field, @sa EFieldType.
+//			std::string m_Unit;	///< kb, mb, gb etc. Consult contentplugin help for details (ContentGetSupportedField).
+//			std::string m_MultChoice; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
+//
+//			///@todo use enum
+//			int m_Flag; ///< Consult contentplugin help for details (ContentGetSupportedFieldFlags).
 
 	protected:
-			void SetName( const std::string& sName);
-			void SetType( const EFieldType& ftType );
-			void SetUnit( const std::string& sUnit );
-			void SetMultChoice( const std::string& sMultChoice );
-			void SetFlag( const int& nFlag );
-
-			/// Implement it to configure field parameters.
-			virtual void Configure();
-
+//			void SetName( const std::string& sName);
+//			void SetType( const EFieldType& ftType );
+//			void SetUnit( const std::string& sUnit );
+//			void SetMultChoice( const std::string& sMultChoice );
+//			void SetFlag( const int& nFlag );
+//
+//			/// Implement it to configure field parameters.
+//			virtual void Configure();
+		virtual std::string OnGetName() const = 0;
+		virtual EFieldType OnGetType() const = 0;
+		virtual std::string OnGetUnit() const = 0;
+		virtual std::string OnGetMultChoice() const = 0;
+		virtual int OnGetFlag() const = 0;
 	public:
 			FieldBase();
 			virtual ~FieldBase();
+			std::string GetName() const {return OnGetName();};
+			EFieldType GetType() const {return OnGetType();};
+			std::string GetUnit() const {return OnGetUnit();};
+			std::string GetMultChoice() const {return OnGetMultChoice();};
+			int GetFlag() const {return OnGetFlag();};
 
-			std::string GetName() const;
-			EFieldType GetType() const;
-			std::string GetUnit() const;
-			std::string GetMultChoice() const;
-			int GetFlag() const;
 
 			/// Implement it in every custom field.
 			virtual void OnGetValue(/*const std::wstring& sFileName,*/
@@ -94,7 +98,7 @@ namespace WDX_API
 					const int iMaxLen, const int iFlags) = 0;
 
 			///@todo still requires an effort
-			virtual void OnSetValue();
+			//virtual void OnSetValue();
 	};
 
 	/// List of fields.
@@ -211,7 +215,9 @@ namespace WDX_API
 
 			/// Fields supported by plugin. Add supported fields in descendant.
 			/// @todo allow to inherit own implementations of FieldList. Cache files there.
-			FieldListBase* m_pFields;
+			FieldListBase* m_FieldsPtr;
+
+			FieldListBase* GetFields( );
 
 			std::string m_IniName;
 			DWORD m_PluginInterfaceVerionHi;
@@ -231,7 +237,7 @@ namespace WDX_API
 
 			void SetAbortedFilename(const std::wstring& sValue);
 
-			void RegisterFieldList(FieldListBase* pFieldList);
+			//void RegisterFieldList(FieldListBase* pFieldList);
 			void FreeFieldList();
 	};
 };
