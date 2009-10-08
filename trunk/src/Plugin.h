@@ -16,7 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
-
 #include "PluginBase.h"
 #include <fileref.h>
 #include <map>
@@ -48,15 +47,6 @@ class Plugin : public WDX_API::PluginBase
 		void OnAddFields();
 
 		WDX_API::FieldListBase* OnRegisterFieldList();
-
-//		WDX_API::EFieldType OnGetValue( const std::wstring& sFileName, const int FieldIndex,
-//									const int UnitIndex, void* FieldValue,
-//									const int maxlen, const int flags );
-
-//		WDX_API::EFieldType OnSetValue( const std::wstring& sFileName, const int FieldIndex,
-//									const int UnitIndex, const int FieldType,
-//									const void* FieldValue, const int flags );
-
 		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
 		//std::wstring GetTagType( TagLib::File* pFile ) const;
 
