@@ -29,9 +29,7 @@ PluginBase::PluginBase() :
 	utils::DbgStr(__PRETTY_FUNCTION__);
 
 	RegisterFieldList( OnRegisterFieldList() );
-
 	ClearAbortedFlag();
-
 	m_pFields->AddFields();
 }
 
@@ -313,6 +311,10 @@ FieldListBase::~FieldListBase()
 {
 	utils::DbgStr(__PRETTY_FUNCTION__);
 	///@todo destroy all fields here
+}
+void FieldListBase::OnAddFields()
+{
+	utils::DbgStr(__PRETTY_FUNCTION__);
 }
 
 size_t FieldListBase::Count() const

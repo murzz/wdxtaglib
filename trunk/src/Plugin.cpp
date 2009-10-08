@@ -64,19 +64,18 @@ void PluginFieldList::OnAddFields()
 
 void PluginFieldList::OpenFile(const std::wstring& sFileName)
 {
-	if (!m_File.isNull() && m_File.file() && (std::wstring(
-			m_File.file()->name()) == sFileName))
+	if ( !m_File.isNull( ) && m_File.file( ) && ( std::wstring( m_File.file( )->name( ) ) == sFileName ) )
 	{
 		// already have this file opened
 		return;
 	}
-	TagLib::FileRef File(sFileName.c_str(), true,
-			TagLib::AudioProperties::Accurate);
+	TagLib::FileRef File( sFileName.c_str( ), true, TagLib::AudioProperties::Accurate );
 	m_File = File;
 }
+
 void PluginFieldList::CloseFile()
 {
-	if (!m_File.isNull() && m_File.file())
+	if ( !m_File.isNull( ) && m_File.file( ) )
 	{
 		///@todo close file here, use pointer to file and delete it here
 		//m_File.file()->clear();
