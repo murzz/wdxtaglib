@@ -109,12 +109,6 @@ EFieldType PluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldN
 {
 	utils::DbgStr( __PRETTY_FUNCTION__ );
 
-	///@todo throw ENoMoreFields
-	if ( iFieldIndex < 0 || iFieldIndex >= static_cast < int > ( GetFields( )->Count( ) ) )
-	{
-		return ftNoMoreFields;
-	}
-
 	const FieldBase& fld = GetFields( )->Find( iFieldIndex );
 	utils::strlcpy( pszFieldName, fld.GetName( ).c_str( ), iMaxLen - 1 );
 	utils::strlcpy( pszUnits, fld.GetMultChoice( ).c_str( ), iMaxLen - 1 );
@@ -131,12 +125,6 @@ EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex
 	if ( !pszFileName )
 	{
 		throw std::runtime_error( "pszFileName is NULL" );
-	}
-
-	///@todo encapsulate this into FieldList, or throw NoSuchField exception
-	if ( iFieldIndex < 0 || iFieldIndex >= static_cast < int > ( GetFields( )->Count( ) ) )
-	{
-		return ftNoSuchField;
 	}
 
 	if ( iUnitIndex < 0 )
@@ -197,9 +185,6 @@ EFieldType PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex
 		return ftSetSuccess;
 	}
 
-	///@todo perform checking inside FieldBase class and throw an exception.
-	if ( iFieldIndex < 0 || iFieldIndex >= static_cast < int > ( GetFields( )->Count( ) ) ) return ftNoSuchField;
-
 	FieldBase& fld = GetFields( )->Find( iFieldIndex );
 	return fld.GetType( );
 }
@@ -212,12 +197,6 @@ int PluginBase::GetSupportedFieldFlags( const int iFieldIndex )
 	if ( -1 == iFieldIndex )
 	{
 		return GetFields( )->GetAllFlags( );
-	}
-
-	///@todo throw ENoMoreFields here
-	if ( iFieldIndex < 0 || iFieldIndex >= static_cast < int > ( GetFields( )->Count( ) ) )
-	{
-		return ftNoMoreFields;
 	}
 
 	return GetFields( )->Find( iFieldIndex ).GetFlag( );
@@ -336,7 +315,15 @@ void FieldListBase::AddField( FieldBase* pField )
 FieldBase& FieldListBase::Find( const int Idx )
 {
 	utils::DbgStr( __PRETTY_FUNCTION__ );
-	return *( m_Fields.at( Idx ) );
+
+	try
+	{
+		return *( m_Fields.at( Idx ) );
+	}
+	catch ( std::out_of_range& e )
+	{
+		throw NoSuchField();
+	}
 }
 
 int FieldListBase::GetAllFlags( ) const

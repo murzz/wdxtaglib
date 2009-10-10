@@ -25,7 +25,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.debug.780374370." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.586917960" name="MinGW GCC" resourceTypeBasedDiscovery="false" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.base.677631167" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
-<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.2115267785" parallelizationNumber="-1" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+<builder buildPath="${workspace_loc:/WDXTagLib/Debug}" id="org.eclipse.cdt.build.core.internal.builder.2115267785" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" parallelizationNumber="-1" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.base.324241522" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.918836702" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
