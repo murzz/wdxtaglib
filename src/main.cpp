@@ -20,36 +20,36 @@
 #include "utils.h"
 #include <stdexcept>
 
-typedef utils::singleton<Plugin> PluginSingleton;
-inline Plugin& PluginInst()
+typedef utils::singleton < Plugin > PluginSingleton;
+inline Plugin& PluginInst( )
 {
-	return PluginSingleton::instance();
+	return PluginSingleton::instance( );
 }
 
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
 {
-	switch (fdwReason)
+	switch ( fdwReason )
 	{
-	case DLL_PROCESS_ATTACH:
-		// attach to process
-		// return FALSE to fail DLL load
-		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH");
-		break;
+		case DLL_PROCESS_ATTACH:
+			// attach to process
+			// return FALSE to fail DLL load
+			utils::DbgStr( __PRETTY_FUNCTION__, " -> DLL_PROCESS_ATTACH" );
+			break;
 
-	case DLL_PROCESS_DETACH:
-		// detach from process
-		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH");
-		break;
+		case DLL_PROCESS_DETACH:
+			// detach from process
+			utils::DbgStr( __PRETTY_FUNCTION__, " -> DLL_PROCESS_DETACH" );
+			break;
 
-	case DLL_THREAD_ATTACH:
-		// attach to thread
-		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH");
-		break;
+		case DLL_THREAD_ATTACH:
+			// attach to thread
+			utils::DbgStr( __PRETTY_FUNCTION__, " -> DLL_THREAD_ATTACH" );
+			break;
 
-	case DLL_THREAD_DETACH:
-		// detach from thread
-		utils::DbgStr(__PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH");
-		break;
+		case DLL_THREAD_DETACH:
+			// detach from thread
+			utils::DbgStr( __PRETTY_FUNCTION__, " -> DLL_THREAD_DETACH" );
+			break;
 	}
 	return TRUE; // successful
 }
@@ -57,11 +57,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 /// Global exception handler.
 void ExceptionHandler( const std::string& sWhere )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 
 	try
 	{
-		throw;
+		throw ;
 	}
 	catch(const std::runtime_error& e)
 	{
@@ -79,200 +79,187 @@ void ExceptionHandler( const std::string& sWhere )
 }
 
 /// @note ANSI only.
-void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
+void DLL_EXPORT __stdcall ContentGetDetectString( char* DetectString, int maxlen )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		utils::strlcpy(DetectString, PluginInst().GetDetectString().c_str(), maxlen);
+		utils::strlcpy( DetectString, PluginInst( ).GetDetectString( ).c_str( ), maxlen );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
 /// @note ANSI only.
-void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)
+void DLL_EXPORT __stdcall ContentSetDefaultParams( ContentDefaultParamStruct* dps )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		if ( (int)sizeof(ContentDefaultParamStruct) > dps->size )
+		if ( ( int ) sizeof(ContentDefaultParamStruct) > dps->size )
 		{
-			throw std::runtime_error("Unexpected size of ContentDefaultParamStruct struct");
+			throw std::runtime_error( "Unexpected size of ContentDefaultParamStruct struct" );
 			return;
 		}
 
-		PluginInst().SetIniName(dps->DefaultIniName);
-		PluginInst().SetPluginInterfaceVersion(dps->PluginInterfaceVersionHi,
-										dps->PluginInterfaceVersionLow);
+		PluginInst( ).SetIniName( dps->DefaultIniName );
+		PluginInst( ).SetPluginInterfaceVersion( dps->PluginInterfaceVersionHi, dps->PluginInterfaceVersionLow );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
 /// @note ANSI only.
-void DLL_EXPORT __stdcall ContentPluginUnloading(void)
+void DLL_EXPORT __stdcall ContentPluginUnloading( void )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		PluginInst().PluginUnloading();
+		PluginInst( ).PluginUnloading( );
 
 		///@todo free plugin instance here, if needed
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
 /// @note ANSI only.
-int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex, char* FieldName,
-											char* Units, int maxlen)
+int DLL_EXPORT __stdcall ContentGetSupportedField( int FieldIndex, char* FieldName, char* Units, int maxlen )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().GetSupportedField(FieldIndex, FieldName, Units, maxlen);
+		return PluginInst( ).GetSupportedField( FieldIndex, FieldName, Units, maxlen );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_nomorefields;
 	}
 }
 
 /// @note ANSI and Unicode.
-int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
-							int UnitIndex, void* FieldValue, int maxlen, int flags)
+int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int UnitIndex, void* FieldValue, int maxlen,
+		int flags )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().GetValue(
-					utils::toWideString(FileName).c_str(),
-					FieldIndex,
-					UnitIndex,
-					FieldValue,
-					maxlen,
-					flags );
+		return PluginInst( ).GetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldValue,
+				maxlen, flags );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
 
 /// @note ANSI and Unicode.
-int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
-							int UnitIndex, void* FieldValue, int maxlen, int flags)
+int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, void* FieldValue,
+		int maxlen, int flags )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().GetValue(
-				FileName,
-				FieldIndex,
-				UnitIndex,
-				FieldValue,
-				maxlen,
-				flags );
+		return PluginInst( ).GetValue( FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
 
 /// @note ANSI only.
-int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
+int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags( int FieldIndex )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().GetSupportedFieldFlags(FieldIndex);
+		return PluginInst( ).GetSupportedFieldFlags( FieldIndex );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_nomorefields;
 	}
 }
 
 /// @note ANSI and Unicode.
-int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
-										int UnitIndex, int FieldType, void* FieldValue, int flags)
+int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int UnitIndex, int FieldType,
+		void* FieldValue, int flags )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().SetValue(utils::toWideString(FileName).c_str(), FieldIndex,
-			UnitIndex, FieldType, FieldValue, flags);
+		return PluginInst( ).SetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldType,
+				FieldValue, flags );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
 
 /// @note ANSI and Unicode.
-int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
-										int UnitIndex, int FieldType, void* FieldValue, int flags)
+int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, int FieldType,
+		void* FieldValue, int flags )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		return PluginInst().SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+		return PluginInst( ).SetValue( FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
 
 /// @note ANSI and Unicode.
-void DLL_EXPORT __stdcall ContentStopGetValue(char* FileName)
+void DLL_EXPORT __stdcall ContentStopGetValue( char* FileName )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		PluginInst().StopGetValue(utils::toWideString(FileName));
+		PluginInst( ).StopGetValue( utils::toWideString( FileName ) );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
 /// @note ANSI and Unicode.
-void DLL_EXPORT __stdcall ContentStopGetValueW(WCHAR* FileName)
+void DLL_EXPORT __stdcall ContentStopGetValueW( WCHAR* FileName )
 {
 	try
 	{
-		utils::DbgStr(__PRETTY_FUNCTION__);
+		utils::DbgStr( __PRETTY_FUNCTION__ );
 
-		PluginInst().StopGetValue(FileName);
+		PluginInst( ).StopGetValue( FileName );
 	}
-	catch(...)
+	catch ( ... )
 	{
-		ExceptionHandler(__PRETTY_FUNCTION__);
+		ExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }

@@ -22,12 +22,12 @@
 class Field: public WDX_API::FieldBase
 {
 public:
-	Field(TagLib::FileRef& File) :
-		FieldBase(), m_File(File)
+	Field( TagLib::FileRef& File ) :
+		FieldBase( ), m_File( File )
 	{
 	}
 protected:
-	TagLib::FileRef& GetFile()
+	TagLib::FileRef& GetFile( )
 	{
 		return m_File;
 	}
@@ -39,30 +39,31 @@ private:
 class FieldTitle: public Field
 {
 public:
-	FieldTitle(TagLib::FileRef& File):Field(File){}
+	FieldTitle( TagLib::FileRef& File ) :
+		Field( File )
+	{
+	}
 private:
-	std::string OnGetName() const;
-	WDX_API::EFieldType OnGetType() const;
-	std::string OnGetUnit() const;
-	std::string OnGetMultChoice() const;
-	int OnGetFlag() const;
-	void OnGetValue(/*const std::wstring& sFileName,*/
-	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
-			const int iFlags);
-
+	std::string OnGetName( ) const;
+	WDX_API::EFieldType OnGetType( ) const;
+	std::string OnGetUnit( ) const;
+	std::string OnGetMultChoice( ) const;
+	int OnGetFlag( ) const;
+	void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
 };
 
 class FieldArtist: public Field
 {
 public:
-	FieldArtist(TagLib::FileRef& File):Field(File){}
+	FieldArtist( TagLib::FileRef& File ) :
+		Field( File )
+	{
+	}
 private:
-	std::string OnGetName() const;
-	WDX_API::EFieldType OnGetType() const;
-	std::string OnGetUnit() const;
-	std::string OnGetMultChoice() const;
-	int OnGetFlag() const;
-	void OnGetValue(/*const std::wstring& sFileName,*/
-	const int iUnitIndex, void* pFieldValue, const int iMaxLen,
-			const int iFlags);
+	std::string OnGetName( ) const;
+	WDX_API::EFieldType OnGetType( ) const;
+	std::string OnGetUnit( ) const;
+	std::string OnGetMultChoice( ) const;
+	int OnGetFlag( ) const;
+	void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
 };
