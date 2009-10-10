@@ -20,10 +20,18 @@
 #include "contentplug.h"
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 /// Namespace where WDX API classes are defined.
 namespace WDX_API
 {
+
+/// Exception thrown when no such field condition detected.
+class NoSuchField: public std::exception
+{
+
+};
+
 /// Field type.
 typedef enum EFieldType_tag
 {

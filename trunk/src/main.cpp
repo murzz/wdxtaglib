@@ -54,8 +54,8 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
 	return TRUE; // successful
 }
 
-/// Global exception handler.
-void ExceptionHandler( const std::string& sWhere )
+/// Default exception handler.
+void DefaultExceptionHandler( const std::string& sWhere )
 {
 	utils::DbgStr( __PRETTY_FUNCTION__ );
 
@@ -89,7 +89,7 @@ void DLL_EXPORT __stdcall ContentGetDetectString( char* DetectString, int maxlen
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
@@ -111,7 +111,7 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams( ContentDefaultParamStruct* dp
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
@@ -128,7 +128,7 @@ void DLL_EXPORT __stdcall ContentPluginUnloading( void )
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
@@ -141,9 +141,13 @@ int DLL_EXPORT __stdcall ContentGetSupportedField( int FieldIndex, char* FieldNa
 
 		return PluginInst( ).GetSupportedField( FieldIndex, FieldName, Units, maxlen );
 	}
+	catch ( WDX_API::NoSuchField& e )
+	{
+		return ft_nomorefields;
+	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_nomorefields;
 	}
 }
@@ -159,9 +163,13 @@ int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int Un
 		return PluginInst( ).GetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldValue,
 				maxlen, flags );
 	}
+	catch ( WDX_API::NoSuchField& e )
+	{
+		return ft_nosuchfield;
+	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
@@ -176,9 +184,13 @@ int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int 
 
 		return PluginInst( ).GetValue( FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags );
 	}
+	catch ( WDX_API::NoSuchField& e )
+	{
+		return ft_nosuchfield;
+	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
@@ -194,7 +206,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags( int FieldIndex )
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_nomorefields;
 	}
 }
@@ -210,9 +222,13 @@ int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int Un
 		return PluginInst( ).SetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldType,
 				FieldValue, flags );
 	}
+	catch ( WDX_API::NoSuchField& e )
+	{
+		return ft_nosuchfield;
+	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
@@ -229,7 +245,7 @@ int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int 
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 		return ft_fileerror;
 	}
 }
@@ -245,7 +261,7 @@ void DLL_EXPORT __stdcall ContentStopGetValue( char* FileName )
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
 
@@ -260,6 +276,6 @@ void DLL_EXPORT __stdcall ContentStopGetValueW( WCHAR* FileName )
 	}
 	catch ( ... )
 	{
-		ExceptionHandler( __PRETTY_FUNCTION__ );
+		DefaultExceptionHandler( __PRETTY_FUNCTION__ );
 	}
 }
