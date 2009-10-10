@@ -1187,7 +1187,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.so.release.530680242." name="/" resourcePath="">
 <toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.so.release.2057944411" name="MinGW GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" resourceTypeBasedDiscovery="false" superClass="cdt.managedbuild.toolchain.gnu.mingw.so.release">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.so.release.626494090" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.so.release"/>
-<builder autoBuildTarget="all" buildPath="${workspace_loc:/WDXTagLib/Release}" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.779652250" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="false" parallelizationNumber="-1" stopOnErr="false" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+<builder autoBuildTarget="all" buildPath="${workspace_loc:/WDXTagLib/Release}" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.779652250" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="false" parallelizationNumber="-1" stopOnErr="true" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.so.release.1648230530" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.so.release">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1430724427" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
