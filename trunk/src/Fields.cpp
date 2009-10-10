@@ -22,133 +22,101 @@
 #include <tag.h>
 #include "fileref.h"
 
-//void FieldTitle::Configure()
+//Field::Field( TagLib::FileRef& File ) :
+//	FieldBase( ), m_File( File )
 //{
-//	utils::DbgStr(__PRETTY_FUNCTION__);
-//	SetName("Title");
-//	SetType(WDX_API::ftWideString);
-//	//m_Unit("");
-//	//m_MultChoice("");
-//	SetFlag(contflags_edit);
+//
 //}
 
-std::string FieldTitle::OnGetName() const
+//Field::~Field( )
+//{
+//
+//}
+
+std::string FieldTitle::OnGetName( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "Title";
 }
 
-WDX_API::EFieldType FieldTitle::OnGetType() const
+WDX_API::EFieldType FieldTitle::OnGetType( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return WDX_API::ftWideString;
 }
 
-std::string FieldTitle::OnGetUnit() const
+std::string FieldTitle::OnGetUnit( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "";
 }
 
-std::string FieldTitle::OnGetMultChoice() const
+std::string FieldTitle::OnGetMultChoice( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "";
 }
 
-int FieldTitle::OnGetFlag() const
+int FieldTitle::OnGetFlag( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return contflags_edit; // this field is editable
 }
 
-//FieldTitle::~FieldTitle()
-//{
-//
-//}
-
-void FieldTitle::OnGetValue(/*const std::wstring& sFileName,*/
-		const int iUnitIndex, void* pFieldValue,
-		const int iMaxLen, const int iFlags)
+void FieldTitle::OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	TagLib::FileRef& file = GetFile();
+	utils::DbgStr( __PRETTY_FUNCTION__ );
+	TagLib::FileRef& file = GetFile( );
 
 	// no file, no tags or no properties
-//	if ( file.isNull() )
-//		return WDX_API::ftFileError;
-//
-//	if ( IsAborted() )
-//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
-	TagLib::Tag* pTag = file.tag();
+	//	if ( file.isNull() )
+	//		return WDX_API::ftFileError;
+	//
+	//	if ( IsAborted() )
+	//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+	TagLib::Tag* pTag = file.tag( );
 
 	///@todo throw exception here
 	//if (!pTag)
 	//	return WDX_API::ftFieldEmpty;
-	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
+	utils::strlcpyw( reinterpret_cast < wchar_t* > ( pFieldValue ), pTag->title( ).toWString( ).c_str( ), iMaxLen );
 }
 
-//void FieldArtist::Configure()
-//{
-//	utils::DbgStr(__PRETTY_FUNCTION__);
-//	SetName("Artist");
-//	SetType(WDX_API::ftWideString);
-//	//m_Unit("");
-//	//m_MultChoice("");
-//	SetFlag(contflags_edit);
-//}
-std::string FieldArtist::OnGetName() const
+std::string FieldArtist::OnGetName( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "Artist";
 }
 
-WDX_API::EFieldType FieldArtist::OnGetType() const
+WDX_API::EFieldType FieldArtist::OnGetType( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return WDX_API::ftWideString;
 }
 
-std::string FieldArtist::OnGetUnit() const
+std::string FieldArtist::OnGetUnit( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "";
 }
 
-std::string FieldArtist::OnGetMultChoice() const
+std::string FieldArtist::OnGetMultChoice( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return "";
 }
 
-int FieldArtist::OnGetFlag() const
+int FieldArtist::OnGetFlag( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
 	return contflags_edit; // this field is editable
 }
-//FieldArtist::~FieldArtist()
-//{
-//
-//}
 
-void FieldArtist::OnGetValue(/*const std::wstring& sFileName,*/
-		const int iUnitIndex, void* pFieldValue,
-		const int iMaxLen, const int iFlags)
+void FieldArtist::OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	TagLib::FileRef& file = GetFile();
-	//( sFileName.c_str(), true, TagLib::AudioProperties::Accurate );
+	utils::DbgStr( __PRETTY_FUNCTION__ );
+	TagLib::FileRef& file = GetFile( );
 
 	// no file, no tags or no properties
-//	if ( file.isNull() )
-//		return WDX_API::ftFileError;
-//
-//	if ( IsAborted() )
-//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
-	TagLib::Tag* pTag = file.tag();
+	//	if ( file.isNull() )
+	//		return WDX_API::ftFileError;
+	//
+	//	if ( IsAborted() )
+	//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+	TagLib::Tag* pTag = file.tag( );
 
 	///@todo throw exception here
 	//if (!pTag)
 	//	return WDX_API::ftFieldEmpty;
-	utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->artist().toWString().c_str(), iMaxLen );
+	utils::strlcpyw( reinterpret_cast < wchar_t* > ( pFieldValue ), pTag->artist( ).toWString( ).c_str( ), iMaxLen );
 }

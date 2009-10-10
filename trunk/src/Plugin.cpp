@@ -33,21 +33,21 @@
 #include "trueaudiofile.h"
 #include "wavpackfile.h"
 
-PluginFieldList::PluginFieldList()
+PluginFieldList::PluginFieldList( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 }
 
-PluginFieldList::~PluginFieldList()
+PluginFieldList::~PluginFieldList( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 }
 
-void PluginFieldList::OnAddFields()
+void PluginFieldList::OnAddFields( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	AddField( new FieldTitle(m_File));
-	AddField( new FieldArtist(m_File));
+	utils::DbgStr( __PRETTY_FUNCTION__ );
+	AddField( new FieldTitle( m_File ) );
+	AddField( new FieldArtist( m_File ) );
 
 	//	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
 	//	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
@@ -63,9 +63,9 @@ void PluginFieldList::OnAddFields()
 
 }
 
-void PluginFieldList::OpenFile(const std::wstring& sFileName)
+void PluginFieldList::OpenFile( const std::wstring& sFileName )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 	if ( !m_File.isNull( ) && m_File.file( ) && ( std::wstring( m_File.file( )->name( ) ) == sFileName ) )
 	{
 		// already have this file opened
@@ -75,9 +75,9 @@ void PluginFieldList::OpenFile(const std::wstring& sFileName)
 	m_File = File;
 }
 
-void PluginFieldList::CloseFile()
+void PluginFieldList::CloseFile( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 	if ( !m_File.isNull( ) && m_File.file( ) )
 	{
 		///@todo close file here, use pointer to file and delete it here
@@ -85,67 +85,67 @@ void PluginFieldList::CloseFile()
 	}
 }
 
-Plugin::Plugin()
+Plugin::Plugin( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 }
 
-Plugin::~Plugin()
+Plugin::~Plugin( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 }
 
-void Plugin::OnAddFields()
+void Plugin::OnAddFields( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 }
 
-WDX_API::FieldListBase* Plugin::OnRegisterFieldList()
+WDX_API::FieldListBase* Plugin::OnRegisterFieldList( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
-	return new PluginFieldList();
+	utils::DbgStr( __PRETTY_FUNCTION__ );
+	return new PluginFieldList( );
 }
-std::string Plugin::OnGetDetectString() const
+std::string Plugin::OnGetDetectString( ) const
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
-	TagLib::String sOpen(TEXT("EXT=\""));
-	TagLib::String sClose(TEXT("\""));
-	TagLib::String sOr(TEXT(" | "));
+	TagLib::String sOpen( TEXT("EXT=\"") );
+	TagLib::String sClose( TEXT("\"") );
+	TagLib::String sOr( TEXT(" | ") );
 
 	TagLib::FileRef fTmp;
-	TagLib::StringList Exts = fTmp.defaultFileExtensions();
+	TagLib::StringList Exts = fTmp.defaultFileExtensions( );
 
-	for(TagLib::StringList::Iterator iter = Exts.begin(); iter != Exts.end(); ++iter)
+	for ( TagLib::StringList::Iterator iter = Exts.begin( ); iter != Exts.end( ); ++iter )
 	{
-		sExtList += sOpen + (*iter).upper() + sClose + sOr;
+		sExtList += sOpen + ( *iter ).upper( ) + sClose + sOr;
 	}
 
 	// remove last sOr
-	if (!sExtList.isEmpty())
+	if ( !sExtList.isEmpty( ) )
 	{
-		sExtList = sExtList.substr(0, sExtList.size() - sOr.size());
+		sExtList = sExtList.substr( 0, sExtList.size( ) - sOr.size( ) );
 	}
 
-	return sExtList.toCString();
+	return sExtList.toCString( );
 }
 
 TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 	// if there is no such file then insert it
 	// otherwise find its reference
 	FilesIter iter = m_Files2Write.find( sFileName );
 
-	if ( m_Files2Write.end() == iter )
+	if ( m_Files2Write.end( ) == iter )
 	{
-		m_Files2Write[sFileName] = TagLib::FileRef( sFileName.c_str() );
-		return m_Files2Write[sFileName];
+		m_Files2Write[ sFileName ] = TagLib::FileRef( sFileName.c_str( ) );
+		return m_Files2Write[ sFileName ];
 	}
 	else
 	{
-		return (*iter).second;
+		return ( *iter ).second;
 	}
 }
 
@@ -383,14 +383,14 @@ TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
 //	return WDX_API::ftSetSuccess;
 //}
 
-void Plugin::OnEndOfSetValue()
+void Plugin::OnEndOfSetValue( )
 {
-	utils::DbgStr(__PRETTY_FUNCTION__);
+	utils::DbgStr( __PRETTY_FUNCTION__ );
 	// commit unsaved changes
-	for (FilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+	for ( FilesIter iter = m_Files2Write.begin( ); iter != m_Files2Write.end( ); ++iter )
 	{
-		(*iter).second.save();
+		( *iter ).second.save( );
 	}
 
-	m_Files2Write.clear();
+	m_Files2Write.clear( );
 }

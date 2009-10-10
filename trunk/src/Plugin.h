@@ -20,37 +20,37 @@
 #include <fileref.h>
 #include <map>
 
-class PluginFieldList : public WDX_API::FieldListBase
+class PluginFieldList: public WDX_API::FieldListBase
 {
 public:
-	PluginFieldList();
-	virtual ~PluginFieldList();
+	PluginFieldList( );
+	virtual ~PluginFieldList( );
 
 private:
 	TagLib::FileRef m_File;
-	void OnAddFields();
-	void OpenFile(const std::wstring& sFileName);
-	void CloseFile();
+	void OnAddFields( );
+	void OpenFile( const std::wstring& sFileName );
+	void CloseFile( );
 };
 
-class Plugin : public WDX_API::PluginBase
+class Plugin: public WDX_API::PluginBase
 {
-	public:
-		Plugin();
-		virtual ~Plugin();
+public:
+	Plugin( );
+	virtual ~Plugin( );
 
-	protected:
-		std::string OnGetDetectString() const;
-		void OnEndOfSetValue();
+protected:
+	std::string OnGetDetectString( ) const;
+	void OnEndOfSetValue( );
 
-	private:
-		void OnAddFields();
+private:
+	void OnAddFields( );
 
-		WDX_API::FieldListBase* OnRegisterFieldList();
-		TagLib::FileRef& OpenFile( const std::wstring& sFileName );
-		//std::wstring GetTagType( TagLib::File* pFile ) const;
+	WDX_API::FieldListBase* OnRegisterFieldList( );
+	TagLib::FileRef& OpenFile( const std::wstring& sFileName );
+	//std::wstring GetTagType( TagLib::File* pFile ) const;
 
-		typedef std::map<std::wstring, TagLib::FileRef> MapOfFiles;
-		typedef MapOfFiles::iterator FilesIter;
-		MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
+	typedef std::map < std::wstring, TagLib::FileRef > MapOfFiles;
+	typedef MapOfFiles::iterator FilesIter;
+	MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
 };

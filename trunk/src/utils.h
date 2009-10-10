@@ -23,65 +23,69 @@
 #include <windows.h>
 
 #ifdef _UNICODE
-	#define string_t std::wstring
-	#define tstringstream std::wstringstream
+#define string_t std::wstring
+#define tstringstream std::wstringstream
 #else
-	#define string_t std::string
-	#define tstringstream std::ostringstream
+#define string_t std::string
+#define tstringstream std::ostringstream
 #endif
 
 namespace utils
 {
-	std::wstring widen( const std::string& in, std::locale loc  = std::locale() );
-	std::wstring toWideString(const std::string& sNarrow);
-	char* strlcpy( char* p, const char* p2, int maxlen );
-	WCHAR* strlcpyw(WCHAR *str1,const WCHAR *str2,int imaxlen);
-	string_t formatSeconds( int seconds );
-	//string_t Int2Str( const int num );
-	std::wstring Int2StrW( const int num );
-	std::string Int2Str( const int num );
-	void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
+std::wstring widen( const std::string& in, std::locale loc = std::locale( ) );
+std::wstring toWideString( const std::string& sNarrow );
+char* strlcpy( char* p, const char* p2, int maxlen );
+WCHAR* strlcpyw( WCHAR *str1, const WCHAR *str2, int imaxlen );
+string_t formatSeconds( int seconds );
+//string_t Int2Str( const int num );
+std::wstring Int2StrW( const int num );
+std::string Int2Str( const int num );
+void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 
 #ifdef DEBUG
-	/// OutputDebugString() wrapper.
-	inline void DbgStr (const std::string& Str)
-	{
-		// do not throw any exceptions here
-		OutputDebugStringA(Str.c_str());
-	}
+/// OutputDebugString() wrapper.
+inline void DbgStr( const std::string& Str )
+{
+	// do not throw any exceptions here
+	OutputDebugStringA( Str.c_str( ) );
+}
 
-	/// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
-	inline void DbgStr (const std::string& Str1, const std::string& Str2)
-	{
-		// do not throw any exceptions here
-		OutputDebugStringA((Str1 + Str2).c_str());
-	}
+/// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
+inline void DbgStr( const std::string& Str1, const std::string& Str2 )
+{
+	// do not throw any exceptions here
+	OutputDebugStringA( ( Str1 + Str2 ).c_str( ) );
+}
 #else
-	inline void DbgStr (const std::string& Str)
-	{
-	}
+inline void DbgStr (const std::string& Str)
+{
+}
 
-	inline void DbgStr (const std::string& Str1, const std::string& Str2)
-	{
-	}
+inline void DbgStr (const std::string& Str1, const std::string& Str2)
+{
+}
 #endif
 
-	/// Singleton.
-	template <class T>
-	class singleton : private T
+/// Singleton.
+template < class T >
+class singleton: private T
+{
+public:
+	/// creates global instance of singleton and returns it
+	static T& instance( )
 	{
-	public:
-		/// creates global instance of singleton and returns it
-		static T& instance()
-		{
-			static singleton<T> global_instance;
-			return global_instance;
-		}
+		static singleton < T > global_instance;
+		return global_instance;
+	}
 
-	private:
-		/// private constructor - to prevent direct object creation
-		singleton() {}
-		/// private destructor - to prevent direct object destruction
-		~singleton() {}
-	};
+private:
+	/// private constructor - to prevent direct object creation
+	singleton( )
+	{
+	}
+	/// private destructor - to prevent direct object destruction
+	~singleton( )
+	{
+	}
+};
 } // namespace utils
