@@ -1,24 +1,57 @@
-rem Script will export subversion tag, build it and pack binary and src packages.
+@echo off
+rem Script will build WDXTagLib tag and pack binary and src packages.
 
 rem ---------------- configuration start --------------------------------
-rem should take release name from project properties somehow
+rem TODO should take release name from project properties somehow
 set package=wdx_WDXTagLib_100
 set sevenzip="%ProgramFiles%\7-Zip\7z.exe"
 set eclipse="%ProgramFiles%\eclipse\eclipsec.exe"
-set workspace=d:\eclipse
-set project=WDXTagLib
+rem temporary eclipse workspace
+set workspace=%tmp%\wdxtaglib_workspace
+set project_name=WDXTagLib
+rem TODO project root should be detected automatically
+set project_root=d:\eclipse\wdxtaglib
+rem set project_root=.\..
 rem ---------------- configuration end ----------------------------------
 
-rem Export
-rem ******************
+rem delete workspace if exists
+rd /q /s %workspace%
 
-rem Build
-rem %eclipse% -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data %workspace% -cleanBuild %project%
+rem build
+%eclipse% -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import %project_root% -data %workspace% -cleanBuild %project_name%
 
-rem Pack sources
-%sevenzip% a -t7z %package%_src.7z @src_files_to_release.txt
+rem check for build errors
+if not errorlevel==0 goto error_build
 
-rem Pack binary
-%sevenzip% a -t7z %package%.7z @binary_files_to_release.txt
+rem cleanup
+rd /q /s %workspace% >nul
 
-echo Done
+rem pack sources
+%sevenzip% a -t7z %package%_src.7z @src_files_to_release.txt -x@files_to_exclude.txt
+
+rem check for pack errors
+if not errorlevel==0 goto error_pack_src
+
+rem pack binary
+%sevenzip% a -t7z %package%.7z @binary_files_to_release.txt -x@files_to_exclude.txt
+
+rem check for pack errors
+if not errorlevel==0 goto error_pack_binary
+
+rem that's all
+echo All done
+goto exit
+
+:error_build
+echo Failed to build
+goto exit
+
+:error_pack_src
+echo Failed to pack sources
+goto exit
+
+:error_pack_binary
+echo Failed to pack binaries
+goto exit
+
+:exit
