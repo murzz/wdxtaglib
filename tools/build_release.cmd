@@ -1,33 +1,24 @@
-rem build
-codeblocks.exe /na /nd /ns --rebuild ..\src\WDXTagLib.cbp --target='Release' > build_log.txt
+rem Script will export subversion tag, build it and pack binary and src packages.
 
+rem ---------------- configuration start --------------------------------
 rem should take release name from project properties somehow
 set package=wdx_WDXTagLib_100
+set sevenzip="%ProgramFiles%\7-Zip\7z.exe"
+set eclipse="%ProgramFiles%\eclipse\eclipsec.exe"
+set workspace=d:\eclipse
+set project=WDXTagLib
+rem ---------------- configuration end ----------------------------------
 
-rem prepare folders
-del %package% /q
-rd %package%
-md %package%
+rem Export
+rem ******************
 
-rem copy all files in one place
-copy ..\src\WDXTagLib.wdx %package%\WDXTagLib.wdx
-copy ..\doc\COPYING %package%\COPYING
-copy ..\doc\COPYING.LESSER %package%\COPYING.LESSER
-copy ..\doc\read_before_install.txt %package%\read_before_install.txt
-copy ..\doc\readme.txt %package%\readme.txt
-copy ..\lib\libtag.dll %package%\libtag.dll
-copy ..\lib\msvcrt.dll %package%\msvcrt.dll
+rem Build
+rem %eclipse% -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data %workspace% -cleanBuild %project%
 
-rem zip package
-cd %package%
-7z a -tzip ..\%package%.zip *
-cd..
+rem Pack sources
+%sevenzip% a -t7z %package%_src.7z @src_files_to_release.txt
 
-rem zip sources
-cd..
-7z a -tzip release\%package%_src.zip doc lib src release\build_release.cmd
-cd release
+rem Pack binary
+%sevenzip% a -t7z %package%.7z @binary_files_to_release.txt
 
-rem clear out
-del %package% /q
-rd %package%
+echo Done
