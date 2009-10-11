@@ -24,16 +24,16 @@ rem check for build errors
 if not errorlevel==0 goto error_build
 
 rem cleanup
-rd /q /s %workspace% >nul
+rd /q /s %workspace%
 
 rem pack sources
-%sevenzip% a -t7z %package%_src.7z @src_files_to_release.txt -x@files_to_exclude.txt
+%sevenzip% a -t7z %package%_src.7z @src_files_to_release.txt -xr@files_to_exclude.txt
 
 rem check for pack errors
 if not errorlevel==0 goto error_pack_src
 
 rem pack binary
-%sevenzip% a -t7z %package%.7z @binary_files_to_release.txt -x@files_to_exclude.txt
+%sevenzip% a -t7z %package%.7z @binary_files_to_release.txt -xr@files_to_exclude.txt
 
 rem check for pack errors
 if not errorlevel==0 goto error_pack_binary
