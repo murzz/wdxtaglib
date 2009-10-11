@@ -1,0 +1,5 @@
+..\Release\WDXTagLib.wdx
+..\doc\COPYING
+..\doc\COPYING.LESSER
+..\doc\read_before_install.txt
+..\doc\readme.txt
