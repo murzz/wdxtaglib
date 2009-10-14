@@ -22,16 +22,27 @@
 #include <tag.h>
 #include "fileref.h"
 
-//Field::Field( TagLib::FileRef& File ) :
-//	FieldBase( ), m_File( File )
-//{
-//
-//}
+PluginField::~PluginField( )
+{
 
-//Field::~Field( )
-//{
-//
-//}
+}
+
+PluginField::PluginField( TagLib::FileRef& File ) :
+	FieldBase( ), m_File( File )
+{
+
+}
+
+TagLib::FileRef& PluginField::GetFile( ) const
+{
+	return m_File;
+}
+
+FieldTitle::FieldTitle( TagLib::FileRef& File ) :
+	PluginField( File )
+{
+
+}
 
 std::string FieldTitle::OnGetName( ) const
 {
@@ -75,6 +86,12 @@ void FieldTitle::OnGetValue( const int iUnitIndex, void* pFieldValue, const int 
 	//if (!pTag)
 	//	return WDX_API::ftFieldEmpty;
 	utils::strlcpyw( reinterpret_cast < wchar_t* > ( pFieldValue ), pTag->title( ).toWString( ).c_str( ), iMaxLen );
+}
+
+FieldArtist::FieldArtist( TagLib::FileRef& File ) :
+	PluginField( File )
+{
+
 }
 
 std::string FieldArtist::OnGetName( ) const

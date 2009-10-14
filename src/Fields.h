@@ -19,30 +19,25 @@
 #include "PluginBase.h"
 #include <fileref.h>
 
-class Field: public WDX_API::FieldBase
+class PluginField: public WDX_API::FieldBase
 {
 public:
-	Field( TagLib::FileRef& File ) :
-		FieldBase( ), m_File( File )
-	{
-	}
+	PluginField( TagLib::FileRef& File );
+	virtual ~PluginField( );
+
 protected:
-	TagLib::FileRef& GetFile( )
-	{
-		return m_File;
-	}
+	TagLib::FileRef& GetFile( ) const;
+
 private:
-	/// File shared between fields.
+	/// Reference to a file shared between fields.
 	TagLib::FileRef& m_File;
 };
 
-class FieldTitle: public Field
+class FieldTitle: public PluginField
 {
 public:
-	FieldTitle( TagLib::FileRef& File ) :
-		Field( File )
-	{
-	}
+	FieldTitle( TagLib::FileRef& File );
+
 private:
 	std::string OnGetName( ) const;
 	WDX_API::EFieldType OnGetType( ) const;
@@ -52,13 +47,11 @@ private:
 	void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
 };
 
-class FieldArtist: public Field
+class FieldArtist: public PluginField
 {
 public:
-	FieldArtist( TagLib::FileRef& File ) :
-		Field( File )
-	{
-	}
+	FieldArtist( TagLib::FileRef& File );
+
 private:
 	std::string OnGetName( ) const;
 	WDX_API::EFieldType OnGetType( ) const;
