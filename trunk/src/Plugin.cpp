@@ -46,6 +46,7 @@ PluginFieldList::~PluginFieldList( )
 void PluginFieldList::OnAddFields( )
 {
 	utils::DbgStr( __PRETTY_FUNCTION__ );
+
 	AddField( new FieldTitle( m_File ) );
 	AddField( new FieldArtist( m_File ) );
 
