@@ -29,7 +29,9 @@ char* strlcpy( char* p, const char* p2, int maxlen )
 		p[ maxlen ] = 0;
 	}
 	else
+	{
 		strcpy( p, p2 );
+	}
 	return p;
 }
 
@@ -41,7 +43,9 @@ WCHAR* strlcpyw( WCHAR *str1, const WCHAR *str2, int imaxlen )
 		str1[ imaxlen - 1 ] = 0;
 	}
 	else
+	{
 		wcscpy( str1, str2 );
+	}
 	return str1;
 }
 
@@ -105,7 +109,9 @@ std::wstring widen( const std::string& in, std::locale loc )
 	std::wstring::iterator j = out.begin();
 
 	for(; i!=ie; ++i, ++j )
-	*j = std::use_facet< std::ctype< wchar_t > > ( loc ).widen( *i );
+	{
+		*j = std::use_facet< std::ctype< wchar_t > > ( loc ).widen( *i );
+	}
 
 	return out;
 }
