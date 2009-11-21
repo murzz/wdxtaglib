@@ -307,7 +307,7 @@ void FieldListBase::AddField( FieldBase* pField )
 
 	if ( !pField )
 	{
-		throw std::runtime_error( "Failed add field: pointer is empty" );
+		throw std::runtime_error( "Failed to add field: pointer is empty" );
 	}
 	m_Fields.push_back( pField );
 }
