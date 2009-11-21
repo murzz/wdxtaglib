@@ -23,3 +23,5 @@ There are two ways to install plugin in Total Commander:
   * in the opened dialog browse to *wdxtaglib.wdx*;
   * press OK several times. 
  * Done!
+
+Also check [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation here] for more info.
