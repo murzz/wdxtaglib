@@ -26,7 +26,8 @@
 #ifndef TAGLIB_MP4ITEM_H
 #define TAGLIB_MP4ITEM_H
 
-#include <tstringlist.h>
+#include "tstringlist.h"
+#include "mp4coverart.h"
 #include "taglib_export.h"
 
 namespace TagLib {
@@ -49,11 +50,13 @@ namespace TagLib {
       Item(bool value);
       Item(int first, int second);
       Item(const StringList &value);
+      Item(const CoverArtList &value);
 
       int toInt() const;
       bool toBool() const;
       IntPair toIntPair() const;
       StringList toStringList() const;
+      CoverArtList toCoverArtList() const;
 
       bool isValid() const;
 

@@ -1,7 +1,7 @@
-/***************************************************************************
-    copyright            : (C) 2004 by Allan Sandfeld Jensen
-    email                : kde@carewolf.org
- ***************************************************************************/
+/**************************************************************************
+    copyright            : (C) 2009 by Lukáš Lalinský
+    email                : lalinsky@gmail.com
+ **************************************************************************/
 
 /***************************************************************************
  *   This library is free software; you can redistribute it and/or modify  *
@@ -23,63 +23,49 @@
  *   http://www.mozilla.org/MPL/                                           *
  ***************************************************************************/
 
-#ifndef TAGLIB_MPCPROPERTIES_H
-#define TAGLIB_MPCPROPERTIES_H
+#ifndef TAGLIB_MP4COVERART_H
+#define TAGLIB_MP4COVERART_H
 
+#include "tlist.h"
+#include "tbytevector.h"
 #include "taglib_export.h"
-#include "audioproperties.h"
 
 namespace TagLib {
 
-  namespace MPC {
+  namespace MP4 {
 
-    class File;
-
-    static const uint HeaderSize = 8*7;
-
-    //! An implementation of audio property reading for MPC
-
-    /*!
-     * This reads the data from an MPC stream found in the AudioProperties
-     * API.
-     */
-
-    class TAGLIB_EXPORT Properties : public AudioProperties
+    class TAGLIB_EXPORT CoverArt
     {
     public:
       /*!
-       * Create an instance of MPC::Properties with the data read from the
-       * ByteVector \a data.
+       * This describes the image type.
        */
-      Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
+      enum Format {
+        JPEG = 0x0D,
+        PNG  = 0x0E
+      };
 
-      /*!
-       * Destroys this MPC::Properties instance.
-       */
-      virtual ~Properties();
+      CoverArt(Format format, const ByteVector &data);
+      ~CoverArt();
 
-      // Reimplementations.
+      CoverArt(const CoverArt &item);
+      CoverArt &operator=(const CoverArt &item);
 
-      virtual int length() const;
-      virtual int bitrate() const;
-      virtual int sampleRate() const;
-      virtual int channels() const;
+      //! Format of the image
+      Format format() const;
 
-      /*!
-       * Returns the version of the bitstream (SV4-SV7)
-       */
-      int mpcVersion() const;
+      //! The image data
+      ByteVector data() const;
 
     private:
-      Properties(const Properties &);
-      Properties &operator=(const Properties &);
-
-      void read();
-
-      class PropertiesPrivate;
-      PropertiesPrivate *d;
+      class CoverArtPrivate;
+      CoverArtPrivate *d;
     };
+
+    typedef List<CoverArt> CoverArtList;
+
   }
+
 }
 
 #endif

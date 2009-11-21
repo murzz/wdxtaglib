@@ -26,11 +26,11 @@
 #ifndef TAGLIB_MP4TAG_H
 #define TAGLIB_MP4TAG_H
 
-#include <tag.h>
-#include <tbytevectorlist.h>
-#include <tfile.h>
-#include <tmap.h>
-#include <tstringlist.h>
+#include "tag.h"
+#include "tbytevectorlist.h"
+#include "tfile.h"
+#include "tmap.h"
+#include "tstringlist.h"
 #include "taglib_export.h"
 #include "mp4atom.h"
 #include "mp4item.h"
@@ -74,6 +74,7 @@ namespace TagLib {
         void parseGnre(Atom *atom, TagLib::File *file);
         void parseIntPair(Atom *atom, TagLib::File *file);
         void parseBool(Atom *atom, TagLib::File *file);
+        void parseCovr(Atom *atom, TagLib::File *file);
 
         TagLib::ByteVector padIlst(const ByteVector &data, int length = -1);
         TagLib::ByteVector renderAtom(const ByteVector &name, const TagLib::ByteVector &data);
@@ -84,6 +85,7 @@ namespace TagLib {
         TagLib::ByteVector renderInt(const ByteVector &name, Item &item);
         TagLib::ByteVector renderIntPair(const ByteVector &name, Item &item);
         TagLib::ByteVector renderIntPairNoTrailing(const ByteVector &name, Item &item);
+        TagLib::ByteVector renderCovr(const ByteVector &name, Item &item);
 
         void updateParents(AtomList &path, long delta, int ignore = 0);
         void updateOffsets(long delta, long offset);
