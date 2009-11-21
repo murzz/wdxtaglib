@@ -26,8 +26,8 @@
 #ifndef TAGLIB_MP4FILE_H
 #define TAGLIB_MP4FILE_H
 
-#include <tag.h>
-#include <tfile.h>
+#include "tag.h"
+#include "tfile.h"
 #include "taglib_export.h"
 #include "mp4properties.h"
 #include "mp4tag.h"
@@ -49,7 +49,7 @@ namespace TagLib {
     {
     public:
       /*!
-       * Contructs an ASF file from \a file.  If \a readProperties is true the
+       * Contructs a MP4 file from \a file.  If \a readProperties is true the
        * file's audio properties will also be read using \a propertiesStyle.  If
        * false, \a propertiesStyle is ignored.
        *
@@ -69,7 +69,7 @@ namespace TagLib {
        * MP4::Tag implements the tag interface, so this serves as the
        * reimplementation of TagLib::File::tag().
        *
-       * \note The Tag <b>is still</b> owned by the ASF::File and should not be
+       * \note The Tag <b>is still</b> owned by the MP4::File and should not be
        * deleted by the user.  It will be deleted when the file (object) is
        * destroyed.
        */
@@ -90,6 +90,7 @@ namespace TagLib {
     private:
 
       void read(bool readProperties, Properties::ReadStyle audioPropertiesStyle);
+      bool checkValid(const MP4::AtomList &list);
 
       class FilePrivate;
       FilePrivate *d;
