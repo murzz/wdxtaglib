@@ -4,11 +4,11 @@
 
 =WDXTagLib=
 Content plugin for [http://www.ghisler.com/ Total Commander]
-by Dmitry Murzaikin
+by Dmitry Murzaikin.
 
 =Description=
 This is a content plugin for Total Commander that allows you to show audio
-file tags in columns, edit tags, search in tags, etc.
+file tags in columns, edit tags, search in tags, etc. Powered by [http://developer.kde.org/~wheeler/taglib.html TagLib Audio Meta-Data Library].
 
 Supported file formats:
  * MP3,
@@ -16,52 +16,46 @@ Supported file formats:
  * FLAC,
  * Ogg FLAC,
  * Ogg Vorbis,
- * Speex and
+ * Speex,
  * etc.
 
 =Functionality=
 Tags supported for reading and writing:
- * title;
- * artist;
- * album;
- * year;
- * tracknumber;
- * comment;
+ * title,
+ * artist,
+ * album,
+ * year,
+ * tracknumber,
+ * comment,
  * genre.
 
 Readonly tags:
- * bitrate;
- * samplerate;
- * channels;
- * length;
+ * bitrate,
+ * samplerate,
+ * channels,
+ * length,
  * tag type.
-
-It has been tested with Total Commander 7.5 under Windows XP.
-
-=Known issues=
- * No auto install feature (because of statical dependency from msvcrt.dll).
 
 =License Agreement=
 This software is distributed under the GNU General Public License (*[http://www.fsf.org/licensing/licenses/gpl.html GPL]*)
 version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
 =Requirements=
- * Total Commander 7.02 or higher (7.5 for Unicode support);
+ * Total Commander 7.02 or higher (7.5 for Unicode support),
  * msvcrt.dll (included).
 
 =Installation=
-[http://code.google.com/p/wdxtaglib/wiki/Installation Look here]
+[http://code.google.com/p/wdxtaglib/wiki/Installation Look here].
 
 =Usage=
-[http://code.google.com/p/wdxtaglib/wiki/Usage Look here]
+[http://code.google.com/p/wdxtaglib/wiki/Usage Look here].
 
 =Version history=
-[http://code.google.com/p/wdxtaglib/wiki/History Look here]
+[http://code.google.com/p/wdxtaglib/wiki/History Look here].
 
 =Special thanks=
- * Christian Ghisler, author of [http://www.ghisler.com Total Commander];
- * [http://developer.kde.org/~wheeler/taglib.html TagLib] project;
- * Andrey "Ergo" Pyasetskiy, maintainer of [http://www.wincmd.ru wincmd.ru] and [http://totalcmd.net totalcmd.net].
+ * Christian Ghisler, author of [http://www.ghisler.com Total Commander].
+ * [http://developer.kde.org/~wheeler/taglib.html TagLib] project.
 
 =Support=
- * [http://code.google.com/p/wdxtaglib/ WDXTagLib at Google Code]
+ * [http://code.google.com/p/wdxtaglib/ WDXTagLib at Google Code].
