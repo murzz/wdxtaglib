@@ -1,5 +1,4 @@
 #summary Version history goes here
-#labels Featured
 #sidebar TableOfContents
 
 = Version history =
