@@ -81,8 +81,9 @@ void PluginFieldList::CloseFile( )
 	utils::DbgStr( __PRETTY_FUNCTION__ );
 	if ( !m_File.isNull( ) && m_File.file( ) )
 	{
-		///@todo close file here, use pointer to file and delete it here
-		//m_File.file()->clear();
+		// close file by assigning new empty file
+		TagLib::FileRef File;
+		m_File = File;
 	}
 }
 
