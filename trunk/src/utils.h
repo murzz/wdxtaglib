@@ -48,15 +48,23 @@ void ShowInfo( const string_t& sText, const string_t& sTitle = TEXT(""), const H
 /// OutputDebugString() wrapper.
 inline void DbgStr( const std::string& Str )
 {
-	// do not throw any exceptions here
+	// do not throw exceptions here
 	OutputDebugStringA( Str.c_str( ) );
 }
 
 /// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
 inline void DbgStr( const std::string& Str1, const std::string& Str2 )
 {
-	// do not throw any exceptions here
+	// do not throw exceptions here
 	OutputDebugStringA( ( Str1 + Str2 ).c_str( ) );
+}
+
+inline void DbfFuncName( const std::string& Str )
+{
+#ifdef DBG_FUNC_NAME_ENABLED
+	// do not throw exceptions here
+	OutputDebugStringA( Str.c_str( ) );
+#endif
 }
 #else
 inline void DbgStr (const std::string& Str)
@@ -64,6 +72,10 @@ inline void DbgStr (const std::string& Str)
 }
 
 inline void DbgStr (const std::string& Str1, const std::string& Str2)
+{
+}
+
+inline void DbfFuncName( const std::string& Str )
 {
 }
 #endif
