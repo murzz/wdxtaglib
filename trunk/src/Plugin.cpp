@@ -113,9 +113,9 @@ std::string Plugin::OnGetDetectString( ) const
 	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
-	TagLib::String sOpen( TEXT("EXT=\"") );
-	TagLib::String sClose( TEXT("\"") );
-	TagLib::String sOr( TEXT(" | ") );
+	const TagLib::String sOpen( TEXT("EXT=\"") );
+	const TagLib::String sClose( TEXT("\"") );
+	const TagLib::String sOr( TEXT(" | ") );
 
 	TagLib::FileRef fTmp;
 	TagLib::StringList Exts = fTmp.defaultFileExtensions( );
