@@ -35,17 +35,17 @@
 
 PluginFieldList::PluginFieldList( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 PluginFieldList::~PluginFieldList( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 void PluginFieldList::OnAddFields( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 	AddField( new FieldTitle( m_File ) );
 	AddField( new FieldArtist( m_File ) );
@@ -66,7 +66,7 @@ void PluginFieldList::OnAddFields( )
 
 void PluginFieldList::OpenFile( const std::wstring& sFileName )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	if ( !m_File.isNull( ) && m_File.file( ) && ( std::wstring( m_File.file( )->name( ) ) == sFileName ) )
 	{
 		// already have this file opened
@@ -78,7 +78,7 @@ void PluginFieldList::OpenFile( const std::wstring& sFileName )
 
 void PluginFieldList::CloseFile( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	if ( !m_File.isNull( ) && m_File.file( ) )
 	{
 		// close file by assigning new empty file
@@ -89,28 +89,28 @@ void PluginFieldList::CloseFile( )
 
 Plugin::Plugin( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 Plugin::~Plugin( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 void Plugin::OnAddFields( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 WDX_API::FieldListBase* Plugin::OnRegisterFieldList( )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	return new PluginFieldList( );
 }
 
 std::string Plugin::OnGetDetectString( ) const
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	// take supported extensions from FileRef.
 	TagLib::String sExtList;
 	TagLib::String sOpen( TEXT("EXT=\"") );
@@ -136,7 +136,7 @@ std::string Plugin::OnGetDetectString( ) const
 
 //TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
 //{
-//	utils::DbgStr( __PRETTY_FUNCTION__ );
+//	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 //	// if there is no such file then insert it
 //	// otherwise find its reference
 //	FilesIter iter = m_Files2Write.find( sFileName );
@@ -388,7 +388,7 @@ std::string Plugin::OnGetDetectString( ) const
 
 //void Plugin::OnEndOfSetValue( )
 //{
-//	utils::DbgStr( __PRETTY_FUNCTION__ );
+//	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 //	// commit unsaved changes
 //	for ( FilesIter iter = m_Files2Write.begin( ); iter != m_Files2Write.end( ); ++iter )
 //	{

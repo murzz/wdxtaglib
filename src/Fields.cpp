@@ -71,7 +71,7 @@ int FieldTitle::OnGetFlag( ) const
 
 void FieldTitle::OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	TagLib::FileRef& file = GetFile( );
 
 	// no file, no tags or no properties
@@ -121,7 +121,7 @@ int FieldArtist::OnGetFlag( ) const
 
 void FieldArtist::OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 	TagLib::FileRef& file = GetFile( );
 
 	// no file, no tags or no properties

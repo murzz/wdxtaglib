@@ -57,7 +57,7 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
 /// Default exception handler.
 void DefaultExceptionHandler( const std::string& sWhere )
 {
-	utils::DbgStr( __PRETTY_FUNCTION__ );
+	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 	try
 	{
@@ -83,7 +83,7 @@ void DLL_EXPORT __stdcall ContentGetDetectString( char* DetectString, int maxlen
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		utils::strlcpy( DetectString, PluginInst( ).GetDetectString( ).c_str( ), maxlen );
 	}
@@ -98,7 +98,7 @@ void DLL_EXPORT __stdcall ContentSetDefaultParams( ContentDefaultParamStruct* dp
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		if ( ( int ) sizeof(ContentDefaultParamStruct) > dps->size )
 		{
@@ -120,7 +120,7 @@ void DLL_EXPORT __stdcall ContentPluginUnloading( void )
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		PluginInst( ).PluginUnloading( );
 
@@ -137,7 +137,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedField( int FieldIndex, char* FieldNa
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).GetSupportedField( FieldIndex, FieldName, Units, maxlen );
 	}
@@ -158,7 +158,7 @@ int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int Un
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).GetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldValue,
 				maxlen, flags );
@@ -180,7 +180,7 @@ int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int 
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).GetValue( FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags );
 	}
@@ -200,7 +200,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags( int FieldIndex )
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).GetSupportedFieldFlags( FieldIndex );
 	}
@@ -217,7 +217,7 @@ int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int Un
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).SetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldType,
 				FieldValue, flags );
@@ -239,7 +239,7 @@ int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int 
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		return PluginInst( ).SetValue( FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags );
 	}
@@ -255,7 +255,7 @@ void DLL_EXPORT __stdcall ContentStopGetValue( char* FileName )
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		PluginInst( ).StopGetValue( utils::toWideString( FileName ) );
 	}
@@ -270,7 +270,7 @@ void DLL_EXPORT __stdcall ContentStopGetValueW( WCHAR* FileName )
 {
 	try
 	{
-		utils::DbgStr( __PRETTY_FUNCTION__ );
+		utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
 		PluginInst( ).StopGetValue( FileName );
 	}
