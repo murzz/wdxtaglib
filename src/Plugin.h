@@ -18,7 +18,7 @@
 #pragma once
 #include "PluginBase.h"
 #include <fileref.h>
-#include <map>
+//#include <map>
 
 class PluginFieldList: public WDX_API::FieldListBase
 {
@@ -47,10 +47,10 @@ private:
 	void OnAddFields( );
 
 	WDX_API::FieldListBase* OnRegisterFieldList( );
-	TagLib::FileRef& OpenFile( const std::wstring& sFileName );
+	//TagLib::FileRef& OpenFile( const std::wstring& sFileName );
 	//std::wstring GetTagType( TagLib::File* pFile ) const;
 
-	typedef std::map < std::wstring, TagLib::FileRef > MapOfFiles;
-	typedef MapOfFiles::iterator FilesIter;
-	MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
+//	typedef std::map < std::wstring, TagLib::FileRef > MapOfFiles;
+//	typedef MapOfFiles::iterator FilesIter;
+//	MapOfFiles m_Files2Write; ///< Cache of opened files, should speed up tag writing.
 };
