@@ -107,6 +107,7 @@ WDX_API::FieldListBase* Plugin::OnRegisterFieldList( )
 	utils::DbgStr( __PRETTY_FUNCTION__ );
 	return new PluginFieldList( );
 }
+
 std::string Plugin::OnGetDetectString( ) const
 {
 	utils::DbgStr( __PRETTY_FUNCTION__ );
@@ -133,23 +134,23 @@ std::string Plugin::OnGetDetectString( ) const
 	return sExtList.toCString( );
 }
 
-TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
-{
-	utils::DbgStr( __PRETTY_FUNCTION__ );
-	// if there is no such file then insert it
-	// otherwise find its reference
-	FilesIter iter = m_Files2Write.find( sFileName );
-
-	if ( m_Files2Write.end( ) == iter )
-	{
-		m_Files2Write[ sFileName ] = TagLib::FileRef( sFileName.c_str( ) );
-		return m_Files2Write[ sFileName ];
-	}
-	else
-	{
-		return ( *iter ).second;
-	}
-}
+//TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
+//{
+//	utils::DbgStr( __PRETTY_FUNCTION__ );
+//	// if there is no such file then insert it
+//	// otherwise find its reference
+//	FilesIter iter = m_Files2Write.find( sFileName );
+//
+//	if ( m_Files2Write.end( ) == iter )
+//	{
+//		m_Files2Write[ sFileName ] = TagLib::FileRef( sFileName.c_str( ) );
+//		return m_Files2Write[ sFileName ];
+//	}
+//	else
+//	{
+//		return ( *iter ).second;
+//	}
+//}
 
 //WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 //							const int iUnitIndex, void* pFieldValue,
@@ -385,14 +386,14 @@ TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )
 //	return WDX_API::ftSetSuccess;
 //}
 
-void Plugin::OnEndOfSetValue( )
-{
-	utils::DbgStr( __PRETTY_FUNCTION__ );
-	// commit unsaved changes
-	for ( FilesIter iter = m_Files2Write.begin( ); iter != m_Files2Write.end( ); ++iter )
-	{
-		( *iter ).second.save( );
-	}
-
-	m_Files2Write.clear( );
-}
+//void Plugin::OnEndOfSetValue( )
+//{
+//	utils::DbgStr( __PRETTY_FUNCTION__ );
+//	// commit unsaved changes
+//	for ( FilesIter iter = m_Files2Write.begin( ); iter != m_Files2Write.end( ); ++iter )
+//	{
+//		( *iter ).second.save( );
+//	}
+//
+//	m_Files2Write.clear( );
+//}
