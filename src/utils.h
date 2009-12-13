@@ -42,6 +42,8 @@ std::wstring Int2StrW( const int num );
 std::string Int2Str( const int num );
 void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
 
+void ShowInfo( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
+
 #ifdef DEBUG
 /// OutputDebugString() wrapper.
 inline void DbgStr( const std::string& Str )
