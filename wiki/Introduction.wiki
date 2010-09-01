@@ -7,8 +7,8 @@ Content plugin for [http://www.ghisler.com/ Total Commander]
 by Dmitry Murzaikin.
 
 =Description=
-This is a content plugin for Total Commander that allows you to show audio
-file tags in columns, edit tags, search in tags, etc. Powered by [http://developer.kde.org/~wheeler/taglib.html TagLib Audio Meta-Data Library].
+This is a content plugin for [http://www.ghisler.com/ Total Commander] to display audio file tags, edit tags, search in tags, etc.
+Powered by [http://developer.kde.org/~wheeler/taglib.html TagLib Audio Meta-Data Library].
 
 Supported file formats:
  * MP3,
@@ -41,8 +41,7 @@ This software is distributed under the GNU General Public License (*[http://www.
 version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
 =Requirements=
- * Total Commander 7.02 or higher (7.5 for Unicode support),
- * msvcrt.dll (included).
+ * [http://www.ghisler.com/ Total Commander] 7.02 or higher (7.5 for Unicode support).
 
 =Installation=
 [http://code.google.com/p/wdxtaglib/wiki/Installation Look here].

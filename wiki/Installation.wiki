@@ -2,26 +2,5 @@
 #labels Featured,Phase-Deploy
 #sidebar TableOfContents
 
-= Installation manual =
-There are two ways to install plugin in Total Commander:
- * automatically and
- * manually.
-
-= Automatic installation =
- * If *msvcrt.dll* file does not exists on your system download it from [http://support.microsoft.com/ Microsoft] and place it in the `totalcmd.exe` folder or somewhere in the %PATH%. Chances are high that you already has it.
- * Open installation package by Total Commander and it will guide you through installation process.
-
-= Manual installation =
- * If *msvcrt.dll* file does not exists on your system download it from [http://support.microsoft.com/ Microsoft] and place it in the `totalcmd.exe` folder or somewhere in the %PATH%. Chances are high that you already has it.
- * Extract archive to the path of your choice. For example `c:\totalcmd\plugins\wdx\wdxtaglib\`.
- * Add *wdxtaglib.wdx* as content plugin:
-  * in Total Commander follow this menu path: Configuration->Options->Plugins;
-  * under _Content plugins (.WDX)_ section press *Configure* button;
-    http://wdxtaglib.googlecode.com/svn/trunk/doc/configuration_dialog.png
-  * in the new window press *Add* button;
-    http://wdxtaglib.googlecode.com/svn/trunk/doc/add_plugin_dialog.png
-  * in the opened dialog browse to *wdxtaglib.wdx*;
-  * press OK several times. 
- * Done!
-
-Also check [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation here] for more info.
+= Installation =
+Check [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation here] for plugin installation instructions.
