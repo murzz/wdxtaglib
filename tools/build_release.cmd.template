@@ -10,7 +10,7 @@ rem temporary eclipse workspace
 set workspace=%tmp%\wdxtaglib_workspace
 set project_name=WDXTagLib
 rem TODO project root should be detected automatically
-set project_root=d:\eclipse\wdxtaglib
+set project_root=e:\projects\wdxtaglib\WDXTagLib
 rem set project_root=.\..
 rem ---------------- configuration end ----------------------------------
 
