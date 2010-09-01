@@ -2,10 +2,6 @@
 #labels Featured
 #sidebar TableOfContents
 
-=WDXTagLib=
-Content plugin for [http://www.ghisler.com/ Total Commander]
-by Dmitry Murzaikin.
-
 =Description=
 This is a content plugin for [http://www.ghisler.com/ Total Commander] to display audio file tags, edit tags, search in tags, etc.
 Powered by [http://developer.kde.org/~wheeler/taglib.html TagLib Audio Meta-Data Library].
@@ -17,7 +13,8 @@ Supported file formats:
  * Ogg FLAC,
  * Ogg Vorbis,
  * Speex,
- * etc.
+ * MP4 and
+ * ASF (WMA).
 
 =Functionality=
 Tags supported for reading and writing:
