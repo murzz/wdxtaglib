@@ -47,5 +47,3 @@ int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int Un
 int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, int FieldType,
 		void* FieldValue, int flags );
 }
-
-#pragma once
