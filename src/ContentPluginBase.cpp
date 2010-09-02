@@ -24,26 +24,26 @@ namespace ContentPlugin
 PluginBase::PluginBase( ) :
     m_FieldsPtr( NULL ), m_PluginInterfaceVerionHi( 0 ), m_PluginInterfaceVerionLow( 0 )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     ClearAbortedFlag( );
 }
 
 PluginBase::~PluginBase( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     FreeFieldList( );
 }
 
 FieldListBase* PluginBase::OnRegisterFieldList( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return NULL;
 }
 
 void PluginBase::FreeFieldList( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     if ( m_FieldsPtr )
     {
         delete m_FieldsPtr;
@@ -53,21 +53,21 @@ void PluginBase::FreeFieldList( )
 
 std::string PluginBase::GetDetectString( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return OnGetDetectString( );
 }
 
 std::string PluginBase::OnGetDetectString( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return "";
 }
 
 void PluginBase::SetIniName( const std::string& sIniName )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     if ( sIniName == m_IniName )
     {
@@ -80,19 +80,19 @@ void PluginBase::SetIniName( const std::string& sIniName )
 
 void PluginBase::OnSetIniName( const std::string& sIniName )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 std::string PluginBase::GetIniName( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return m_IniName;
 }
 
 void PluginBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     m_PluginInterfaceVerionHi = dwHi;
     m_PluginInterfaceVerionLow = dwLow;
@@ -102,12 +102,12 @@ void PluginBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow 
 
 void PluginBase::OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 EFieldType PluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     const FieldBase& fld = GetFields( )->Find( iFieldIndex );
     utils::strlcpy( pszFieldName, fld.GetName( ).c_str( ), iMaxLen - 1 );
@@ -118,7 +118,7 @@ EFieldType PluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldN
 EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
         void* pFieldValue, const int iMaxLen, const int iFlags )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // parameter checking
 
@@ -160,7 +160,7 @@ EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex
 
 FieldListBase* PluginBase::GetFields( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     if ( !m_FieldsPtr )
     {
         m_FieldsPtr = OnRegisterFieldList( );
@@ -176,7 +176,7 @@ FieldListBase* PluginBase::GetFields( )
 int PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex, const int iFieldType,
         const void* pFieldValue, const int iFlags )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // according to specs here should be &&, not ||, but leave it to be error proof
     if ( !pszFileName || ( -1 == iFieldIndex ) ) // this indicates end of changing attributes
@@ -191,7 +191,7 @@ int PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const
 
 int PluginBase::GetSupportedFieldFlags( const int iFieldIndex )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // we should return a combination of all supported flags here
     if ( -1 == iFieldIndex )
@@ -204,12 +204,12 @@ int PluginBase::GetSupportedFieldFlags( const int iFieldIndex )
 
 void PluginBase::OnEndOfSetValue( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 void PluginBase::StopGetValue( const std::wstring& sFileName )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // abort flag up
 
@@ -219,7 +219,7 @@ void PluginBase::StopGetValue( const std::wstring& sFileName )
 
 void PluginBase::SetAbortedFlag( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // aborted!
     m_bIsAborted = true;
@@ -227,7 +227,7 @@ void PluginBase::SetAbortedFlag( )
 
 void PluginBase::ClearAbortedFlag( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     // clear filename if previous state was ABORTED
     if ( m_bIsAborted )
@@ -241,69 +241,69 @@ void PluginBase::ClearAbortedFlag( )
 
 bool PluginBase::IsAborted( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return m_bIsAborted;
 }
 
 void PluginBase::SetAbortedFilename( const std::wstring& sValue )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     m_sAbortedFilename = sValue;
 }
 
 std::wstring PluginBase::GetAbortedFilename( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return m_sAbortedFilename;
 }
 
 void PluginBase::PluginUnloading( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     OnPluginUnloading( );
 }
 
 void PluginBase::OnPluginUnloading( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 FieldListBase::FieldListBase( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 FieldListBase::~FieldListBase( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     ///@todo destroy all fields here
 }
 void FieldListBase::OnAddFields( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 size_t FieldListBase::Count( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     return m_Fields.size( );
 }
 
 void FieldListBase::AddFields( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     OnAddFields( );
 }
 
 void FieldListBase::AddField( FieldBase* pField )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     if ( !pField )
     {
@@ -314,7 +314,7 @@ void FieldListBase::AddField( FieldBase* pField )
 
 FieldBase& FieldListBase::Find( const int Idx )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     try
     {
@@ -328,7 +328,7 @@ FieldBase& FieldListBase::Find( const int Idx )
 
 int FieldListBase::GetAllFlags( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 
     int iTotalFlags = 0;
     for ( CollectionOfFields::const_iterator iter = m_Fields.begin( ); iter != m_Fields.end( ); ++iter )
@@ -344,40 +344,40 @@ int FieldListBase::GetAllFlags( ) const
 
 FieldBase::FieldBase( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 
 FieldBase::~FieldBase( )
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
 }
 std::string FieldBase::GetName( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return OnGetName( );
 }
 
 EFieldType FieldBase::GetType( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return OnGetType( );
 }
 
 std::string FieldBase::GetUnit( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return OnGetUnit( );
 }
 
 std::string FieldBase::GetMultChoice( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return OnGetMultChoice( );
 }
 
 int FieldBase::GetFlag( ) const
 {
-    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbgFuncName( __PRETTY_FUNCTION__ );
     return OnGetFlag( );
 }
 
