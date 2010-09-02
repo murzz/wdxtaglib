@@ -59,7 +59,7 @@ inline void DbgStr( const std::string& Str1, const std::string& Str2 )
     OutputDebugStringA( ( Str1 + Str2 ).c_str( ) );
 }
 
-inline void DbfFuncName( const std::string& Str )
+inline void DbgFuncName( const std::string& Str )
 {
 #ifdef DBG_FUNC_NAME_ENABLED
     // do not throw exceptions here
@@ -75,7 +75,7 @@ inline void DbgStr (const std::string& Str1, const std::string& Str2)
 {
 }
 
-inline void DbfFuncName( const std::string& Str )
+inline void DbgFuncName( const std::string& Str )
 {
 }
 #endif
