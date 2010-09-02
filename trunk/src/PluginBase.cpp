@@ -173,12 +173,12 @@ FieldListBase* PluginBase::GetFields( )
 	return m_FieldsPtr;
 }
 
-EFieldType PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
+int PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
 		const int iFieldType, const void* pFieldValue, const int iFlags )
 {
 	utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
-	///@todo here it should be &&, not ||
+	// according to specs here should be &&, not ||, but leave it to be error proof
 	if ( !pszFileName || ( -1 == iFieldIndex ) ) // this indicates end of changing attributes
 	{
 		OnEndOfSetValue( );
@@ -322,7 +322,7 @@ FieldBase& FieldListBase::Find( const int Idx )
 	}
 	catch ( std::out_of_range& e )
 	{
-		throw NoSuchField();
+		throw NoSuchField(e.what());
 	}
 }
 
