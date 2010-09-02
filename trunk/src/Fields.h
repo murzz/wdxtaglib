@@ -19,7 +19,7 @@
 #include "ContentPluginBase.h"
 #include <fileref.h>
 
-class PluginField : public WDX_API::FieldBase
+class PluginField : public ContentPlugin::FieldBase
 {
     public:
         PluginField( TagLib::FileRef& File );
@@ -40,7 +40,7 @@ class FieldTitle : public PluginField
 
     private:
         std::string OnGetName( ) const;
-        WDX_API::EFieldType OnGetType( ) const;
+        ContentPlugin::EFieldType OnGetType( ) const;
         std::string OnGetUnit( ) const;
         std::string OnGetMultChoice( ) const;
         int OnGetFlag( ) const;
@@ -54,7 +54,7 @@ class FieldArtist : public PluginField
 
     private:
         std::string OnGetName( ) const;
-        WDX_API::EFieldType OnGetType( ) const;
+        ContentPlugin::EFieldType OnGetType( ) const;
         std::string OnGetUnit( ) const;
         std::string OnGetMultChoice( ) const;
         int OnGetFlag( ) const;

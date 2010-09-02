@@ -141,7 +141,7 @@ int DLL_EXPORT __stdcall ContentGetSupportedField( int FieldIndex, char* FieldNa
 
         return PluginInst( ).GetSupportedField( FieldIndex, FieldName, Units, maxlen );
     }
-    catch ( WDX_API::NoSuchField& e )
+    catch ( ContentPlugin::NoSuchField& e )
     {
         return ft_nomorefields;
     }
@@ -163,7 +163,7 @@ int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int Un
         return PluginInst( ).GetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldValue,
                 maxlen, flags );
     }
-    catch ( WDX_API::NoSuchField& e )
+    catch ( ContentPlugin::NoSuchField& e )
     {
         return ft_nosuchfield;
     }
@@ -184,7 +184,7 @@ int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int 
 
         return PluginInst( ).GetValue( FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags );
     }
-    catch ( WDX_API::NoSuchField& e )
+    catch ( ContentPlugin::NoSuchField& e )
     {
         return ft_nosuchfield;
     }
@@ -222,7 +222,7 @@ int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int Un
         return PluginInst( ).SetValue( utils::toWideString( FileName ).c_str( ), FieldIndex, UnitIndex, FieldType,
                 FieldValue, flags );
     }
-    catch ( WDX_API::NoSuchField& e )
+    catch ( ContentPlugin::NoSuchField& e )
     {
         return ft_nosuchfield;
     }

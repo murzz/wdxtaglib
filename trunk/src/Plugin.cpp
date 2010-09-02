@@ -50,17 +50,17 @@ void PluginFieldList::OnAddFields( )
     AddField( new FieldTitle( m_File ) );
     AddField( new FieldArtist( m_File ) );
 
-    //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-    //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-    //	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-    //	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-    //	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-    //	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
-    //	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
-    //	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
-    //	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
-    //	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
-    //	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
+    //	m_Fields.Add( fiAlbum,			ContentPlugin::Field( "Album",				ContentPlugin::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiYear,			ContentPlugin::Field( "Year",					ContentPlugin::ftNumeric32, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiTracknumber,	ContentPlugin::Field( "Tracknumber",			ContentPlugin::ftNumeric32, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiComment,		ContentPlugin::Field( "Comment",				ContentPlugin::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiGenre,			ContentPlugin::Field( "Genre",				ContentPlugin::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiBitrate,		ContentPlugin::Field( "Bitrate",				ContentPlugin::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiSamplerate,		ContentPlugin::Field( "Sample rate",			ContentPlugin::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiChannels,		ContentPlugin::Field( "Channels",				ContentPlugin::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiLength_s,		ContentPlugin::Field( "Length",				ContentPlugin::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiLength_m,		ContentPlugin::Field( "Length (formatted)",	ContentPlugin::ftWideString,		"", "", 0 ));
+    //	m_Fields.Add( fiTagType,		ContentPlugin::Field( "Tag type",				ContentPlugin::ftWideString,		"", "", 0 ));
 
 }
 
@@ -102,7 +102,7 @@ void Plugin::OnAddFields( )
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
-WDX_API::FieldListBase* Plugin::OnRegisterFieldList( )
+ContentPlugin::FieldListBase* Plugin::OnRegisterFieldList( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
     return new PluginFieldList( );
@@ -152,7 +152,7 @@ std::string Plugin::OnGetDetectString( ) const
 //	}
 //}
 
-//WDX_API::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
+//ContentPlugin::EFieldType WDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 //							const int iUnitIndex, void* pFieldValue,
 //							const int iMaxLen, const int iFlags)
 //
@@ -163,10 +163,10 @@ std::string Plugin::OnGetDetectString( ) const
 //
 //	// no file, no tags or no properties
 //	if ( file.isNull() )
-//		return WDX_API::ftFileError;
+//		return ContentPlugin::ftFileError;
 //
 //	if ( IsAborted() )
-//		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+//		return ContentPlugin::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
 //
 //	TagLib::Tag* pTag = file.tag();
 //	TagLib::AudioProperties* pProp = file.audioProperties();
@@ -176,88 +176,88 @@ std::string Plugin::OnGetDetectString( ) const
 //		case fiTitle:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->title().toWString().c_str(), iMaxLen );
 //			break;
 //		}
 //		case fiArtist:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->artist().toWString().c_str(), iMaxLen );
 //			break;
 //		}
 //		case fiAlbum:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->album().toWString().c_str(), iMaxLen );
 //			break;
 //		}
 //		case fiYear:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			if (!pTag->year())
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pTag->year();
 //			break;
 //		}
 //		case fiTracknumber:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			if (!pTag->track())
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pTag->track();
 //			break;
 //		}
 //		case fiComment:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->comment().toWString().c_str(), iMaxLen );
 //			break;
 //		}
 //		case fiGenre:
 //		{
 //			if (!pTag)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			utils::strlcpyw( reinterpret_cast<wchar_t*>(pFieldValue), pTag->genre().toWString().c_str(), iMaxLen );
 //			break;
 //		}
 //		case fiBitrate:
 //		{
 //			if (!pProp)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pProp->bitrate();
 //			break;
 //		}
 //		case fiSamplerate:
 //		{
 //			if (!pProp)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pProp->sampleRate();
 //			break;
 //		}
 //		case fiChannels:
 //		{
 //			if (!pProp)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pProp->channels();
 //			break;
 //		}
 //		case fiLength_s:
 //		{
 //			if (!pProp)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			*(__int32*)pFieldValue = pProp->length();
 //			break;
 //		}
 //		case fiLength_m:
 //		{
 //			if (!pProp)
-//				return WDX_API::ftFieldEmpty;
+//				return ContentPlugin::ftFieldEmpty;
 //			int nSeconds = pProp->length() % 60;
 //			int nMinutes = (pProp->length() - nSeconds) / 60;
 //
@@ -274,7 +274,7 @@ std::string Plugin::OnGetDetectString( ) const
 //		}
 //		default:
 //		{
-//			return WDX_API::ftNoSuchField;
+//			return ContentPlugin::ftNoSuchField;
 //			break;
 //		}
 //	}
@@ -360,14 +360,14 @@ std::string Plugin::OnGetDetectString( ) const
 //	return sResult.str();
 //}
 
-//WDX_API::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
+//ContentPlugin::EFieldType WDXTagLib::OnSetValue( const std::wstring& sFileName, const int iFieldIndex,
 //								const int iUnitIndex, const int iFieldType,
 //								const void* pFieldValue, const int iFlags )
 //{
 //	TagLib::FileRef file = OpenFile( sFileName );
 //
 //	if ( file.isNull() || !file.tag() )
-//		return WDX_API::ftFileError;
+//		return ContentPlugin::ftFileError;
 //
 //	TagLib::Tag* pTag = file.tag();
 //
@@ -380,10 +380,10 @@ std::string Plugin::OnGetDetectString( ) const
 //		case fiTracknumber:		pTag->setTrack(*(__int32*)pFieldValue);		break;
 //		case fiComment:			pTag->setComment((PTCHAR)pFieldValue);		break;
 //		case fiGenre:			pTag->setGenre((PTCHAR)pFieldValue);		break;
-//		default: 				return WDX_API::ftNoSuchField;				break;
+//		default: 				return ContentPlugin::ftNoSuchField;				break;
 //	}
 //
-//	return WDX_API::ftSetSuccess;
+//	return ContentPlugin::ftSetSuccess;
 //}
 
 //void Plugin::OnEndOfSetValue( )
