@@ -23,7 +23,7 @@
 #include <stdexcept>
 
 /// Namespace for WDX API classes.
-namespace WDX_API
+namespace ContentPlugin
 {
 
 /// Exception thrown when no such field condition detected.
@@ -130,13 +130,13 @@ class FieldListBase
         virtual void CloseFile( ) = 0;
 };
 
-/// Base class for content plugin.
+/// PluginBase class for content plugin.
 /// To create plugin inherit this class and reimplement its virtual methods.
-class ContentPluginBase
+class PluginBase
 {
     public:
-        ContentPluginBase( );
-        virtual ~ContentPluginBase( );
+        PluginBase( );
+        virtual ~PluginBase( );
 
         /// @note should be ASCII anyway.
         virtual std::string GetDetectString( ) const;

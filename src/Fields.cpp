@@ -49,9 +49,9 @@ std::string FieldTitle::OnGetName( ) const
     return "Title";
 }
 
-WDX_API::EFieldType FieldTitle::OnGetType( ) const
+ContentPlugin::EFieldType FieldTitle::OnGetType( ) const
 {
-    return WDX_API::ftWideString;
+    return ContentPlugin::ftWideString;
 }
 
 std::string FieldTitle::OnGetUnit( ) const
@@ -76,15 +76,15 @@ void FieldTitle::OnGetValue( const int iUnitIndex, void* pFieldValue, const int 
 
     // no file, no tags or no properties
     //	if ( file.isNull() )
-    //		return WDX_API::ftFileError;
+    //		return ContentPlugin::ftFileError;
     //
     //	if ( IsAborted() )
-    //		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+    //		return ContentPlugin::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
     TagLib::Tag* pTag = file.tag( );
 
     ///@todo throw exception here
     //if (!pTag)
-    //	return WDX_API::ftFieldEmpty;
+    //	return ContentPlugin::ftFieldEmpty;
     utils::strlcpyw( reinterpret_cast< wchar_t* > ( pFieldValue ), pTag->title( ).toWString( ).c_str( ), iMaxLen );
 }
 
@@ -99,9 +99,9 @@ std::string FieldArtist::OnGetName( ) const
     return "Artist";
 }
 
-WDX_API::EFieldType FieldArtist::OnGetType( ) const
+ContentPlugin::EFieldType FieldArtist::OnGetType( ) const
 {
-    return WDX_API::ftWideString;
+    return ContentPlugin::ftWideString;
 }
 
 std::string FieldArtist::OnGetUnit( ) const
@@ -126,14 +126,14 @@ void FieldArtist::OnGetValue( const int iUnitIndex, void* pFieldValue, const int
 
     // no file, no tags or no properties
     //	if ( file.isNull() )
-    //		return WDX_API::ftFileError;
+    //		return ContentPlugin::ftFileError;
     //
     //	if ( IsAborted() )
-    //		return WDX_API::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
+    //		return ContentPlugin::ftFieldEmpty; // return ft_fieldempty here, according to contentplugin help
     TagLib::Tag* pTag = file.tag( );
 
     ///@todo throw exception here
     //if (!pTag)
-    //	return WDX_API::ftFieldEmpty;
+    //	return ContentPlugin::ftFieldEmpty;
     utils::strlcpyw( reinterpret_cast< wchar_t* > ( pFieldValue ), pTag->artist( ).toWString( ).c_str( ), iMaxLen );
 }
