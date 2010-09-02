@@ -48,22 +48,22 @@ void ShowInfo( const string_t& sText, const string_t& sTitle = TEXT(""), const H
 /// OutputDebugString() wrapper.
 inline void DbgStr( const std::string& Str )
 {
-	// do not throw exceptions here
-	OutputDebugStringA( Str.c_str( ) );
+    // do not throw exceptions here
+    OutputDebugStringA( Str.c_str( ) );
 }
 
 /// OutputDebugString() wrapper. Str1 and Str2 gets concatenated.
 inline void DbgStr( const std::string& Str1, const std::string& Str2 )
 {
-	// do not throw exceptions here
-	OutputDebugStringA( ( Str1 + Str2 ).c_str( ) );
+    // do not throw exceptions here
+    OutputDebugStringA( ( Str1 + Str2 ).c_str( ) );
 }
 
 inline void DbfFuncName( const std::string& Str )
 {
 #ifdef DBG_FUNC_NAME_ENABLED
-	// do not throw exceptions here
-	OutputDebugStringA( Str.c_str( ) );
+    // do not throw exceptions here
+    OutputDebugStringA( Str.c_str( ) );
 #endif
 }
 #else
@@ -81,25 +81,25 @@ inline void DbfFuncName( const std::string& Str )
 #endif
 
 /// Singleton.
-template < class T >
-class singleton: private T
+template< class T >
+class singleton : private T
 {
-public:
-	/// creates global instance of singleton and returns it
-	static T& instance( )
-	{
-		static singleton < T > global_instance;
-		return global_instance;
-	}
+    public:
+        /// creates global instance of singleton and returns it
+        static T& instance( )
+        {
+            static singleton< T > global_instance;
+            return global_instance;
+        }
 
-private:
-	/// private constructor - to prevent direct object creation
-	singleton( )
-	{
-	}
-	/// private destructor - to prevent direct object destruction
-	~singleton( )
-	{
-	}
+    private:
+        /// private constructor - to prevent direct object creation
+        singleton( )
+        {
+        }
+        /// private destructor - to prevent direct object destruction
+        ~singleton( )
+        {
+        }
 };
 } // namespace utils

@@ -35,103 +35,103 @@
 
 PluginFieldList::PluginFieldList( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 PluginFieldList::~PluginFieldList( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 void PluginFieldList::OnAddFields( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
-	AddField( new FieldTitle( m_File ) );
-	AddField( new FieldArtist( m_File ) );
+    AddField( new FieldTitle( m_File ) );
+    AddField( new FieldArtist( m_File ) );
 
-	//	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	//	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-	//	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
-	//	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	//	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
-	//	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	//	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
-	//	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	//	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
-	//	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
-	//	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
+    //	m_Fields.Add( fiAlbum,			WDX_API::Field( "Album",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiYear,			WDX_API::Field( "Year",					WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiTracknumber,	WDX_API::Field( "Tracknumber",			WDX_API::ftNumeric32, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiComment,		WDX_API::Field( "Comment",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiGenre,			WDX_API::Field( "Genre",				WDX_API::ftWideString, 		"", "", contflags_edit ));
+    //	m_Fields.Add( fiBitrate,		WDX_API::Field( "Bitrate",				WDX_API::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiSamplerate,		WDX_API::Field( "Sample rate",			WDX_API::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiChannels,		WDX_API::Field( "Channels",				WDX_API::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiLength_s,		WDX_API::Field( "Length",				WDX_API::ftNumeric32, 		"", "", 0 ));
+    //	m_Fields.Add( fiLength_m,		WDX_API::Field( "Length (formatted)",	WDX_API::ftWideString,		"", "", 0 ));
+    //	m_Fields.Add( fiTagType,		WDX_API::Field( "Tag type",				WDX_API::ftWideString,		"", "", 0 ));
 
 }
 
 void PluginFieldList::OpenFile( const std::wstring& sFileName )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
-	if ( !m_File.isNull( ) && m_File.file( ) && ( std::wstring( m_File.file( )->name( ) ) == sFileName ) )
-	{
-		// already have this file opened
-		return;
-	}
-	TagLib::FileRef File( sFileName.c_str( ), true, TagLib::AudioProperties::Accurate );
-	m_File = File;
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    if ( !m_File.isNull( ) && m_File.file( ) && ( std::wstring( m_File.file( )->name( ) ) == sFileName ) )
+    {
+        // already have this file opened
+        return;
+    }
+    TagLib::FileRef File( sFileName.c_str( ), true, TagLib::AudioProperties::Accurate );
+    m_File = File;
 }
 
 void PluginFieldList::CloseFile( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
-	if ( !m_File.isNull( ) && m_File.file( ) )
-	{
-		// close file by assigning new empty file
-		TagLib::FileRef File;
-		m_File = File;
-	}
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    if ( !m_File.isNull( ) && m_File.file( ) )
+    {
+        // close file by assigning new empty file
+        TagLib::FileRef File;
+        m_File = File;
+    }
 }
 
 Plugin::Plugin( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 Plugin::~Plugin( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 void Plugin::OnAddFields( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
 WDX_API::FieldListBase* Plugin::OnRegisterFieldList( )
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
-	return new PluginFieldList( );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    return new PluginFieldList( );
 }
 
 std::string Plugin::OnGetDetectString( ) const
 {
-	utils::DbfFuncName( __PRETTY_FUNCTION__ );
-	// take supported extensions from FileRef.
-	TagLib::String sExtList;
-	const TagLib::String sOpen( TEXT("EXT=\"") );
-	const TagLib::String sClose( TEXT("\"") );
-	const TagLib::String sOr( TEXT(" | ") );
+    utils::DbfFuncName( __PRETTY_FUNCTION__ );
+    // take supported extensions from FileRef.
+    TagLib::String sExtList;
+    const TagLib::String sOpen( TEXT("EXT=\"") );
+    const TagLib::String sClose( TEXT("\"") );
+    const TagLib::String sOr( TEXT(" | ") );
 
-	TagLib::FileRef fTmp;
-	TagLib::StringList Exts = fTmp.defaultFileExtensions( );
+    TagLib::FileRef fTmp;
+    TagLib::StringList Exts = fTmp.defaultFileExtensions( );
 
-	for ( TagLib::StringList::Iterator iter = Exts.begin( ); iter != Exts.end( ); ++iter )
-	{
-		sExtList += sOpen + ( *iter ).upper( ) + sClose + sOr;
-	}
+    for ( TagLib::StringList::Iterator iter = Exts.begin( ); iter != Exts.end( ); ++iter )
+    {
+        sExtList += sOpen + ( *iter ).upper( ) + sClose + sOr;
+    }
 
-	// remove last sOr
-	if ( !sExtList.isEmpty( ) )
-	{
-		sExtList = sExtList.substr( 0, sExtList.size( ) - sOr.size( ) );
-	}
+    // remove last sOr
+    if ( !sExtList.isEmpty( ) )
+    {
+        sExtList = sExtList.substr( 0, sExtList.size( ) - sOr.size( ) );
+    }
 
-	return sExtList.toCString( );
+    return sExtList.toCString( );
 }
 
 //TagLib::FileRef& Plugin::OpenFile( const std::wstring& sFileName )

@@ -19,44 +19,44 @@
 #include "PluginBase.h"
 #include <fileref.h>
 
-class PluginField: public WDX_API::FieldBase
+class PluginField : public WDX_API::FieldBase
 {
-public:
-	PluginField( TagLib::FileRef& File );
-	virtual ~PluginField( );
+    public:
+        PluginField( TagLib::FileRef& File );
+        virtual ~PluginField( );
 
-protected:
-	TagLib::FileRef& GetFile( ) const;
+    protected:
+        TagLib::FileRef& GetFile( ) const;
 
-private:
-	/// Reference to a file shared between fields.
-	TagLib::FileRef& m_File;
+    private:
+        /// Reference to a file shared between fields.
+        TagLib::FileRef& m_File;
 };
 
-class FieldTitle: public PluginField
+class FieldTitle : public PluginField
 {
-public:
-	FieldTitle( TagLib::FileRef& File );
+    public:
+        FieldTitle( TagLib::FileRef& File );
 
-private:
-	std::string OnGetName( ) const;
-	WDX_API::EFieldType OnGetType( ) const;
-	std::string OnGetUnit( ) const;
-	std::string OnGetMultChoice( ) const;
-	int OnGetFlag( ) const;
-	void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
+    private:
+        std::string OnGetName( ) const;
+        WDX_API::EFieldType OnGetType( ) const;
+        std::string OnGetUnit( ) const;
+        std::string OnGetMultChoice( ) const;
+        int OnGetFlag( ) const;
+        void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
 };
 
-class FieldArtist: public PluginField
+class FieldArtist : public PluginField
 {
-public:
-	FieldArtist( TagLib::FileRef& File );
+    public:
+        FieldArtist( TagLib::FileRef& File );
 
-private:
-	std::string OnGetName( ) const;
-	WDX_API::EFieldType OnGetType( ) const;
-	std::string OnGetUnit( ) const;
-	std::string OnGetMultChoice( ) const;
-	int OnGetFlag( ) const;
-	void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
+    private:
+        std::string OnGetName( ) const;
+        WDX_API::EFieldType OnGetType( ) const;
+        std::string OnGetUnit( ) const;
+        std::string OnGetMultChoice( ) const;
+        int OnGetFlag( ) const;
+        void OnGetValue( const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags );
 };

@@ -38,12 +38,12 @@ void DLL_EXPORT __stdcall ContentStopGetValue( char* FileName );
 void DLL_EXPORT __stdcall ContentStopGetValueW( WCHAR* FileName );
 
 int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int UnitIndex, void* FieldValue, int maxlen,
-		int flags );
+        int flags );
 int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, void* FieldValue,
-		int maxlen, int flags );
+        int maxlen, int flags );
 
 int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int UnitIndex, int FieldType,
-		void* FieldValue, int flags );
+        void* FieldValue, int flags );
 int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, int FieldType,
-		void* FieldValue, int flags );
+        void* FieldValue, int flags );
 }

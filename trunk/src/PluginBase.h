@@ -150,8 +150,8 @@ class PluginBase
         EFieldType GetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex, void* pFieldValue,
                 const int iMaxLen, const int iFlags );
 
-        int SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
-                const int iFieldType, const void* pFieldValue, const int iFlags );
+        int SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex, const int iFieldType,
+                const void* pFieldValue, const int iFlags );
 
         virtual int GetSupportedFieldFlags( const int iFieldIndex );
 
