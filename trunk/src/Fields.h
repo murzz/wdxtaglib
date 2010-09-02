@@ -16,7 +16,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
-#include "PluginBase.h"
+#include "ContentPluginBase.h"
 #include <fileref.h>
 
 class PluginField : public WDX_API::FieldBase
