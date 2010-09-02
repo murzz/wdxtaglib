@@ -33,7 +33,7 @@ class PluginFieldList : public WDX_API::FieldListBase
         void CloseFile( );
 };
 
-class Plugin : public WDX_API::PluginBase
+class Plugin : public WDX_API::ContentPluginBase
 {
     public:
         Plugin( );

@@ -132,11 +132,11 @@ class FieldListBase
 
 /// Base class for content plugin.
 /// To create plugin inherit this class and reimplement its virtual methods.
-class PluginBase
+class ContentPluginBase
 {
     public:
-        PluginBase( );
-        virtual ~PluginBase( );
+        ContentPluginBase( );
+        virtual ~ContentPluginBase( );
 
         /// @note should be ASCII anyway.
         virtual std::string GetDetectString( ) const;

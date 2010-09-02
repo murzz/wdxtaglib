@@ -21,7 +21,7 @@
 
 namespace WDX_API
 {
-PluginBase::PluginBase( ) :
+ContentPluginBase::ContentPluginBase( ) :
     m_FieldsPtr( NULL ), m_PluginInterfaceVerionHi( 0 ), m_PluginInterfaceVerionLow( 0 )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
@@ -29,19 +29,19 @@ PluginBase::PluginBase( ) :
     ClearAbortedFlag( );
 }
 
-PluginBase::~PluginBase( )
+ContentPluginBase::~ContentPluginBase( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
     FreeFieldList( );
 }
 
-FieldListBase* PluginBase::OnRegisterFieldList( )
+FieldListBase* ContentPluginBase::OnRegisterFieldList( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
     return NULL;
 }
 
-void PluginBase::FreeFieldList( )
+void ContentPluginBase::FreeFieldList( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
     if ( m_FieldsPtr )
@@ -51,21 +51,21 @@ void PluginBase::FreeFieldList( )
     }
 }
 
-std::string PluginBase::GetDetectString( ) const
+std::string ContentPluginBase::GetDetectString( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     return OnGetDetectString( );
 }
 
-std::string PluginBase::OnGetDetectString( ) const
+std::string ContentPluginBase::OnGetDetectString( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     return "";
 }
 
-void PluginBase::SetIniName( const std::string& sIniName )
+void ContentPluginBase::SetIniName( const std::string& sIniName )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -78,19 +78,19 @@ void PluginBase::SetIniName( const std::string& sIniName )
     OnSetIniName( m_IniName );
 }
 
-void PluginBase::OnSetIniName( const std::string& sIniName )
+void ContentPluginBase::OnSetIniName( const std::string& sIniName )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
-std::string PluginBase::GetIniName( ) const
+std::string ContentPluginBase::GetIniName( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     return m_IniName;
 }
 
-void PluginBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
+void ContentPluginBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -100,12 +100,12 @@ void PluginBase::SetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow 
     OnSetPluginInterfaceVersion( m_PluginInterfaceVerionHi, m_PluginInterfaceVerionLow );
 }
 
-void PluginBase::OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
+void ContentPluginBase::OnSetPluginInterfaceVersion( const DWORD dwHi, const DWORD dwLow )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
-EFieldType PluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen )
+EFieldType ContentPluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -115,7 +115,7 @@ EFieldType PluginBase::GetSupportedField( const int iFieldIndex, char* pszFieldN
     return fld.GetType( );
 }
 
-EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
+EFieldType ContentPluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex,
         void* pFieldValue, const int iMaxLen, const int iFlags )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
@@ -158,7 +158,7 @@ EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex
     return Field.GetType( );
 }
 
-FieldListBase* PluginBase::GetFields( )
+FieldListBase* ContentPluginBase::GetFields( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
     if ( !m_FieldsPtr )
@@ -173,7 +173,7 @@ FieldListBase* PluginBase::GetFields( )
     return m_FieldsPtr;
 }
 
-int PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex, const int iFieldType,
+int ContentPluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const int iUnitIndex, const int iFieldType,
         const void* pFieldValue, const int iFlags )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
@@ -189,7 +189,7 @@ int PluginBase::SetValue( const WCHAR* pszFileName, const int iFieldIndex, const
     return fld.GetType( );
 }
 
-int PluginBase::GetSupportedFieldFlags( const int iFieldIndex )
+int ContentPluginBase::GetSupportedFieldFlags( const int iFieldIndex )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -202,12 +202,12 @@ int PluginBase::GetSupportedFieldFlags( const int iFieldIndex )
     return GetFields( )->Find( iFieldIndex ).GetFlag( );
 }
 
-void PluginBase::OnEndOfSetValue( ) const
+void ContentPluginBase::OnEndOfSetValue( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
 
-void PluginBase::StopGetValue( const std::wstring& sFileName )
+void ContentPluginBase::StopGetValue( const std::wstring& sFileName )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -217,7 +217,7 @@ void PluginBase::StopGetValue( const std::wstring& sFileName )
     SetAbortedFlag( );
 }
 
-void PluginBase::SetAbortedFlag( )
+void ContentPluginBase::SetAbortedFlag( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -225,7 +225,7 @@ void PluginBase::SetAbortedFlag( )
     m_bIsAborted = true;
 }
 
-void PluginBase::ClearAbortedFlag( )
+void ContentPluginBase::ClearAbortedFlag( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
@@ -239,35 +239,35 @@ void PluginBase::ClearAbortedFlag( )
     m_bIsAborted = false;
 }
 
-bool PluginBase::IsAborted( ) const
+bool ContentPluginBase::IsAborted( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     return m_bIsAborted;
 }
 
-void PluginBase::SetAbortedFilename( const std::wstring& sValue )
+void ContentPluginBase::SetAbortedFilename( const std::wstring& sValue )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     m_sAbortedFilename = sValue;
 }
 
-std::wstring PluginBase::GetAbortedFilename( ) const
+std::wstring ContentPluginBase::GetAbortedFilename( ) const
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     return m_sAbortedFilename;
 }
 
-void PluginBase::PluginUnloading( )
+void ContentPluginBase::PluginUnloading( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 
     OnPluginUnloading( );
 }
 
-void PluginBase::OnPluginUnloading( )
+void ContentPluginBase::OnPluginUnloading( )
 {
     utils::DbfFuncName( __PRETTY_FUNCTION__ );
 }
