@@ -124,27 +124,27 @@ EFieldType PluginBase::GetValue( const WCHAR* pszFileName, const int iFieldIndex
 
     if ( !pszFileName )
     {
-        throw std::runtime_error( "pszFileName is NULL" );
+        throw std::invalid_argument( "pszFileName is NULL" );
     }
 
     if ( iUnitIndex < 0 )
     {
-        throw std::runtime_error( "iUnitIndex is negative" );
+        throw std::invalid_argument( "iUnitIndex is negative" );
     }
 
     if ( !pFieldValue )
     {
-        throw std::runtime_error( "pFieldValue is NULL" );
+        throw std::invalid_argument( "pFieldValue is NULL" );
     }
 
     if ( iMaxLen < 0 )
     {
-        throw std::runtime_error( "iMaxLen is negative" );
+        throw std::invalid_argument( "iMaxLen is negative" );
     }
 
     if ( iFlags < 0 )
     {
-        throw std::runtime_error( "iFlags is negative" );
+        throw std::invalid_argument( "iFlags is negative" );
     }
 
     // abort flag down
