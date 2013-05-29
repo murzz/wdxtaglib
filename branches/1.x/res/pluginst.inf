@@ -1,0 +1,6 @@
+[plugininstall]
+description=content plugin for reading and writing file tags (MP3, MPC, FLAC, Ogg FLAC, Ogg Vorbis and Speex)
+type=wdx
+file=wdxtaglib.wdx
+defaultdir=wdxtaglib
+;defaultextension=ext,ext2 
