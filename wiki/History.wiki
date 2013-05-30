@@ -1,4 +1,4 @@
-#summary Version history goes here
+#summary Version history
 #sidebar TableOfContents
 
 = Version 1.1.0 =
