@@ -1,6 +1,0 @@
-#summary How to use plugin.
-#sidebar TableOfContents
-
-It is possible to create custom column set via Configuration->Options->Custom columns dialog.
-
-Also check [http://www.ghisler.ch/wiki/index.php?title=Content_plugin here] for more usage scenarios.
