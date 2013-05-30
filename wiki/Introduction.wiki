@@ -36,7 +36,10 @@ This plugin uses [http://taglib.github.io TagLib] library for reading and writin
 [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation Look here].
 
 = Usage =
-[http://code.google.com/p/wdxtaglib/wiki/Usage Look here].
+It is possible to create custom column set via Configuration->Options->Custom columns dialog.
+
+Also check here for more usage scenarios.
+.
 
 = Version history =
 [http://code.google.com/p/wdxtaglib/wiki/History Look here].
