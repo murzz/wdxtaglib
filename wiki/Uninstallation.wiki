@@ -1,5 +1,4 @@
 #summary How to uninstall plugin.
-#labels Featured
 #sidebar TableOfContents
 
 = Uninstallation =
