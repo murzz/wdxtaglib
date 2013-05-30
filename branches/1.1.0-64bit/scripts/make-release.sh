@@ -21,3 +21,4 @@ rm -rf "$wdxtaglibbuilddir" || exit
 mv "$wdxtaglibstagedir/$artifact" "$wdxtaglibstagedir/$artifact64" || exit
 cd "$wdxtaglibstagedir" || exit
 zip -g "$working_root/$package" "$artifact64" || exit
+zip -d "$working_root/$package" "libwdxtaglib.dll.a" || exit
