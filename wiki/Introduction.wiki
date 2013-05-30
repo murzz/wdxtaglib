@@ -23,11 +23,11 @@ Readonly tags:
  * tag type.
 
 = License Agreement =
-This software is distributed under the GNU General Public License (*[http://www.fsf.org/licensing/licenses/gpl.html GPL]*)
-version 3 or later and/or GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
+This software is distributed under the GNU General Public License ([http://www.fsf.org/licensing/licenses/gpl.html GPL])
+version 3 or later and/or GNU Lesser General Public License ([http://www.fsf.org/licensing/licenses/lgpl.html LGPL]) version 3 or later.
 
 = Notes =
-This plugin uses TagLib library for reading and writing tag files. TagLib library distributed under LGPL terms.
+This plugin uses [http://taglib.github.io TagLib] library for reading and writing tag files. [http://taglib.github.io TagLib] library distributed under LGPL terms.
 
 = Requirements =
  * [http://www.ghisler.com/ Total Commander] 7.02 or higher (7.5 for Unicode support).
