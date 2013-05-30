@@ -46,7 +46,6 @@ install(TARGETS wdxtaglib DESTINATION .)
 set(DOCS 
     doc/COPYING
     doc/COPYING.LESSER
-    doc/read_before_install.txt
     doc/readme.txt
     res/pluginst.inf
 )
