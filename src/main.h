@@ -1,4 +1,4 @@
-// WDXTagLib is a content plugin for Total Commander that allows you to show audio
+// 	WDXTagLib is a content plugin for Total Commander that allows you to show audio
 // file tags in columns, edit tags and search in tags.
 // Copyright (C) 2008 Dmitrie Murzaikin (murzzz@gmail.com)
 //
@@ -13,37 +13,36 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>.
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef __MAIN_H__
+#define __MAIN_H__
+
 #include <windows.h>
 #include "contentplug.h"
 
 #ifdef BUILD_DLL
-#define DLL_EXPORT __declspec(dllexport)
+    #define DLL_EXPORT __declspec(dllexport)
 #else
-#define DLL_EXPORT __declspec(dllimport)
+    #define DLL_EXPORT __declspec(dllimport)
 #endif
 
+
+#ifdef __cplusplus
 extern "C"
 {
-void DLL_EXPORT __stdcall ContentGetDetectString( char* DetectString, int maxlen );
-void DLL_EXPORT __stdcall ContentSetDefaultParams( ContentDefaultParamStruct* dps );
-int DLL_EXPORT __stdcall ContentGetSupportedField( int FieldIndex, char* FieldName, char* Units, int maxlen );
-int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags( int FieldIndex );
-void DLL_EXPORT __stdcall ContentPluginUnloading( void );
+#endif
 
-// unicode enabled functions
-void DLL_EXPORT __stdcall ContentStopGetValue( char* FileName );
-void DLL_EXPORT __stdcall ContentStopGetValueW( WCHAR* FileName );
+void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen);
+void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
+int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
+int DLL_EXPORT __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
+int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
+int DLL_EXPORT __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
+void DLL_EXPORT __stdcall ContentPluginUnloading(void);
 
-int DLL_EXPORT __stdcall ContentGetValue( char* FileName, int FieldIndex, int UnitIndex, void* FieldValue, int maxlen,
-        int flags );
-int DLL_EXPORT __stdcall ContentGetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, void* FieldValue,
-        int maxlen, int flags );
-
-int DLL_EXPORT __stdcall ContentSetValue( char* FileName, int FieldIndex, int UnitIndex, int FieldType,
-        void* FieldValue, int flags );
-int DLL_EXPORT __stdcall ContentSetValueW( WCHAR* FileName, int FieldIndex, int UnitIndex, int FieldType,
-        void* FieldValue, int flags );
+#ifdef __cplusplus
 }
+#endif
+
+#endif // __MAIN_H__
