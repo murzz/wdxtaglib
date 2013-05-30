@@ -2,22 +2,11 @@
 #labels Featured
 #sidebar TableOfContents
 
-=Description=
-This is a content plugin for [http://www.ghisler.com/ Total Commander] to display audio file tags, edit tags, search in tags, etc.
-Powered by [http://developer.kde.org/~wheeler/taglib.html TagLib Audio Meta-Data Library].
+= Description =
+*WDXTagLib* is a content plugin for [http://www.ghisler.com Total Commander] which uses [http://taglib.github.io/ TagLib] library for reading and editing the meta-data of several popular audio formats. Currently it supports both ID3v1 and ID3v2 for MP3 files, Ogg Vorbis comments andID3 tags and Vorbis comments in FLAC, MPC, Speex, !WavPack !TrueAudio, WAV, AIFF, MP4 and ASF files.
 
-Supported file formats:
- * MP3,
- * MPC,
- * FLAC,
- * Ogg FLAC,
- * Ogg Vorbis,
- * Speex,
- * MP4 and
- * ASF (WMA).
-
-=Functionality=
-Tags supported for reading and writing:
+= Functionality =
+Tags supported for reading and editing:
  * title,
  * artist,
  * album,
@@ -33,25 +22,29 @@ Readonly tags:
  * length,
  * tag type.
 
-=License Agreement=
+= License Agreement =
 This software is distributed under the GNU General Public License (*[http://www.fsf.org/licensing/licenses/gpl.html GPL]*)
-version 3 or later and GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
+version 3 or later and/or GNU Lesser General Public License (*[http://www.fsf.org/licensing/licenses/lgpl.html LGPL]*) version 3 or later.
 
-=Requirements=
+= Notes =
+This plugin uses TagLib library for reading and writing tag files. TagLib library distributed under LGPL terms.
+
+= Requirements =
  * [http://www.ghisler.com/ Total Commander] 7.02 or higher (7.5 for Unicode support).
 
-=Installation=
+= Installation =
 [http://code.google.com/p/wdxtaglib/wiki/Installation Look here].
 
-=Usage=
+= Usage =
 [http://code.google.com/p/wdxtaglib/wiki/Usage Look here].
 
-=Version history=
+= Version history =
 [http://code.google.com/p/wdxtaglib/wiki/History Look here].
 
-=Special thanks=
+= Special thanks =
  * Christian Ghisler, author of [http://www.ghisler.com Total Commander].
- * [http://developer.kde.org/~wheeler/taglib.html TagLib] project.
+ * [http://taglib.github.io TagLib] project.
 
-=Support=
+= Support =
  * [http://code.google.com/p/wdxtaglib/ WDXTagLib at Google Code].
+ * [http://ghisler.ch/board/viewtopic.php?p=145149 plugin discussion]
