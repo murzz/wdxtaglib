@@ -1,12 +1,8 @@
 #!/bin/sh
 
-ver=1.1.0
-package=wdxtaglib-$ver
-#archive=$package.tar.gz
-#url=http://taglib.github.io/releases/$archive
+package=wdxtaglib
 workdir=/tmp/$package
 stagedir="$workdir/install"
-#downloaded="$workdir/$archive"
 builddir="$workdir/build"
 #toolchainfile="/home/dm/src/wdxtaglib/latest-taglib/mk/toolchain-cross-mingw32-linux.cmake"
 toolchainfile="$1"
