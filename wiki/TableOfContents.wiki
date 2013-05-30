@@ -1,6 +1,5 @@
 #summary Table of contents
 
 
- * [Introduction Introduction]
- * [Uninstallation Unstallation]
+ * ReadMe
  * [History Version history]
