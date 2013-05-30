@@ -2,7 +2,5 @@
 
 
  * [Introduction Introduction]
- * [Installation Installation]
  * [Uninstallation Unstallation]
- * [Usage Usage]
  * [History Version history]
