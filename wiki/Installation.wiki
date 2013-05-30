@@ -1,5 +1,5 @@
 #summary How to install.
-#labels Featured,Phase-Deploy
+#labels Phase-Deploy
 #sidebar TableOfContents
 
 = Installation =
