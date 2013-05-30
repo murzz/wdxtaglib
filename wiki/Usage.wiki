@@ -1,5 +1,4 @@
 #summary How to use plugin.
-#labels Featured
 #sidebar TableOfContents
 
 It is possible to create custom column set via Configuration->Options->Custom columns dialog.
