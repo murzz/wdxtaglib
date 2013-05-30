@@ -2,7 +2,7 @@
 
 
  * [Introduction Introduction]
- * [Installation Installation]
+ * [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation Installation]
  * [Uninstallation Unstallation]
  * [Usage Usage]
  * [History Version history]
