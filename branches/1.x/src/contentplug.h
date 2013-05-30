@@ -1,7 +1,6 @@
-#ifndef contentplug_H
-#define contentplug_H
+#pragma once
 
-// Contents of file contplug.h version 1.5
+// Contents of file contplug.h version 2.10
 
 #define ft_nomorefields 0
 #define ft_numeric_32 1
@@ -14,12 +13,13 @@
 #define ft_string 8
 #define ft_fulltext 9
 #define ft_datetime 10
+#define ft_stringw 11
+#define ft_comparecontent 100
 
 // for ContentGetValue
 #define ft_nosuchfield -1   // error, invalid field number given
 #define ft_fileerror -2     // file i/o error
 #define ft_fieldempty -3    // field valid, but empty
-
 #define ft_ondemand -4      // field will be retrieved only when user presses <SPACEBAR>
 #define ft_notsupported -5  // function not supported
 #define ft_setcancel -6     // user clicked cancel in field editor
@@ -31,7 +31,6 @@
 // for ContentGetSupportedFieldFlags
 #define contflags_edit 1
 #define contflags_substsize 2
-
 #define contflags_substdatetime 4
 #define contflags_substdate 6
 #define contflags_substtime 8
@@ -47,7 +46,6 @@
 
 #define setflags_first_attribute 1     // First attribute of this file
 #define setflags_last_attribute  2     // Last attribute of this file
-
 #define setflags_only_date       4     // Only set the date of the datetime value!
 
 #define editflags_initialize     1     // The data passed to the plugin may be used to
@@ -56,7 +54,6 @@
 #define CONTENT_DELAYIFSLOW 1  // ContentGetValue called in foreground
 #define CONTENT_PASSTHROUGH 2  // If requested via contflags_passthrough_size_float: The size
                                // is passed in as floating value, TC expects correct value
-
                                // from the given units value, and optionally a text string
 
 typedef struct {
@@ -67,7 +64,6 @@ typedef struct {
 } ContentDefaultParamStruct;
 
 typedef struct {
-
 	WORD wYear;
 	WORD wMonth;
 	WORD wDay;
@@ -78,19 +74,36 @@ typedef struct {
 	WORD wMinute;
 	WORD wSecond;
 } ttimeformat,*ptimeformat;
+
+typedef struct {
+	__int64 filesize1;
+	__int64 filesize2;
+	FILETIME filetime1;
+	FILETIME filetime2;
+	DWORD attr1;
+	DWORD attr2;
+} FileDetailsStruct;
+
+typedef int (__stdcall *PROGRESSCALLBACKPROC)(int nextblockdata);
 /*
 int __stdcall ContentGetDetectString(char* DetectString,int maxlen);
 int __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
 int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
+int __stdcall ContentGetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
 void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
-
 void __stdcall ContentPluginUnloading(void);
 void __stdcall ContentStopGetValue(char* FileName);
+void __stdcall ContentStopGetValueW(WCHAR* FileName);
 int __stdcall ContentGetDefaultSortOrder(int FieldIndex);
 int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
 int __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
+int __stdcall ContentSetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
 int __stdcall ContentEditValue(HWND ParentWin,int FieldIndex,int UnitIndex,int FieldType,
                 void* FieldValue,int maxlen,int flags,char* langidentifier);
 void __stdcall ContentSendStateInformation(int state,char* path);
+void __stdcall ContentSendStateInformationW(int state,WCHAR* path);
+int __stdcall ContentCompareFiles(PROGRESSCALLBACKPROC progresscallback,
+  int compareindex,char* filename1,char* filename2,FileDetailsStruct* filedetails);
+int __stdcall ContentCompareFilesW(PROGRESSCALLBACKPROC progresscallback,
+  int compareindex,WCHAR* filename1,WCHAR* filename2,FileDetailsStruct* filedetails);
 */
-#endif
