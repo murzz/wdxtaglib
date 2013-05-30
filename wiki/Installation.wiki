@@ -1,6 +1,0 @@
-#summary How to install.
-#labels Phase-Deploy
-#sidebar TableOfContents
-
-= Installation =
-Check [http://www.ghisler.ch/wiki/index.php/Plugin#Plugin_installation here] for plugin installation instructions.
