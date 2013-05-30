@@ -1,7 +1,8 @@
 #!/bin/sh
 
 wdxtaglibstagedir=$1
-with_64bit=$2
+wdxtaglibbuilddir=$2
+with_64bit=$3
 
 # set current dir to scripts dir or run me from scripts dir directly
 wdxtaglib_root=$(pwd)/..
@@ -24,4 +25,4 @@ fi
 #rm -rf $taglibstagedir || exit
 mkdir -p $taglibstagedir || exit
 "$wdxtaglib_root/scripts/build-taglib.sh" "$toolchainfile" "$working_root" "$taglibstagedir" $with_64bit || exit
-"$wdxtaglib_root/scripts/build-wdx.sh" "$toolchainfile" "$wdxtaglib_root" "$taglibstagedir" "$working_root" "$wdxtaglibstagedir" $with_64bit || exit
+"$wdxtaglib_root/scripts/build-wdx.sh" "$toolchainfile" "$wdxtaglib_root" "$taglibstagedir" "$working_root" "$wdxtaglibstagedir" "$wdxtaglibbuilddir" $with_64bit || exit

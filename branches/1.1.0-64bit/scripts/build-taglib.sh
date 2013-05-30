@@ -6,6 +6,8 @@ working_root="$2"
 taglibstagedir="$3"
 with_64bit="$4"
 
+cpu_count=$(grep -c ^processor /proc/cpuinfo)
+
 ver=1.8
 package=taglib-$ver
 archive=$package.tar.gz
@@ -65,4 +67,4 @@ cd "$builddir" || exit
 if test ! -f "$builddir/CMakeCache.txt"; then
 	cmake $cmakeparams "$working_root/$package" || exit
 fi
-make -j install || exit
+make -j$cpu_count install || exit

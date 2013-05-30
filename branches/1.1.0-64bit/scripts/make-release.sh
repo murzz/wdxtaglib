@@ -2,19 +2,22 @@
 
 working_root="/tmp"
 wdxtaglibstagedir="/tmp/wdxtaglib-stage"
-package="wdx_WDXTagLib_*.zip"
+wdxtaglibbuilddir="/tmp/wdxtaglib-build"
+package="wdx_WDXTagLib_1.1.0.zip"
 artifact="wdxtaglib.wdx"
 artifact64="$artifact"64
 
-./build-all.sh "$wdxtaglibstagedir" || exit
+./build-all.sh "$wdxtaglibstagedir" "$wdxtaglibbuilddir" || exit
 
 # save package
 #paket lezhit ne v stage a v build papke
-cp "$wdxtaglibstagedir/$package" "$working_root" || exit
+cp "$wdxtaglibbuilddir/$package" "$working_root" || exit
 
 rm -rf "$wdxtaglibstagedir" || exit
-./build-all.sh "$wdxtaglibstagedir" 64 || exit
+rm -rf "$wdxtaglibbuilddir" || exit
+./build-all.sh "$wdxtaglibstagedir" "$wdxtaglibbuilddir" 64 || exit
 
 # add 64bit artifact to package
 mv "$wdxtaglibstagedir/$artifact" "$wdxtaglibstagedir/$artifact64" || exit
-zip -g "$working_root/$package" "$wdxtaglibstagedir/$artifact64" || exit
+cd "$wdxtaglibstagedir" || exit
+zip -g "$working_root/$package" "$artifact64" || exit
