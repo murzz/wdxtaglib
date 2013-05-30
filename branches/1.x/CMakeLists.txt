@@ -2,9 +2,15 @@ cmake_minimum_required(VERSION 2.8)
 
 project(wdxtaglib)
 
+set(PACKAGE_DESCRIPTION_SUMMARY "Content plugin for Total Commander for reading and writing audio file tags")
+set(PACKAGE_VENDOR "Dmitry Murzaikin")
+set(PACKAGE_NAME "WDXTagLib")
+set(PACKAGE_VERSION "1.1.0")
+
+set(PACKAGE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME})
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
-    ${TAGLIB_ROOT}/include
     ${TAGLIB_ROOT}/include/taglib
 )
 
@@ -27,7 +33,7 @@ add_library( wdxtaglib SHARED ${SOURCES})
 
 target_link_libraries(wdxtaglib tag)
 
-# artefact naming
+# artifact naming
 set_target_properties(wdxtaglib PROPERTIES PREFIX "")
 set_target_properties(wdxtaglib PROPERTIES SUFFIX ".wdx")
  
@@ -48,4 +54,5 @@ install( FILES ${DOCS} DESTINATION . )
 
 set(CPACK_GENERATOR "ZIP")
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
+set(CPACK_PACKAGE_FILE_NAME wdx_${PACKAGE_NAME}_${PACKAGE_VERSION})
 include(CPack)
