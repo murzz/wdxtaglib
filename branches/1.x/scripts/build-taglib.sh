@@ -24,8 +24,8 @@ fi
 
 
 # download
+#wgetparams="$wgetparams --quiet"
 wgetparams="$wgetparams --output-document=$downloaded"
-wgetparams="$wgetparams –-quiet"
 wgetparams="$wgetparams $url"
 
 #rm -rf "$workdir" || exit
