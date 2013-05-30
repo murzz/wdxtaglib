@@ -6,13 +6,15 @@ SET(CMAKE_SYSTEM_NAME Windows)
 # for classical mingw32
 # see http://www.mingw.org/
 #set(COMPILER_PREFIX "i586-mingw32msvc")
-set(COMPILER_PREFIX "i686-w64-mingw32")
-
 
 # for 32 or 64 bits mingw-w64
 # see http://mingw-w64.sourceforge.net/
-#set(COMPILER_PREFIX "i686-w64-mingw32")
-#set(COMPILER_PREFIX "x86_64-w64-mingw32"
+if(WITH_64BIT)
+    set(COMPILER_PREFIX "x86_64-w64-mingw32")
+else(WITH_64BIT)
+    set(COMPILER_PREFIX "i686-w64-mingw32")
+endif(WITH_64BIT)
+
 
 # which compilers to use for C and C++
 find_program(CMAKE_RC_COMPILER NAMES ${COMPILER_PREFIX}-windres)
@@ -25,7 +27,7 @@ find_program(CMAKE_CXX_COMPILER NAMES ${COMPILER_PREFIX}-g++)
 
 # here is the target environment located
 #SET(USER_ROOT_PATH /home/dm/src/win32-dev)
-SET(CMAKE_FIND_ROOT_PATH  /usr/${DIR_PREFIX} ${USER_ROOT_PATH})
+SET(CMAKE_FIND_ROOT_PATH  /usr/${COMPILER_PREFIX} ${USER_ROOT_PATH})
 
 # adjust the default behaviour of the FIND_XXX() commands:
 # search headers and libraries in the target environment, search 
