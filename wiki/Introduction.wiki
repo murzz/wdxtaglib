@@ -2,7 +2,7 @@
 #labels Featured
 
 = Description =
-*WDXTagLib* is a content plugin for [http://www.ghisler.com Total Commander] which uses [http://taglib.github.io/ TagLib] library for reading and editing the meta-data of several popular audio formats. Currently it supports both ID3v1 and ID3v2 for MP3 files, Ogg Vorbis comments andID3 tags and Vorbis comments in FLAC, MPC, Speex, !WavPack !TrueAudio, WAV, AIFF, MP4 and ASF files.
+*WDXTagLib* is a content plugin for [http://www.ghisler.com Total Commander] which uses [http://taglib.github.io/ TagLib] library for reading and editing the meta-data of several popular audio formats. Currently it supports both ID3v1 and ID3v2 for MP3 files, Ogg Vorbis comments and ID3 tags and Vorbis comments in FLAC, MPC, Speex, !WavPack !TrueAudio, WAV, AIFF, MP4 and ASF files.
 
 = Functionality =
 Tags supported for reading and editing:
