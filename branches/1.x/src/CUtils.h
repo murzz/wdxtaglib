@@ -31,3 +31,21 @@ class CUtils
 	private:
 		CUtils();
 };
+
+template <class T>
+class singleton : private T
+{
+public:
+    /// creates global instance of singleton and returns it
+    static T& instance()
+    {
+        static singleton<T> global_instance;
+        return global_instance;
+    }
+
+private:
+    /// private constructor - to prevent direct object creation
+    inline singleton() {}
+    /// private destructor - to prevent direct object destruction
+    inline ~singleton() {}
+};
