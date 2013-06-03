@@ -112,9 +112,9 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->title().toCString(true), iMaxLen );	break;
-		case fiArtist:			CUtils::strlcpy( (PTCHAR)pFieldValue, tag->artist().toCString(true), iMaxLen );	break;
-		case fiAlbum:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->album().toCString(true), iMaxLen );	break;
+		case fiTitle:				utils::strlcpy( (PTCHAR)pFieldValue, tag->title().toCString(true), iMaxLen );	break;
+		case fiArtist:			utils::strlcpy( (PTCHAR)pFieldValue, tag->artist().toCString(true), iMaxLen );	break;
+		case fiAlbum:				utils::strlcpy( (PTCHAR)pFieldValue, tag->album().toCString(true), iMaxLen );	break;
 		case fiYear:
 		{
 			if (!tag->year())
@@ -129,8 +129,8 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			*(__int32*)pFieldValue = tag->track();
 			break;
 		}
-		case fiComment:			CUtils::strlcpy( (PTCHAR)pFieldValue, tag->comment().toCString(true), iMaxLen );	break;
-		case fiGenre:				CUtils::strlcpy( (PTCHAR)pFieldValue, tag->genre().toCString(true), iMaxLen );		break;
+		case fiComment:			utils::strlcpy( (PTCHAR)pFieldValue, tag->comment().toCString(true), iMaxLen );	break;
+		case fiGenre:				utils::strlcpy( (PTCHAR)pFieldValue, tag->genre().toCString(true), iMaxLen );		break;
 		case fiBitrate:			*(__int32*)pFieldValue = prop->bitrate();		break;
 		case fiSamplerate:	*(__int32*)pFieldValue = prop->sampleRate();	break;
 		case fiChannels:		*(__int32*)pFieldValue = prop->channels();		break;
@@ -140,14 +140,14 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			int seconds = prop->length() % 60;
 			int minutes = (prop->length() - seconds) / 60;
 
-			CUtils::strlcpy((PTCHAR)pFieldValue,
-										string_t(CUtils::Int2Str(minutes) + TEXT("m ") +
-													CUtils::formatSeconds(seconds) + TEXT("s")).c_str(), iMaxLen);
+			utils::strlcpy((PTCHAR)pFieldValue,
+										string_t(utils::Int2Str(minutes) + TEXT("m ") +
+										      utils::formatSeconds(seconds) + TEXT("s")).c_str(), iMaxLen);
 			break;
 		}
 		case fiTagType:
 		{
-			CUtils::strlcpy( (PTCHAR)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );		break;
+		   utils::strlcpy( (PTCHAR)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );		break;
 		}
 		default: return ft_nosuchfield;
 			break;

@@ -19,7 +19,7 @@
 #include "CWDXTagLib.h"
 #include "CUtils.h"
 
-WDXTagLib::CWDXTagLib& plugin = singleton<WDXTagLib::CWDXTagLib>::instance();
+WDXTagLib::CWDXTagLib& plugin = utils::singleton<WDXTagLib::CWDXTagLib>::instance();
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -47,7 +47,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 extern "C" void DLL_EXPORT __stdcall ContentGetDetectString(char* DetectString,int maxlen)
 {
-	CUtils::strlcpy(DetectString, plugin.GetDetectString().c_str(), maxlen);
+   utils::strlcpy(DetectString, plugin.GetDetectString().c_str(), maxlen);
 }
 
 extern "C" void DLL_EXPORT __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps)

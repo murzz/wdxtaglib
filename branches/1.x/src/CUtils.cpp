@@ -16,43 +16,43 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "CUtils.h"
-#include <windows.h>
-#include <iostream>
-#include <string>
-#include <sstream>
+#include <cstring>
 #include <cstdio>
+#include <windows.h>
+#include <sstream>
 
-CUtils::CUtils()
+namespace utils
 {
-	//ctor
+
+char* strlcpy(char* p, const char* p2, int maxlen)
+{
+   if ((int) strlen(p2) >= maxlen)
+   {
+      std::strncpy(p, p2, maxlen);
+      p[maxlen] = 0;
+   }
+   else
+      std::strcpy(p, p2);
+   return p;
 }
 
-char* CUtils::strlcpy(char* p, const char* p2, int maxlen)
+string_t formatSeconds( int seconds )
 {
-	if ((int)strlen(p2)>=maxlen) {
-			strncpy(p,p2,maxlen);
-			p[maxlen]=0;
-	} else
-			strcpy(p,p2);
-	return p;
+   TCHAR secondsString[3] ={  0};
+   std::sprintf(secondsString, "%02i", seconds);
+   return secondsString;
 }
 
-string_t CUtils::formatSeconds(int seconds)
+string_t Int2Str( const int num )
 {
-  TCHAR secondsString[3] = {0};
-  sprintf(secondsString, "%02i", seconds);
-  return secondsString;
+   std::ostringstream os;
+   os << num;
+   return (os.str());
 }
 
-string_t CUtils::Int2Str(const int num)
+void ShowError(const string_t& sText, const string_t& sTitle, const HWND hWnd )
 {
-    std::ostringstream os;
-    os << num;
-    return (os.str());
+   MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
 }
 
-void CUtils::ShowError( const string_t& sText, const string_t& sTitle, const HWND hWnd)
-{
-	MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
 }
-

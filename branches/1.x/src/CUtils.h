@@ -17,35 +17,36 @@
 
 #pragma once
 
-#include "CustomTypes.h"
 #include <windows.h>
+#include "CustomTypes.h"
 
-class CUtils
+namespace utils
 {
-	public:
-		static char* strlcpy( char* p, const char* p2, int maxlen );
-		static string_t formatSeconds( int seconds );
-		static string_t Int2Str( const int num );
-		static void ShowError( const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
-	protected:
-	private:
-		CUtils();
-};
 
-template <class T>
-class singleton : private T
+char* strlcpy(char* p, const char* p2, int maxlen);
+string_t formatSeconds( int seconds );
+string_t Int2Str( const int num );
+void ShowError(const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
+
+template<class T>
+class singleton: private T
 {
 public:
-    /// creates global instance of singleton and returns it
-    static T& instance()
-    {
-        static singleton<T> global_instance;
-        return global_instance;
-    }
+   /// creates global instance of singleton and returns it
+   static T& instance()
+   {
+      static singleton<T> global_instance;
+      return global_instance;
+   }
 
 private:
-    /// private constructor - to prevent direct object creation
-    inline singleton() {}
-    /// private destructor - to prevent direct object destruction
-    inline ~singleton() {}
+   /// private constructor - to prevent direct object creation
+   inline singleton()
+   {
+   }
+   /// private destructor - to prevent direct object destruction
+   inline ~singleton()
+   {
+   }
 };
+}

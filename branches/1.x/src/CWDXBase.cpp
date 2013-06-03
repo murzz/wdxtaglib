@@ -69,8 +69,8 @@ int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char
 			return ft_nomorefields;
 
 		const CField& f = m_Fields[ iFieldIndex ];
-		CUtils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
-		CUtils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
+		utils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
+		utils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
 		return f.m_Type;
 	}
 	catch(...)
@@ -86,7 +86,7 @@ int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 	try
 	{
 		if (iUnitIndex < 0)
-			CUtils::ShowError(CUtils::Int2Str(iUnitIndex));
+			utils::ShowError(utils::Int2Str(iUnitIndex));
 
 		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
 			return ft_nosuchfield;
@@ -166,11 +166,11 @@ void CWDXBase::ExceptionHandler() const
 	}
 	catch(const std::exception& e)
 	{
-		CUtils::ShowError(e.what());
+		utils::ShowError(e.what());
 	}
 	catch(...)
 	{
-		CUtils::ShowError(TEXT("Unknown exception"));
+		utils::ShowError(TEXT("Unknown exception"));
 	}
 }
 
