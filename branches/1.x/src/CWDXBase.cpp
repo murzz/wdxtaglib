@@ -18,7 +18,6 @@
 #include "CWDXBase.h"
 #include "CUtils.h"
 #include <exception>
-using namespace std;
 
 namespace WDXTagLib
 {

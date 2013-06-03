@@ -22,7 +22,6 @@
 #include <windows.h>
 #include "contentplug.h"
 #include <map>
-using namespace std;
 
 namespace WDXTagLib
 {
@@ -49,7 +48,7 @@ namespace WDXTagLib
 			};
 	};// CField, *PField;
 
-	typedef map<int, CField> CMapOfFields;
+	typedef std::map<int, CField> CMapOfFields;
 
 
 	class CWDXBase

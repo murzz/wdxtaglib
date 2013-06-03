@@ -19,12 +19,11 @@
 #define CUSTOMTYPES_H_INCLUDED
 
 #include <string>
-using namespace std;
 
 #ifdef _UNICODE
-	#define string_t wstring
+	#define string_t std::wstring
 #else
-	#define string_t string
+	#define string_t std::string
 #endif
 
 #endif // CUSTOMTYPES_H_INCLUDED

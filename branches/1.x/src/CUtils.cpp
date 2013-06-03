@@ -21,7 +21,6 @@
 #include <string>
 #include <sstream>
 #include <cstdio>
-using namespace std;
 
 CUtils::CUtils()
 {
@@ -47,7 +46,7 @@ string_t CUtils::formatSeconds(int seconds)
 
 string_t CUtils::Int2Str(const int num)
 {
-    ostringstream os;
+    std::ostringstream os;
     os << num;
     return (os.str());
 }
