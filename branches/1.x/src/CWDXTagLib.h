@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CWDXTAGLIB_H
-#define CWDXTAGLIB_H
+#pragma once
 
 #include "CWDXBase.h"
 #include <fileref.h>
@@ -49,4 +48,3 @@ namespace WDXTagLib
 			CMapOfFiles m_Files2Write;
 	};
 };
-#endif // CWDXTAGLIB_H

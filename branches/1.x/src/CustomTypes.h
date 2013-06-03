@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CUSTOMTYPES_H_INCLUDED
-#define CUSTOMTYPES_H_INCLUDED
+#pragma once
 
 #include <string>
 
@@ -25,5 +24,3 @@
 #else
 	#define string_t std::string
 #endif
-
-#endif // CUSTOMTYPES_H_INCLUDED

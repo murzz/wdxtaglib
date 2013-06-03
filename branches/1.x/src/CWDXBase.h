@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CWDXBASE_H
-#define CWDXBASE_H
+#pragma once
 
 #include "CustomTypes.h"
 #include <windows.h>
@@ -87,7 +86,4 @@ namespace WDXTagLib
 			DWORD m_PluginInterfaceVerionHi;
 			DWORD m_PluginInterfaceVerionLow;
 	};
-
-
 };
-#endif // CWDXBASE_H

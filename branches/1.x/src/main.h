@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#pragma once
 
 #include <windows.h>
 #include "contentplug.h"
@@ -44,5 +43,3 @@ void DLL_EXPORT __stdcall ContentPluginUnloading(void);
 #ifdef __cplusplus
 }
 #endif
-
-#endif // __MAIN_H__

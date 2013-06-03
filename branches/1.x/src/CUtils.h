@@ -15,8 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef CUTILS_H
-#define CUTILS_H
+#pragma once
 
 #include "CustomTypes.h"
 #include <windows.h>
@@ -32,5 +31,3 @@ class CUtils
 	private:
 		CUtils();
 };
-
-#endif // CUTILS_H
