@@ -81,12 +81,12 @@ CWDXTagLib::~CWDXTagLib()
 
 std::string CWDXTagLib::OnGetDetectString() const
 {
-   //return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
+   //return "EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"";
 
    TagLib::String sExtList;
-   const TagLib::String sOpen( TEXT("EXT=\"") );
-   const TagLib::String sClose( TEXT("\"") );
-   const TagLib::String sOr( TEXT(" | ") );
+   const TagLib::String sOpen( "EXT=\"" );
+   const TagLib::String sClose( "\"" );
+   const TagLib::String sOr( " | " );
 
    for(const TagLib::String& str : TagLib::FileRef::defaultFileExtensions( ))
    {
@@ -230,24 +230,24 @@ std::string CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	bool bUseSeparator = false;
 	if ( pId3v2 && !pId3v2->isEmpty())
 	{
-		osResult << TEXT("ID3v2.")
+		osResult << "ID3v2."
 			<< pId3v2->header()->majorVersion()
-			<< TEXT(".")
+			<< "."
 			<< pId3v2->header()->revisionNumber();
 		bUseSeparator = true;
 	}
 
 	if ( pId3v1 && !pId3v1->isEmpty() )
 	{
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("ID3v1");
+		osResult << (bUseSeparator ? ", " : "") << "ID3v1";
 		bUseSeparator = true;
 	}
 
 	if ( pApe && !pApe->isEmpty() )
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("APE");
+		osResult << (bUseSeparator ? ", " : "") << "APE";
 
 	if ( (pXiph && !pXiph->isEmpty()) || bJustSayXiph )
-		osResult << (bUseSeparator ? TEXT(", ") : TEXT("")) << TEXT("XiphComment");
+		osResult << (bUseSeparator ? ", " : "") << "XiphComment";
 
 	return osResult.str();
 }

@@ -170,7 +170,7 @@ void CWDXBase::ExceptionHandler() const
 	}
 	catch(...)
 	{
-		utils::ShowError(TEXT("Unknown exception"));
+		utils::ShowError("Unknown exception");
 	}
 }
 
