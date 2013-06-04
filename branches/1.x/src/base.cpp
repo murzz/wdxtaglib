@@ -139,9 +139,13 @@ int base::GetSupportedFieldFlags(const int iFieldIndex)
       if (-1 == iFieldIndex) // we should return a combination of all supported flags here
       {
          int iTotalFlags = 0;
-         for (fields_t::iterator iter = fields_.begin(); iter != fields_.end(); ++iter)
-            if ((*iter).second.m_Flag)
-               iTotalFlags |= (*iter).second.m_Flag;
+         for (const fields_t::value_type& pair : fields_)
+         {
+            if (pair.second.m_Flag)
+            {
+               iTotalFlags |= pair.second.m_Flag;
+            }
+         }
          return iTotalFlags;
       }
 
