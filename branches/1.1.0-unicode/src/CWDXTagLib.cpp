@@ -133,7 +133,7 @@ int CWDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				wcslcpy( (wchar_t*)pFieldValue, /*tag->title().toWString().c_str()*/L"ټ", iMaxLen/2 );	break;
+		case fiTitle:				wcslcpy( (wchar_t*)pFieldValue, tag->title().toWString().c_str(), iMaxLen/2 );	break;
 		case fiArtist:			wcslcpy( (wchar_t*)pFieldValue, tag->artist().toWString().c_str(), iMaxLen/2 );	break;
 		case fiAlbum:				wcslcpy( (wchar_t*)pFieldValue, tag->album().toWString().c_str(), iMaxLen/2 );	break;
 		case fiYear:
@@ -258,7 +258,7 @@ int CWDXTagLib::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 //	if ( !TagLib::File::isWritable(sFileName.c_str()) )
 //		return ft_fileerror;
 
-	TagLib::FileRef file = OpenFile( sFileName );
+	TagLib::FileRef& file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
 		return ft_fileerror;
