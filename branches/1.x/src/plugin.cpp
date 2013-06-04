@@ -57,6 +57,14 @@ typedef enum FieldIndexes
 
 plugin::plugin()
 {
+}
+
+plugin::~plugin()
+{
+}
+
+void plugin::OnInitFields()
+{
    fields_[fiTitle] = field("Title", ft_stringw, contflags_edit);
    fields_[fiArtist] = field("Artist", ft_stringw, contflags_edit);
    fields_[fiAlbum] = field("Album", ft_stringw, contflags_edit);
@@ -70,10 +78,6 @@ plugin::plugin()
    fields_[fiLength_s] = field("Length", ft_numeric_32);
    fields_[fiLength_m] = field("Length (formatted)", ft_string);
    fields_[fiTagType] = field("Tag type", ft_string);
-}
-
-plugin::~plugin()
-{
 }
 
 std::string plugin::OnGetDetectString() const

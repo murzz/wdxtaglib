@@ -24,12 +24,10 @@ base::base() :
       InterfaceVerionHi_(0),
             InterfaceVerionLow_(0)
 {
-   //ctor
 }
 
 base::~base()
 {
-   //dtor
 }
 
 std::string base::GetDetectString() const
@@ -64,13 +62,19 @@ int base::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* psz
 {
    try
    {
+      if(!fields_.size())
+      {
+         OnInitFields();
+      }
       if (iFieldIndex < 0 || iFieldIndex >= (int) fields_.size())
+      {
          return ft_nomorefields;
+      }
 
-      const field& f = fields_[iFieldIndex];
-      utils::strlcpy(pszFieldName, f.m_Name.c_str(), iMaxLen - 1);
-      utils::strlcpy(pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1);
-      return f.m_Type;
+      const field& field = fields_[iFieldIndex];
+      utils::strlcpy(pszFieldName, field.m_Name.c_str(), iMaxLen - 1);
+      utils::strlcpy(pszUnits, field.m_MultChoice.c_str(), iMaxLen - 1);
+      return field.m_Type;
    }
    catch (...)
    {

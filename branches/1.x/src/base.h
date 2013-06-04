@@ -72,6 +72,7 @@ protected:
 
    void ExceptionHandler() const;
 
+   virtual void OnInitFields() = 0;
    virtual int OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
          const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags) = 0;
    virtual int OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
