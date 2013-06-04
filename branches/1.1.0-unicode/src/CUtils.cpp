@@ -36,21 +36,21 @@ char* strlcpy(char* p, const char* p2, int maxlen)
    return p;
 }
 
-string_t formatSeconds( int seconds )
+std::string formatSeconds( int seconds )
 {
    TCHAR secondsString[3] ={  0};
    std::sprintf(secondsString, "%02i", seconds);
    return secondsString;
 }
 
-string_t Int2Str( const int num )
+std::string Int2Str( const int num )
 {
    std::ostringstream os;
    os << num;
    return (os.str());
 }
 
-void ShowError(const string_t& sText, const string_t& sTitle, const HWND hWnd )
+void ShowError(const std::string& sText, const std::string& sTitle, const HWND hWnd )
 {
    MessageBox( hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
 }

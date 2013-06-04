@@ -18,15 +18,15 @@
 #pragma once
 
 #include <windows.h>
-#include "CustomTypes.h"
+#include <string>
 
 namespace utils
 {
 
 char* strlcpy(char* p, const char* p2, int maxlen);
-string_t formatSeconds( int seconds );
-string_t Int2Str( const int num );
-void ShowError(const string_t& sText, const string_t& sTitle = TEXT(""), const HWND hWnd = NULL );
+std::string formatSeconds( int seconds );
+std::string Int2Str( const int num );
+void ShowError(const std::string& sText, const std::string& sTitle = TEXT(""), const HWND hWnd = NULL );
 
 template<class T>
 class singleton: private T
