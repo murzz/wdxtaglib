@@ -23,28 +23,28 @@
 
 namespace WDXTagLib
 {
-	class CWDXTagLib : public CWDXBase
-	{
-		public:
-			CWDXTagLib();
-			virtual ~CWDXTagLib();
+class CWDXTagLib: public CWDXBase
+{
+public:
+   CWDXTagLib();
+   virtual ~CWDXTagLib();
 
-		private:
-         int OnGetValue(const std::wstring& sFileName, const int FieldIndex,
-                              const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
-         int OnSetValue(const std::wstring& sFileName, const int FieldIndex,
-                              const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
+private:
+   int OnGetValue(const std::wstring& sFileName, const int FieldIndex,
+         const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
+   int OnSetValue(const std::wstring& sFileName, const int FieldIndex,
+         const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
 
-         std::string OnGetDetectString() const;
-         void OnEndOfSetValue();
+   std::string OnGetDetectString() const;
+   void OnEndOfSetValue();
 
-			TagLib::FileRef& OpenFile( const std::wstring& sFileName );
-			std::string GetTagType( TagLib::File* pFile ) const;
+   TagLib::FileRef& OpenFile(const std::wstring& sFileName);
+   std::string GetTagType(TagLib::File* pFile) const;
 
-			typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
-			typedef CMapOfFiles::iterator CFilesIter;
+   typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
+   typedef CMapOfFiles::iterator CFilesIter;
 
-			CMapOfFiles m_Files2Write;
-			std::wstring m_sFileName;
-	};
+   CMapOfFiles m_Files2Write;
+   std::wstring m_sFileName;
 };
+}

@@ -22,136 +22,137 @@
 namespace WDXTagLib
 {
 CWDXBase::CWDXBase()
-:	m_PluginInterfaceVerionHi(0),
-	m_PluginInterfaceVerionLow(0)
+:
+      m_PluginInterfaceVerionHi(0),
+            m_PluginInterfaceVerionLow(0)
 {
-	//ctor
+   //ctor
 }
 
 CWDXBase::~CWDXBase()
 {
-	//dtor
+   //dtor
 }
 
 std::string CWDXBase::GetDetectString() const
 {
-	return OnGetDetectString();
+   return OnGetDetectString();
 }
 
 std::string CWDXBase::OnGetDetectString() const
 {
-	return "";
+   return "";
 }
 
 void CWDXBase::SetIniName(const std::string& sIniName)
 {
-	if (sIniName == m_IniName)
-		return;
-	m_IniName = sIniName;
+   if (sIniName == m_IniName)
+      return;
+   m_IniName = sIniName;
 }
 
 std::string CWDXBase::GetIniName() const
 {
-	return m_IniName;
+   return m_IniName;
 }
 
 void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 {
-	m_PluginInterfaceVerionHi = dwHi;
-	m_PluginInterfaceVerionLow = dwLow;
+   m_PluginInterfaceVerionHi = dwHi;
+   m_PluginInterfaceVerionLow = dwLow;
 }
 
-int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
+int CWDXBase::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
 {
-	try
-	{
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nomorefields;
+   try
+   {
+      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+         return ft_nomorefields;
 
-		const CField& f = m_Fields[ iFieldIndex ];
-		utils::strlcpy( pszFieldName, f.m_Name.c_str(), iMaxLen - 1 );
-		utils::strlcpy( pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1 );
-		return f.m_Type;
-	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return ft_nomorefields;
-	}
+      const CField& f = m_Fields[iFieldIndex];
+      utils::strlcpy(pszFieldName, f.m_Name.c_str(), iMaxLen - 1);
+      utils::strlcpy(pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1);
+      return f.m_Type;
+   }
+   catch (...)
+   {
+      ExceptionHandler();
+      return ft_nomorefields;
+   }
 }
 
 int CWDXBase::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
-						const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
+      const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
-	try
-	{
-		if (iUnitIndex < 0)
-			utils::ShowError(utils::Int2Str(iUnitIndex));
+   try
+   {
+      if (iUnitIndex < 0)
+         utils::ShowError(utils::Int2Str(iUnitIndex));
 
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nosuchfield;
+      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+         return ft_nosuchfield;
 
-		return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
-	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return ft_fileerror;
-	}
+      return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
+   }
+   catch (...)
+   {
+      ExceptionHandler();
+      return ft_fileerror;
+   }
 }
 
 int CWDXBase::SetValue(const wchar_t* FileName, const int FieldIndex,
-									const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
+      const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
 {
-	try
-	{
-		if ( !FileName || (-1 == FieldIndex) ) // this indicates end of changing attributes
-		{
-			OnEndOfSetValue();
-			return ft_setsuccess;
-		}
+   try
+   {
+      if (!FileName || (-1 == FieldIndex)) // this indicates end of changing attributes
+      {
+         OnEndOfSetValue();
+         return ft_setsuccess;
+      }
 
-		if ( FieldIndex < 0 || FieldIndex >= (int)m_Fields.size() )
-			return ft_nosuchfield;
+      if (FieldIndex < 0 || FieldIndex >= (int) m_Fields.size())
+         return ft_nosuchfield;
 
-		return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
-	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return ft_fileerror;
-	}
+      return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+   }
+   catch (...)
+   {
+      ExceptionHandler();
+      return ft_fileerror;
+   }
 }
 
 int CWDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
-													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
+      const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
-	return ft_nosuchfield;
+   return ft_nosuchfield;
 }
 
 int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
 {
-	try
-	{
-		if (-1 == iFieldIndex) // we should return a combination of all supported flags here
-		{
-			int iTotalFlags = 0;
-			for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
-				if ((*iter).second.m_Flag)
-					iTotalFlags |= (*iter).second.m_Flag;
-			return iTotalFlags;
-		}
+   try
+   {
+      if (-1 == iFieldIndex) // we should return a combination of all supported flags here
+      {
+         int iTotalFlags = 0;
+         for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
+            if ((*iter).second.m_Flag)
+               iTotalFlags |= (*iter).second.m_Flag;
+         return iTotalFlags;
+      }
 
-		if ( iFieldIndex < 0 || iFieldIndex >= (int)m_Fields.size() )
-			return ft_nomorefields;
+      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+         return ft_nomorefields;
 
-		return m_Fields[iFieldIndex].m_Flag;
-	}
-	catch(...)
-	{
-		ExceptionHandler();
-		return 0; // not sure what to return here
-	}
+      return m_Fields[iFieldIndex].m_Flag;
+   }
+   catch (...)
+   {
+      ExceptionHandler();
+      return 0; // not sure what to return here
+   }
 }
 
 void CWDXBase::OnEndOfSetValue()
@@ -160,18 +161,18 @@ void CWDXBase::OnEndOfSetValue()
 
 void CWDXBase::ExceptionHandler() const
 {
-	try
-	{
-		throw;
-	}
-	catch(const std::exception& e)
-	{
-		utils::ShowError(e.what());
-	}
-	catch(...)
-	{
-		utils::ShowError("Unknown exception");
-	}
+   try
+   {
+      throw;
+   }
+   catch (const std::exception& e)
+   {
+      utils::ShowError(e.what());
+   }
+   catch (...)
+   {
+      utils::ShowError("Unknown exception");
+   }
 }
 
 }
