@@ -15,27 +15,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "plugin.h"
-#include "utils.h"
-#include <tag.h>
-
-#include "mpegfile.h"
-
-#include "id3v2tag.h"
-#include "id3v2header.h"
-#include "id3v1tag.h"
-#include "apetag.h"
-#include "flacfile.h"
-#include "oggflacfile.h"
-#include "mpcfile.h"
-#include "oggfile.h"
-#include "trueaudiofile.h"
-#include "wavpackfile.h"
-
 #include <iostream>
 #include <string>
 #include <sstream>
 
+#include <tag.h>
+#include <mpegfile.h>
+#include <id3v2tag.h>
+#include <id3v2header.h>
+#include <id3v1tag.h>
+#include <apetag.h>
+#include <flacfile.h>
+#include <oggflacfile.h>
+#include <mpcfile.h>
+#include <oggfile.h>
+#include <trueaudiofile.h>
+#include <wavpackfile.h>
+
+#include "plugin.h"
+#include "utils.h"
 #include "cunicode.h"
 
 namespace wdx

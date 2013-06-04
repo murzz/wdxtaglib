@@ -17,10 +17,10 @@
 
 #pragma once
 
-#include <windows.h>
-#include "contentplug.h"
 #include <map>
 #include <string>
+#include <windows.h>
+#include "contentplug.h"
 
 namespace wdx
 {

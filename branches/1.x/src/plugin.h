@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include "base.h"
-#include <fileref.h>
 #include <map>
+#include <fileref.h>
+#include "base.h"
 
 namespace wdx
 {
