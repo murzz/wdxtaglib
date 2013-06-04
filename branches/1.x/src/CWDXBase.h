@@ -22,44 +22,36 @@
 #include <map>
 #include <string>
 
-namespace WDXTagLib
+namespace wdx
 {
 
-//typedef struct
-struct CField
+struct field
 {
-   // typename T type;
    std::string m_Name;
    int m_Type;
    std::string m_Unit;
    std::string m_MultChoice;
    int m_Flag;
 
-   CField() :
+   field() :
          m_Type(0), m_Flag(0)
    {
    }
 
-   CField(const std::string& sName, const int iType, const int iFlag = 0, const std::string& sUnit = std::string(),
-         const std::string& sMultChoice = std::string())
-   :
-         m_Name(sName),
-               m_Type(iType),
-               m_Unit(sUnit),
-               m_MultChoice(sMultChoice),
-               m_Flag(iFlag)
+   field(const std::string& sName, const int iType, const int iFlag = 0, const std::string& sUnit = std::string(),
+         const std::string& sMultChoice = std::string()) :
+         m_Name(sName), m_Type(iType), m_Unit(sUnit), m_MultChoice(sMultChoice), m_Flag(iFlag)
    {
    }
 };
-// CField, *PField;
 
-typedef std::map<int, CField> CMapOfFields;
+typedef std::map<int, field> fields_t;
 
-class CWDXBase
+class base
 {
 public:
-   CWDXBase();
-   virtual ~CWDXBase();
+   base();
+   virtual ~base();
    virtual std::string GetDetectString() const;
 
    void SetIniName(const std::string& sIniName);
@@ -76,7 +68,7 @@ protected:
    std::string GetIniName() const;
    DWORD GetPluginInterfaceVersionHi() const;
    DWORD GetPluginInterfaceVersionLow() const;
-   CMapOfFields m_Fields;
+   fields_t m_Fields;
    void ExceptionHandler() const;
 
    virtual int OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
@@ -92,4 +84,3 @@ private:
    DWORD m_PluginInterfaceVerionLow;
 };
 }
-;

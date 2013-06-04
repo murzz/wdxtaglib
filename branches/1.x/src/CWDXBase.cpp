@@ -19,57 +19,56 @@
 #include "CUtils.h"
 #include <exception>
 
-namespace WDXTagLib
+namespace wdx
 {
-CWDXBase::CWDXBase()
-:
+base::base() :
       m_PluginInterfaceVerionHi(0),
             m_PluginInterfaceVerionLow(0)
 {
    //ctor
 }
 
-CWDXBase::~CWDXBase()
+base::~base()
 {
    //dtor
 }
 
-std::string CWDXBase::GetDetectString() const
+std::string base::GetDetectString() const
 {
    return OnGetDetectString();
 }
 
-std::string CWDXBase::OnGetDetectString() const
+std::string base::OnGetDetectString() const
 {
    return "";
 }
 
-void CWDXBase::SetIniName(const std::string& sIniName)
+void base::SetIniName(const std::string& sIniName)
 {
    if (sIniName == m_IniName)
       return;
    m_IniName = sIniName;
 }
 
-std::string CWDXBase::GetIniName() const
+std::string base::GetIniName() const
 {
    return m_IniName;
 }
 
-void CWDXBase::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
+void base::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 {
    m_PluginInterfaceVerionHi = dwHi;
    m_PluginInterfaceVerionLow = dwLow;
 }
 
-int CWDXBase::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
+int base::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
 {
    try
    {
       if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
          return ft_nomorefields;
 
-      const CField& f = m_Fields[iFieldIndex];
+      const field& f = m_Fields[iFieldIndex];
       utils::strlcpy(pszFieldName, f.m_Name.c_str(), iMaxLen - 1);
       utils::strlcpy(pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1);
       return f.m_Type;
@@ -81,7 +80,7 @@ int CWDXBase::GetSupportedField(const int iFieldIndex, char* pszFieldName, char*
    }
 }
 
-int CWDXBase::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
+int base::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
       const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
    try
@@ -101,7 +100,7 @@ int CWDXBase::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
    }
 }
 
-int CWDXBase::SetValue(const wchar_t* FileName, const int FieldIndex,
+int base::SetValue(const wchar_t* FileName, const int FieldIndex,
       const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
 {
    try
@@ -124,20 +123,20 @@ int CWDXBase::SetValue(const wchar_t* FileName, const int FieldIndex,
    }
 }
 
-int CWDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
+int base::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
       const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
    return ft_nosuchfield;
 }
 
-int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
+int base::GetSupportedFieldFlags(const int iFieldIndex)
 {
    try
    {
       if (-1 == iFieldIndex) // we should return a combination of all supported flags here
       {
          int iTotalFlags = 0;
-         for (CMapOfFields::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
+         for (fields_t::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
             if ((*iter).second.m_Flag)
                iTotalFlags |= (*iter).second.m_Flag;
          return iTotalFlags;
@@ -155,11 +154,11 @@ int CWDXBase::GetSupportedFieldFlags(const int iFieldIndex)
    }
 }
 
-void CWDXBase::OnEndOfSetValue()
+void base::OnEndOfSetValue()
 {
 }
 
-void CWDXBase::ExceptionHandler() const
+void base::ExceptionHandler() const
 {
    try
    {

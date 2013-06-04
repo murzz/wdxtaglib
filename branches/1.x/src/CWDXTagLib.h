@@ -21,13 +21,13 @@
 #include <fileref.h>
 #include <map>
 
-namespace WDXTagLib
+namespace wdx
 {
-class CWDXTagLib: public CWDXBase
+class plugin: public base
 {
 public:
-   CWDXTagLib();
-   virtual ~CWDXTagLib();
+   plugin();
+   virtual ~plugin();
 
 private:
    int OnGetValue(const std::wstring& sFileName, const int FieldIndex,
@@ -41,10 +41,9 @@ private:
    TagLib::FileRef& OpenFile(const std::wstring& sFileName);
    std::string GetTagType(TagLib::File* pFile) const;
 
-   typedef std::map<std::wstring, TagLib::FileRef> CMapOfFiles;
-   typedef CMapOfFiles::iterator CFilesIter;
+   typedef std::map<std::wstring, TagLib::FileRef> files_t;
 
-   CMapOfFiles m_Files2Write;
+   files_t m_Files2Write;
    std::wstring m_sFileName;
 };
 }

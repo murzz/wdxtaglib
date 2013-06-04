@@ -38,7 +38,7 @@
 
 #include "cunicode.h"
 
-namespace WDXTagLib
+namespace wdx
 {
 typedef enum FieldIndexes
 {
@@ -57,29 +57,28 @@ typedef enum FieldIndexes
    fiTagType,
 } CFieldIndexes;
 
-CWDXTagLib::CWDXTagLib()
+plugin::plugin()
 {
-   m_Fields[fiTitle] = CField("Title", ft_stringw, contflags_edit);
-   m_Fields[fiArtist] = CField("Artist", ft_stringw, contflags_edit);
-   m_Fields[fiAlbum] = CField("Album", ft_stringw, contflags_edit);
-   m_Fields[fiYear] = CField("Year", ft_numeric_32, contflags_edit);
-   m_Fields[fiTracknumber] = CField("Tracknumber", ft_numeric_32,
-         contflags_edit);
-   m_Fields[fiComment] = CField("Comment", ft_stringw, contflags_edit);
-   m_Fields[fiGenre] = CField("Genre", ft_stringw, contflags_edit);
-   m_Fields[fiBitrate] = CField("Bitrate", ft_numeric_32);
-   m_Fields[fiSamplerate] = CField("Sample rate", ft_numeric_32);
-   m_Fields[fiChannels] = CField("Channels", ft_numeric_32);
-   m_Fields[fiLength_s] = CField("Length", ft_numeric_32);
-   m_Fields[fiLength_m] = CField("Length (formatted)", ft_string);
-   m_Fields[fiTagType] = CField("Tag type", ft_string);
+   m_Fields[fiTitle] = field("Title", ft_stringw, contflags_edit);
+   m_Fields[fiArtist] = field("Artist", ft_stringw, contflags_edit);
+   m_Fields[fiAlbum] = field("Album", ft_stringw, contflags_edit);
+   m_Fields[fiYear] = field("Year", ft_numeric_32, contflags_edit);
+   m_Fields[fiTracknumber] = field("Tracknumber", ft_numeric_32, contflags_edit);
+   m_Fields[fiComment] = field("Comment", ft_stringw, contflags_edit);
+   m_Fields[fiGenre] = field("Genre", ft_stringw, contflags_edit);
+   m_Fields[fiBitrate] = field("Bitrate", ft_numeric_32);
+   m_Fields[fiSamplerate] = field("Sample rate", ft_numeric_32);
+   m_Fields[fiChannels] = field("Channels", ft_numeric_32);
+   m_Fields[fiLength_s] = field("Length", ft_numeric_32);
+   m_Fields[fiLength_m] = field("Length (formatted)", ft_string);
+   m_Fields[fiTagType] = field("Tag type", ft_string);
 }
 
-CWDXTagLib::~CWDXTagLib()
+plugin::~plugin()
 {
 }
 
-std::string CWDXTagLib::OnGetDetectString() const
+std::string plugin::OnGetDetectString() const
 {
    //return "EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"";
 
@@ -102,11 +101,11 @@ std::string CWDXTagLib::OnGetDetectString() const
    return sExtList.toCString();
 }
 
-TagLib::FileRef& CWDXTagLib::OpenFile(const std::wstring& sFileName)
+TagLib::FileRef& plugin::OpenFile(const std::wstring& sFileName)
 {
    // if there is no such file then insert it
    // otherwise find its reference
-   CFilesIter iter = m_Files2Write.find(sFileName);
+   files_t::iterator iter = m_Files2Write.find(sFileName);
 
    if (m_Files2Write.end() == iter)
    {
@@ -120,7 +119,7 @@ TagLib::FileRef& CWDXTagLib::OpenFile(const std::wstring& sFileName)
 
 }
 
-int CWDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
+int plugin::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
       const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
    TagLib::FileRef file(sFileName.c_str());
@@ -197,7 +196,7 @@ int CWDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
    return m_Fields[iFieldIndex].m_Type;
 }
 
-std::string CWDXTagLib::GetTagType(TagLib::File* pFile) const
+std::string plugin::GetTagType(TagLib::File* pFile) const
       {
    std::ostringstream osResult;
    TagLib::ID3v2::Tag *pId3v2 = NULL;
@@ -272,7 +271,7 @@ std::string CWDXTagLib::GetTagType(TagLib::File* pFile) const
    return osResult.str();
 }
 
-int CWDXTagLib::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
+int plugin::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
       const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
 //	if ( !TagLib::File::isWritable(sFileName.c_str()) )
@@ -316,12 +315,11 @@ int CWDXTagLib::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
    return ft_setsuccess;
 }
 
-void CWDXTagLib::OnEndOfSetValue()
+void plugin::OnEndOfSetValue()
 {
-   for (CFilesIter iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+   for (files_t::iterator iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
       (*iter).second.save();
 
    m_Files2Write.clear();
 }
-
 }
