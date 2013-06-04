@@ -38,7 +38,7 @@ char* strlcpy(char* p, const char* p2, int maxlen)
 
 std::string formatSeconds( int seconds )
 {
-   TCHAR secondsString[3] ={  0};
+   char secondsString[3] ={  0};
    std::sprintf(secondsString, "%02i", seconds);
    return secondsString;
 }
