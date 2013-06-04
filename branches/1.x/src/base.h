@@ -65,10 +65,11 @@ public:
    virtual int GetSupportedFieldFlags(const int iFieldIndex);
 
 protected:
-   std::string GetIniName() const;
-   DWORD GetPluginInterfaceVersionHi() const;
-   DWORD GetPluginInterfaceVersionLow() const;
-   fields_t m_Fields;
+   fields_t fields_;
+   const std::string& GetIniName() const;
+   const DWORD& GetInterfaceVersionHi() const;
+   const DWORD& GetInterfaceVersionLow() const;
+
    void ExceptionHandler() const;
 
    virtual int OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
@@ -79,8 +80,8 @@ protected:
    virtual void OnEndOfSetValue();
 
 private:
-   std::string m_IniName;
-   DWORD m_PluginInterfaceVerionHi;
-   DWORD m_PluginInterfaceVerionLow;
+   std::string IniName_;
+   DWORD InterfaceVerionHi_;
+   DWORD InterfaceVerionLow_;
 };
 }

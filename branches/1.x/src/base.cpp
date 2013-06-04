@@ -21,8 +21,8 @@
 namespace wdx
 {
 base::base() :
-      m_PluginInterfaceVerionHi(0),
-            m_PluginInterfaceVerionLow(0)
+      InterfaceVerionHi_(0),
+            InterfaceVerionLow_(0)
 {
    //ctor
 }
@@ -44,30 +44,30 @@ std::string base::OnGetDetectString() const
 
 void base::SetIniName(const std::string& sIniName)
 {
-   if (sIniName == m_IniName)
+   if (sIniName == IniName_)
       return;
-   m_IniName = sIniName;
+   IniName_ = sIniName;
 }
 
-std::string base::GetIniName() const
+const std::string& base::GetIniName() const
 {
-   return m_IniName;
+   return IniName_;
 }
 
 void base::SetPluginInterfaceVersion(const DWORD dwHi, const DWORD dwLow)
 {
-   m_PluginInterfaceVerionHi = dwHi;
-   m_PluginInterfaceVerionLow = dwLow;
+   InterfaceVerionHi_ = dwHi;
+   InterfaceVerionLow_ = dwLow;
 }
 
 int base::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* pszUnits, int iMaxLen)
 {
    try
    {
-      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+      if (iFieldIndex < 0 || iFieldIndex >= (int) fields_.size())
          return ft_nomorefields;
 
-      const field& f = m_Fields[iFieldIndex];
+      const field& f = fields_[iFieldIndex];
       utils::strlcpy(pszFieldName, f.m_Name.c_str(), iMaxLen - 1);
       utils::strlcpy(pszUnits, f.m_MultChoice.c_str(), iMaxLen - 1);
       return f.m_Type;
@@ -87,7 +87,7 @@ int base::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
       if (iUnitIndex < 0)
          utils::ShowError(utils::Int2Str(iUnitIndex));
 
-      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+      if (iFieldIndex < 0 || iFieldIndex >= (int) fields_.size())
          return ft_nosuchfield;
 
       return OnGetValue(pszFileName, iFieldIndex, iUnitIndex, pFieldValue, iMaxLen, iFlags);
@@ -110,7 +110,7 @@ int base::SetValue(const wchar_t* FileName, const int FieldIndex,
          return ft_setsuccess;
       }
 
-      if (FieldIndex < 0 || FieldIndex >= (int) m_Fields.size())
+      if (FieldIndex < 0 || FieldIndex >= (int) fields_.size())
          return ft_nosuchfield;
 
       return OnSetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
@@ -135,16 +135,16 @@ int base::GetSupportedFieldFlags(const int iFieldIndex)
       if (-1 == iFieldIndex) // we should return a combination of all supported flags here
       {
          int iTotalFlags = 0;
-         for (fields_t::iterator iter = m_Fields.begin(); iter != m_Fields.end(); ++iter)
+         for (fields_t::iterator iter = fields_.begin(); iter != fields_.end(); ++iter)
             if ((*iter).second.m_Flag)
                iTotalFlags |= (*iter).second.m_Flag;
          return iTotalFlags;
       }
 
-      if (iFieldIndex < 0 || iFieldIndex >= (int) m_Fields.size())
+      if (iFieldIndex < 0 || iFieldIndex >= (int) fields_.size())
          return ft_nomorefields;
 
-      return m_Fields[iFieldIndex].m_Flag;
+      return fields_[iFieldIndex].m_Flag;
    }
    catch (...)
    {

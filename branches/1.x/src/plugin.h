@@ -43,7 +43,6 @@ private:
 
    typedef std::map<std::wstring, TagLib::FileRef> files_t;
 
-   files_t m_Files2Write;
-   std::wstring m_sFileName;
+   files_t Files2Write_;
 };
 }

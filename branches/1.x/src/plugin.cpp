@@ -57,19 +57,19 @@ typedef enum FieldIndexes
 
 plugin::plugin()
 {
-   m_Fields[fiTitle] = field("Title", ft_stringw, contflags_edit);
-   m_Fields[fiArtist] = field("Artist", ft_stringw, contflags_edit);
-   m_Fields[fiAlbum] = field("Album", ft_stringw, contflags_edit);
-   m_Fields[fiYear] = field("Year", ft_numeric_32, contflags_edit);
-   m_Fields[fiTracknumber] = field("Tracknumber", ft_numeric_32, contflags_edit);
-   m_Fields[fiComment] = field("Comment", ft_stringw, contflags_edit);
-   m_Fields[fiGenre] = field("Genre", ft_stringw, contflags_edit);
-   m_Fields[fiBitrate] = field("Bitrate", ft_numeric_32);
-   m_Fields[fiSamplerate] = field("Sample rate", ft_numeric_32);
-   m_Fields[fiChannels] = field("Channels", ft_numeric_32);
-   m_Fields[fiLength_s] = field("Length", ft_numeric_32);
-   m_Fields[fiLength_m] = field("Length (formatted)", ft_string);
-   m_Fields[fiTagType] = field("Tag type", ft_string);
+   fields_[fiTitle] = field("Title", ft_stringw, contflags_edit);
+   fields_[fiArtist] = field("Artist", ft_stringw, contflags_edit);
+   fields_[fiAlbum] = field("Album", ft_stringw, contflags_edit);
+   fields_[fiYear] = field("Year", ft_numeric_32, contflags_edit);
+   fields_[fiTracknumber] = field("Tracknumber", ft_numeric_32, contflags_edit);
+   fields_[fiComment] = field("Comment", ft_stringw, contflags_edit);
+   fields_[fiGenre] = field("Genre", ft_stringw, contflags_edit);
+   fields_[fiBitrate] = field("Bitrate", ft_numeric_32);
+   fields_[fiSamplerate] = field("Sample rate", ft_numeric_32);
+   fields_[fiChannels] = field("Channels", ft_numeric_32);
+   fields_[fiLength_s] = field("Length", ft_numeric_32);
+   fields_[fiLength_m] = field("Length (formatted)", ft_string);
+   fields_[fiTagType] = field("Tag type", ft_string);
 }
 
 plugin::~plugin()
@@ -103,12 +103,12 @@ TagLib::FileRef& plugin::OpenFile(const std::wstring& sFileName)
 {
    // if there is no such file then insert it
    // otherwise find its reference
-   files_t::iterator iter = m_Files2Write.find(sFileName);
+   files_t::iterator iter = Files2Write_.find(sFileName);
 
-   if (m_Files2Write.end() == iter)
+   if (Files2Write_.end() == iter)
    {
-      m_Files2Write[sFileName] = TagLib::FileRef(sFileName.c_str());
-      return m_Files2Write[sFileName];
+      Files2Write_[sFileName] = TagLib::FileRef(sFileName.c_str());
+      return Files2Write_[sFileName];
    }
    else
    {
@@ -191,7 +191,7 @@ int plugin::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
          break;
    }
 
-   return m_Fields[iFieldIndex].m_Type;
+   return fields_[iFieldIndex].m_Type;
 }
 
 std::string plugin::GetTagType(TagLib::File* pFile) const
@@ -315,9 +315,9 @@ int plugin::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 
 void plugin::OnEndOfSetValue()
 {
-   for (files_t::iterator iter = m_Files2Write.begin(); iter != m_Files2Write.end(); ++iter)
+   for (files_t::iterator iter = Files2Write_.begin(); iter != Files2Write_.end(); ++iter)
       (*iter).second.save();
 
-   m_Files2Write.clear();
+   Files2Write_.clear();
 }
 }
