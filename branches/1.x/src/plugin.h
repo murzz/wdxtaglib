@@ -15,44 +15,35 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "CUtils.h"
-#include <cstring>
-#include <cstdio>
-#include <windows.h>
-#include <sstream>
+#pragma once
 
-namespace utils
+#include "base.h"
+#include <fileref.h>
+#include <map>
+
+namespace wdx
 {
-
-char* strlcpy(char* p, const char* p2, int maxlen)
+class plugin: public base
 {
-   if ((int) strlen(p2) >= maxlen)
-   {
-      std::strncpy(p, p2, maxlen);
-      p[maxlen] = 0;
-   }
-   else
-      std::strcpy(p, p2);
-   return p;
-}
+public:
+   plugin();
+   virtual ~plugin();
 
-std::string formatSeconds(int seconds)
-{
-   char secondsString[3] = { 0 };
-   std::sprintf(secondsString, "%02i", seconds);
-   return secondsString;
-}
+private:
+   int OnGetValue(const std::wstring& sFileName, const int FieldIndex,
+         const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
+   int OnSetValue(const std::wstring& sFileName, const int FieldIndex,
+         const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
 
-std::string Int2Str(const int num)
-{
-   std::ostringstream os;
-   os << num;
-   return (os.str());
-}
+   std::string OnGetDetectString() const;
+   void OnEndOfSetValue();
 
-void ShowError(const std::string& sText, const std::string& sTitle, const HWND hWnd)
-{
-   MessageBox(hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
-}
+   TagLib::FileRef& OpenFile(const std::wstring& sFileName);
+   std::string GetTagType(TagLib::File* pFile) const;
 
+   typedef std::map<std::wstring, TagLib::FileRef> files_t;
+
+   files_t m_Files2Write;
+   std::wstring m_sFileName;
+};
 }

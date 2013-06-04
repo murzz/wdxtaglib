@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "CWDXBase.h"
-#include "CUtils.h"
 #include <exception>
+#include "base.h"
+#include "utils.h"
 
 namespace wdx
 {

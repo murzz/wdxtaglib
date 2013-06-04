@@ -16,8 +16,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
-#include "CWDXTagLib.h"
-#include "CUtils.h"
+#include "plugin.h"
+#include "utils.h"
 #include "cunicode.h"
 
 wdx::plugin& plugin_inst = utils::singleton<wdx::plugin>::instance();

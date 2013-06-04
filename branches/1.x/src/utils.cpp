@@ -15,35 +15,44 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#pragma once
+#include <cstring>
+#include <cstdio>
+#include <sstream>
+#include <windows.h>
+#include "utils.h"
 
-#include "CWDXBase.h"
-#include <fileref.h>
-#include <map>
-
-namespace wdx
+namespace utils
 {
-class plugin: public base
+
+char* strlcpy(char* p, const char* p2, int maxlen)
 {
-public:
-   plugin();
-   virtual ~plugin();
+   if ((int) strlen(p2) >= maxlen)
+   {
+      std::strncpy(p, p2, maxlen);
+      p[maxlen] = 0;
+   }
+   else
+      std::strcpy(p, p2);
+   return p;
+}
 
-private:
-   int OnGetValue(const std::wstring& sFileName, const int FieldIndex,
-         const int UnitIndex, void* FieldValue, const int maxlen, const int flags);
-   int OnSetValue(const std::wstring& sFileName, const int FieldIndex,
-         const int UnitIndex, const int FieldType, const void* FieldValue, const int flags);
+std::string formatSeconds(int seconds)
+{
+   char secondsString[3] = { 0 };
+   std::sprintf(secondsString, "%02i", seconds);
+   return secondsString;
+}
 
-   std::string OnGetDetectString() const;
-   void OnEndOfSetValue();
+std::string Int2Str(const int num)
+{
+   std::ostringstream os;
+   os << num;
+   return (os.str());
+}
 
-   TagLib::FileRef& OpenFile(const std::wstring& sFileName);
-   std::string GetTagType(TagLib::File* pFile) const;
+void ShowError(const std::string& sText, const std::string& sTitle, const HWND hWnd)
+{
+   MessageBox(hWnd, sText.c_str(), sTitle.c_str(), MB_OK | MB_ICONERROR);
+}
 
-   typedef std::map<std::wstring, TagLib::FileRef> files_t;
-
-   files_t m_Files2Write;
-   std::wstring m_sFileName;
-};
 }

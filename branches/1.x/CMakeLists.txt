@@ -28,9 +28,9 @@ add_definitions(
 
 set(SOURCES
     src/main.cpp
-    src/CWDXTagLib.cpp
-    src/CWDXBase.cpp
-    src/CUtils.cpp
+    src/plugin.cpp
+    src/base.cpp
+    src/utils.cpp
     src/cunicode.cpp
 )
 
