@@ -118,7 +118,6 @@ TagLib::FileRef& plugin::OpenFile(const std::wstring& sFileName)
    {
       return (*iter).second;
    }
-
 }
 
 int plugin::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
@@ -319,9 +318,12 @@ int plugin::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 
 void plugin::OnEndOfSetValue()
 {
-   for (files_t::iterator iter = Files2Write_.begin(); iter != Files2Write_.end(); ++iter)
-      (*iter).second.save();
+   for (files_t::value_type& pair : Files2Write_)
+   {
+      pair.second.save();
+   }
 
    Files2Write_.clear();
 }
+
 }
