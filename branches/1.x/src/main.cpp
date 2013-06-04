@@ -18,6 +18,7 @@
 #include "main.h"
 #include "CWDXTagLib.h"
 #include "CUtils.h"
+#include "cunicode.h"
 
 WDXTagLib::CWDXTagLib& plugin = utils::singleton<WDXTagLib::CWDXTagLib>::instance();
 
@@ -69,10 +70,18 @@ extern "C" int DLL_EXPORT __stdcall ContentGetSupportedField(int FieldIndex,char
 	return plugin.GetSupportedField(FieldIndex, FieldName, Units, maxlen);
 }
 
+extern "C" int DLL_EXPORT __stdcall ContentGetValueW(WCHAR* FileName, int FieldIndex,
+                                                int UnitIndex, void* FieldValue, int maxlen, int flags)
+{
+   return plugin.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+}
+
 extern "C" int DLL_EXPORT __stdcall ContentGetValue(char* FileName, int FieldIndex,
 																int UnitIndex, void* FieldValue, int maxlen, int flags)
 {
-	return plugin.GetValue(FileName, FieldIndex, UnitIndex, FieldValue, maxlen, flags);
+   WCHAR FileNameW[MAX_PATH];
+   return ContentGetValueW(awfilenamecopy(FileNameW,FileName), FieldIndex,
+         UnitIndex, FieldValue, maxlen, flags);
 }
 
 extern "C" int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex)
@@ -80,8 +89,16 @@ extern "C" int DLL_EXPORT __stdcall ContentGetSupportedFieldFlags(int FieldIndex
 	return plugin.GetSupportedFieldFlags(FieldIndex);
 }
 
+extern "C" int DLL_EXPORT __stdcall ContentSetValueW(WCHAR* FileName, int FieldIndex,
+                              int UnitIndex, int FieldType, void* FieldValue, int flags)
+{
+   return plugin.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+}
+
 extern "C" int DLL_EXPORT __stdcall ContentSetValue(char* FileName, int FieldIndex,
 										int UnitIndex, int FieldType, void* FieldValue, int flags)
 {
-	return plugin.SetValue(FileName, FieldIndex, UnitIndex, FieldType, FieldValue, flags);
+   WCHAR FileNameW[MAX_PATH];
+   return ContentSetValueW(awfilenamecopy(FileNameW,FileName), FieldIndex,
+         UnitIndex, FieldType, FieldValue, flags);
 }

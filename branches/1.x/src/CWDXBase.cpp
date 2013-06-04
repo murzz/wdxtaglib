@@ -33,24 +33,24 @@ CWDXBase::~CWDXBase()
 	//dtor
 }
 
-string_t CWDXBase::GetDetectString() const
+std::string CWDXBase::GetDetectString() const
 {
 	return OnGetDetectString();
 }
 
-string_t CWDXBase::OnGetDetectString() const
+std::string CWDXBase::OnGetDetectString() const
 {
 	return "";
 }
 
-void CWDXBase::SetIniName(const string_t& sIniName)
+void CWDXBase::SetIniName(const std::string& sIniName)
 {
 	if (sIniName == m_IniName)
 		return;
 	m_IniName = sIniName;
 }
 
-string_t CWDXBase::GetIniName() const
+std::string CWDXBase::GetIniName() const
 {
 	return m_IniName;
 }
@@ -80,7 +80,7 @@ int CWDXBase::GetSupportedField( const int iFieldIndex, char* pszFieldName, char
 	}
 }
 
-int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
+int CWDXBase::GetValue(const wchar_t* pszFileName, const int iFieldIndex,
 						const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
 	try
@@ -100,7 +100,7 @@ int CWDXBase::GetValue(const char* pszFileName, const int iFieldIndex,
 	}
 }
 
-int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
+int CWDXBase::SetValue(const wchar_t* FileName, const int FieldIndex,
 									const int UnitIndex, const int FieldType, const void* FieldValue, const int flags)
 {
 	try
@@ -123,7 +123,7 @@ int CWDXBase::SetValue(const char* FileName, const int FieldIndex,
 	}
 }
 
-int CWDXBase::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+int CWDXBase::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
 	return ft_nosuchfield;

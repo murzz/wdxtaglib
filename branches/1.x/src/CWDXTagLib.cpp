@@ -36,6 +36,8 @@
 #include <string>
 #include <sstream>
 
+#include "cunicode.h"
+
 namespace WDXTagLib
 {
 typedef enum FieldIndexes
@@ -57,26 +59,27 @@ typedef enum FieldIndexes
 
 CWDXTagLib::CWDXTagLib()
 {
-	m_Fields[ fiTitle				]	=	CField( TEXT("Title"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiArtist			]	=	CField( TEXT("Artist"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiAlbum				]	=	CField( TEXT("Album"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiYear				]	= CField( TEXT("Year"),					ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiTracknumber	]	= CField( TEXT("Tracknumber"),	ft_numeric_32, 		TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiComment			]	= CField( TEXT("Comment"),			ft_string, 				TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiGenre				]	= CField( TEXT("Genre"),				ft_string, 				TEXT(""), TEXT(""), contflags_edit );
-	m_Fields[ fiBitrate			]	= CField( TEXT("Bitrate"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiSamplerate	]	= CField( TEXT("Sample rate"),	ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiChannels		]	= CField( TEXT("Channels"),			ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_s		]	= CField( TEXT("Length"),				ft_numeric_32, 		TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiLength_m		]	= CField( TEXT("Length (formatted)"),		ft_string,				TEXT(""), TEXT(""), 0 );
-	m_Fields[ fiTagType			]	= CField( TEXT("Tag type"),			ft_string,				TEXT(""), TEXT(""), 0 );
+   m_Fields[fiTitle] = CField("Title", ft_stringw, contflags_edit);
+   m_Fields[fiArtist] = CField("Artist", ft_stringw, contflags_edit);
+   m_Fields[fiAlbum] = CField("Album", ft_stringw, contflags_edit);
+   m_Fields[fiYear] = CField("Year", ft_numeric_32, contflags_edit);
+   m_Fields[fiTracknumber] = CField("Tracknumber", ft_numeric_32,
+         contflags_edit);
+   m_Fields[fiComment] = CField("Comment", ft_stringw, contflags_edit);
+   m_Fields[fiGenre] = CField("Genre", ft_stringw, contflags_edit);
+   m_Fields[fiBitrate] = CField("Bitrate", ft_numeric_32);
+   m_Fields[fiSamplerate] = CField("Sample rate", ft_numeric_32);
+   m_Fields[fiChannels] = CField("Channels", ft_numeric_32);
+   m_Fields[fiLength_s] = CField("Length", ft_numeric_32);
+   m_Fields[fiLength_m] = CField("Length (formatted)", ft_string);
+   m_Fields[fiTagType] = CField("Tag type", ft_string);
 }
 
 CWDXTagLib::~CWDXTagLib()
 {
 }
 
-string_t CWDXTagLib::OnGetDetectString() const
+std::string CWDXTagLib::OnGetDetectString() const
 {
    //return TEXT("EXT=\"OGG\" | EXT=\"FLAC\" | EXT=\"OGA\"| EXT=\"MP3\"| EXT=\"MPC\"| EXT=\"WV\"| EXT=\"SPX\"| EXT=\"TTA\"");
 
@@ -99,7 +102,7 @@ string_t CWDXTagLib::OnGetDetectString() const
    return sExtList.toCString( );
 }
 
-TagLib::FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
+TagLib::FileRef& CWDXTagLib::OpenFile( const std::wstring& sFileName )
 {
 	// if there is no such file then insert it
 	// otherwise find its reference
@@ -117,7 +120,7 @@ TagLib::FileRef& CWDXTagLib::OpenFile( const string_t& sFileName )
 
 }
 
-int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
+int CWDXTagLib::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 												const int iUnitIndex, void* pFieldValue, const int iMaxLen, const int iFlags)
 {
 	TagLib::FileRef file( sFileName.c_str() );
@@ -130,9 +133,9 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				utils::strlcpy( (PTCHAR)pFieldValue, tag->title().toCString(true), iMaxLen );	break;
-		case fiArtist:			utils::strlcpy( (PTCHAR)pFieldValue, tag->artist().toCString(true), iMaxLen );	break;
-		case fiAlbum:				utils::strlcpy( (PTCHAR)pFieldValue, tag->album().toCString(true), iMaxLen );	break;
+		case fiTitle:				wcslcpy( (wchar_t*)pFieldValue, tag->title().toWString().c_str(), iMaxLen/2 );	break;
+		case fiArtist:			wcslcpy( (wchar_t*)pFieldValue, tag->artist().toWString().c_str(), iMaxLen/2 );	break;
+		case fiAlbum:				wcslcpy( (wchar_t*)pFieldValue, tag->album().toWString().c_str(), iMaxLen/2 );	break;
 		case fiYear:
 		{
 			if (!tag->year())
@@ -147,8 +150,8 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			*(__int32*)pFieldValue = tag->track();
 			break;
 		}
-		case fiComment:			utils::strlcpy( (PTCHAR)pFieldValue, tag->comment().toCString(true), iMaxLen );	break;
-		case fiGenre:				utils::strlcpy( (PTCHAR)pFieldValue, tag->genre().toCString(true), iMaxLen );		break;
+		case fiComment:			wcslcpy( (wchar_t*)pFieldValue, tag->comment().toWString().c_str(), iMaxLen/2 );	break;
+		case fiGenre:				wcslcpy( (wchar_t*)pFieldValue, tag->genre().toWString().c_str(), iMaxLen/2 );		break;
 		case fiBitrate:			*(__int32*)pFieldValue = prop->bitrate();		break;
 		case fiSamplerate:	*(__int32*)pFieldValue = prop->sampleRate();	break;
 		case fiChannels:		*(__int32*)pFieldValue = prop->channels();		break;
@@ -158,14 +161,14 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 			int seconds = prop->length() % 60;
 			int minutes = (prop->length() - seconds) / 60;
 
-			utils::strlcpy((PTCHAR)pFieldValue,
-										string_t(utils::Int2Str(minutes) + TEXT("m ") +
-										      utils::formatSeconds(seconds) + TEXT("s")).c_str(), iMaxLen);
+			utils::strlcpy((char*)pFieldValue,
+			      std::string(utils::Int2Str(minutes) + "m " +
+										      utils::formatSeconds(seconds) + "s").c_str(), iMaxLen);
 			break;
 		}
 		case fiTagType:
 		{
-		   utils::strlcpy( (PTCHAR)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );		break;
+		   utils::strlcpy( (char*)pFieldValue, GetTagType(file.file()).c_str(), iMaxLen );		break;
 		}
 		default: return ft_nosuchfield;
 			break;
@@ -174,7 +177,7 @@ int CWDXTagLib::OnGetValue(const string_t& sFileName, const int iFieldIndex,
 	return m_Fields[iFieldIndex].m_Type;
 }
 
-string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
+std::string CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 {
 	std::ostringstream osResult;
 	TagLib::ID3v2::Tag *pId3v2 = NULL;
@@ -249,13 +252,13 @@ string_t CWDXTagLib::GetTagType( TagLib::File* pFile ) const
 	return osResult.str();
 }
 
-int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
+int CWDXTagLib::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
 													const int iUnitIndex, const int iFieldType, const void* pFieldValue, const int iFlags)
 {
-	if ( !TagLib::File::isWritable(sFileName.c_str()) )
-		return ft_fileerror;
+//	if ( !TagLib::File::isWritable(sFileName.c_str()) )
+//		return ft_fileerror;
 
-	TagLib::FileRef file = OpenFile( sFileName );
+	TagLib::FileRef& file = OpenFile( sFileName );
 
 	if ( file.isNull() || !file.tag() )
 		return ft_fileerror;
@@ -264,13 +267,13 @@ int CWDXTagLib::OnSetValue(const string_t& sFileName, const int iFieldIndex,
 
 	switch (iFieldIndex)
 	{
-		case fiTitle:				tag->setTitle((PTCHAR)pFieldValue);			break;
-		case fiArtist:			tag->setArtist((PTCHAR)pFieldValue);		break;
-		case fiAlbum:				tag->setAlbum((PTCHAR)pFieldValue);			break;
+		case fiTitle:				tag->setTitle((wchar_t*)pFieldValue);			break;
+		case fiArtist:			tag->setArtist((wchar_t*)pFieldValue);		break;
+		case fiAlbum:				tag->setAlbum((wchar_t*)pFieldValue);			break;
 		case fiYear:				tag->setYear(*(__int32*)pFieldValue);		break;
 		case fiTracknumber:	tag->setTrack(*(__int32*)pFieldValue);	break;
-		case fiComment:			tag->setComment((PTCHAR)pFieldValue);		break;
-		case fiGenre:				tag->setGenre((PTCHAR)pFieldValue);			break;
+		case fiComment:			tag->setComment((wchar_t*)pFieldValue);		break;
+		case fiGenre:				tag->setGenre((wchar_t*)pFieldValue);			break;
 		default: return ft_nosuchfield;															break;
 	}
 

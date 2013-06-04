@@ -31,6 +31,7 @@ set(SOURCES
     src/CWDXTagLib.cpp
     src/CWDXBase.cpp
     src/CUtils.cpp
+    src/cunicode.cpp
 )
 
 add_library(wdxtaglib SHARED ${SOURCES})
