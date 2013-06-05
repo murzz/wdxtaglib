@@ -5,7 +5,7 @@ project(wdxtaglib)
 set(PACKAGE_DESCRIPTION_SUMMARY "Content plugin for Total Commander for reading and writing audio file tags")
 set(PACKAGE_VENDOR "Dmitry Murzaikin")
 set(PACKAGE_NAME "WDXTagLib")
-set(PACKAGE_VERSION "1.1.0")
+set(PACKAGE_VERSION "1.1.1")
 
 set(PACKAGE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME})
 
