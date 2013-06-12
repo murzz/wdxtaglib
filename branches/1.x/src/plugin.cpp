@@ -200,10 +200,10 @@ int plugin::OnGetValue(const std::wstring& sFileName, const int iFieldIndex,
 std::string plugin::GetTagType(TagLib::File* pFile) const
       {
    std::ostringstream osResult;
-   TagLib::ID3v2::Tag *pId3v2 = NULL;
-   TagLib::ID3v1::Tag *pId3v1 = NULL;
-   TagLib::APE::Tag *pApe = NULL;
-   TagLib::Ogg::XiphComment *pXiph = NULL;
+   TagLib::ID3v2::Tag *pId3v2 = nullptr;
+   TagLib::ID3v1::Tag *pId3v1 = nullptr;
+   TagLib::APE::Tag *pApe = nullptr;
+   TagLib::Ogg::XiphComment *pXiph = nullptr;
 
    // get pointers to tags
    TagLib::MPEG::File* pMpegFile = dynamic_cast<TagLib::MPEG::File*>(pFile);
