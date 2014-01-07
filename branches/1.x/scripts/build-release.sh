@@ -3,13 +3,13 @@
 working_root="/tmp"
 wdxtaglibstagedir="/tmp/wdxtaglib-stage"
 wdxtaglibbuilddir="/tmp/wdxtaglib-build"
-package="wdx_WDXTagLib_1.1.1.zip"
 artifact="wdxtaglib.wdx"
 artifact64="$artifact"64
 
 rm -rf "$wdxtaglibstagedir" || exit
 rm -rf "$wdxtaglibbuilddir" || exit
 ./build-all.sh "$wdxtaglibstagedir" "$wdxtaglibbuilddir" || exit
+package=$(cat "$wdxtaglibbuilddir/package_name")
 
 # save package
 cp "$wdxtaglibbuilddir/$package" "$working_root" || exit
