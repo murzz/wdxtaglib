@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source _env.sh || echo "Run me from scripts directory" || exit
+source _env.sh || echo "Run me from scripts directory"
 _build_wdx $@ || exit
