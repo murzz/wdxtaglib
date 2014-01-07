@@ -1,5 +1,0 @@
-[plugininstall]
-description=content plugin for for reading and editing the meta-data of several popular audio formats.
-type=wdx
-file=wdxtaglib.wdx
-defaultdir=wdxtaglib
