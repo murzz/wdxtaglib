@@ -74,7 +74,8 @@ int base::GetSupportedField(const int iFieldIndex, char* pszFieldName, char* psz
       const field& field = fields_[iFieldIndex];
       utils::strlcpy(pszFieldName, field.m_Name.c_str(), iMaxLen - 1);
       utils::strlcpy(pszUnits, field.m_MultChoice.c_str(), iMaxLen - 1);
-      return field.m_Type;
+      // must not return ft_stringw in this function, see wdx plugin specs
+      return field.m_Type == ft_stringw ? ft_string : field.m_Type;
    }
    catch (...)
    {
