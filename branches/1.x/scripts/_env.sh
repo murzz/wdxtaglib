@@ -235,7 +235,7 @@ _build_release_version()
 
    # checkout WDXTagLib tag
    wdx_src_dir="$working_root/wdxtaglib-$version"
-   svn co "$tag_full_url$version" "$wdx_src_dir"
+   svn co "$tag_full_url$version" "$wdx_src_dir" || exit
 
    # build
    _build_release
