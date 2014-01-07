@@ -8,7 +8,7 @@ with_64bit="$4"
 
 cpu_count=$(grep -c ^processor /proc/cpuinfo)
 
-ver=1.8
+ver=1.9.1
 package=taglib-$ver
 archive=$package.tar.gz
 url=http://taglib.github.io/releases/$archive
