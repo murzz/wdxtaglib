@@ -1,6 +1,13 @@
 #summary Version history
 #labels Featured
 
+= Version 1.1.2 =
+released 07.01.2014
+
+[http://code.google.com/p/wdxtaglib/downloads/detail?name=wdx_WDXTagLib_1.1.2.zip Download this version]
+
+ * issue #10: Unicode support
+
 = Version 1.1.1 =
 released 05.06.2013
 
