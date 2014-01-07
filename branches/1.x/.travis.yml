@@ -1,6 +1,5 @@
 language: cpp
 compiler:
   - gcc
-  - clang
 install: cd ./scripts && ./build-deps.sh
 script: git checkout 1.x && cd ./scripts && ./build-release.sh
