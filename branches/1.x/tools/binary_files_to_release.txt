@@ -1,0 +1,10 @@
+..\Release\WDXTagLib.wdx
+..\doc\COPYING
+..\doc\COPYING.LESSER
+..\doc\wiki\History.wiki
+..\doc\wiki\Installation.wiki
+..\doc\wiki\Introduction.wiki
+..\doc\wiki\TableOfContents.wiki
+..\doc\wiki\Uninstallation.wiki
+..\doc\wiki\Usage.wiki
+..\doc\WdxTagLib home.url
