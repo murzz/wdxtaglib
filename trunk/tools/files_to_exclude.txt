@@ -1,5 +1,0 @@
-.svn
-log.txt
-*.gid
-*.tmp
-doc\html

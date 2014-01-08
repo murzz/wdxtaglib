@@ -1,6 +1,0 @@
-..\doc
-..\src
-..\taglib
-..\tools
-..\.project
-..\.cproject
