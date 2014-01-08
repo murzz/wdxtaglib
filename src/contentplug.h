@@ -19,7 +19,6 @@
 // for ContentGetValue
 #define ft_nosuchfield -1   // error, invalid field number given
 #define ft_fileerror -2     // file i/o error
-
 #define ft_fieldempty -3    // field valid, but empty
 #define ft_ondemand -4      // field will be retrieved only when user presses <SPACEBAR>
 #define ft_notsupported -5  // function not supported
@@ -30,7 +29,6 @@
 #define ft_setsuccess 0     // setting of the attribute succeeded
 
 // for ContentGetSupportedFieldFlags
-
 #define contflags_edit 1
 #define contflags_substsize 2
 #define contflags_substdatetime 4
@@ -47,7 +45,6 @@
 #define contst_showhint 4
 
 #define setflags_first_attribute 1     // First attribute of this file
-
 #define setflags_last_attribute  2     // Last attribute of this file
 #define setflags_only_date       4     // Only set the date of the datetime value!
 
@@ -56,7 +53,6 @@
 
 #define CONTENT_DELAYIFSLOW 1  // ContentGetValue called in foreground
 #define CONTENT_PASSTHROUGH 2  // If requested via contflags_passthrough_size_float: The size
-
                                // is passed in as floating value, TC expects correct value
                                // from the given units value, and optionally a text string
 
@@ -68,43 +64,40 @@ typedef struct {
 } ContentDefaultParamStruct;
 
 typedef struct {
-
-WORD wYear;
-    WORD wMonth;
-    WORD wDay;
+	WORD wYear;
+	WORD wMonth;
+	WORD wDay;
 } tdateformat,*pdateformat;
 
 typedef struct {
-    WORD wHour;
-    WORD wMinute;
-    WORD wSecond;
+	WORD wHour;
+	WORD wMinute;
+	WORD wSecond;
 } ttimeformat,*ptimeformat;
 
 typedef struct {
-    __int64 filesize1;
-    __int64 filesize2;
-    FILETIME filetime1;
-    FILETIME filetime2;
-    DWORD attr1;
-    DWORD attr2;
+	__int64 filesize1;
+	__int64 filesize2;
+	FILETIME filetime1;
+	FILETIME filetime2;
+	DWORD attr1;
+	DWORD attr2;
 } FileDetailsStruct;
 
 typedef int (__stdcall *PROGRESSCALLBACKPROC)(int nextblockdata);
-
-//int __stdcall ContentGetDetectString(char* DetectString,int maxlen);
-//
-//int __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
-//int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
-//int __stdcall ContentGetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
-//void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
-//void __stdcall ContentPluginUnloading(void);
-//void __stdcall ContentStopGetValue(char* FileName);
-//
-//void __stdcall ContentStopGetValueW(WCHAR* FileName);
-//int __stdcall ContentGetDefaultSortOrder(int FieldIndex);
-//int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
-//int __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
-//int __stdcall ContentSetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
+/*
+int __stdcall ContentGetDetectString(char* DetectString,int maxlen);
+int __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);
+int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
+int __stdcall ContentGetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);
+void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);
+void __stdcall ContentPluginUnloading(void);
+void __stdcall ContentStopGetValue(char* FileName);
+void __stdcall ContentStopGetValueW(WCHAR* FileName);
+int __stdcall ContentGetDefaultSortOrder(int FieldIndex);
+int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);
+int __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
+int __stdcall ContentSetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);
 int __stdcall ContentEditValue(HWND ParentWin,int FieldIndex,int UnitIndex,int FieldType,
                 void* FieldValue,int maxlen,int flags,char* langidentifier);
 void __stdcall ContentSendStateInformation(int state,char* path);
@@ -113,3 +106,4 @@ int __stdcall ContentCompareFiles(PROGRESSCALLBACKPROC progresscallback,
   int compareindex,char* filename1,char* filename2,FileDetailsStruct* filedetails);
 int __stdcall ContentCompareFilesW(PROGRESSCALLBACKPROC progresscallback,
   int compareindex,WCHAR* filename1,WCHAR* filename2,FileDetailsStruct* filedetails);
+*/
