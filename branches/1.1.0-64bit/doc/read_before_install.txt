@@ -1,1 +1,0 @@
-Please read readme.txt section 'Installation' before trying to install it.
