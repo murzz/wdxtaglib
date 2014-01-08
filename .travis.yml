@@ -1,5 +1,6 @@
 language: cpp
 compiler:
   - gcc
-install: cd ./scripts && ./build-deps.sh
-script: cd ./scripts && ./build-release.sh
+before_install: cd ./scripts
+install: ./build-deps.sh
+script: ./build-release.sh
