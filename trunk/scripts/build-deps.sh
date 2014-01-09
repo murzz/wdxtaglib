@@ -1,5 +1,4 @@
 #!/bin/sh
-uname -a
 #sudo apt-get autoremove && \
 #sudo apt-get clean && \
 #sudo apt-get install --fix-broken && \
@@ -14,3 +13,6 @@ uname -a
       #build-essential \
       #mingw-w64 \
       #g++-mingw-w64
+
+sudo apt-get install wget zip cmake aptitude &&\
+sudo aptitude install build-essential mingw-w64
