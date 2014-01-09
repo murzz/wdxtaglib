@@ -1,8 +1,9 @@
 #!/bin/sh
-sudo apt-get autoclean && \
-sudo apt-get update && \
+#sudo apt-get autoclean && \
+#sudo apt-get update && \
 sudo apt-get \
-   --force-yes \
+   --quite \
+   --assume-yes \
    --install-suggests \
    --fix-broken \
    install \
