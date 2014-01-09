@@ -1,6 +1,6 @@
 #!/bin/sh
-#sudo apt-get autoclean && \
-#sudo apt-get update && \
+sudo apt-get --quiet autoclean && \
+sudo apt-get --quiet update && \
 sudo apt-get \
    --quiet \
    --assume-yes \
