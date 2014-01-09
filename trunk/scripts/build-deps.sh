@@ -1,11 +1,11 @@
 #!/bin/sh
-sudo apt-get --quiet autoclean && \
-sudo apt-get --quiet update && \
+sudo apt-get autoremove && \
+sudo apt-get clean && \
+sudo apt-get install --fix-broken && \
+sudo apt-get update && \
 sudo apt-get \
-   --quiet \
    --assume-yes \
    --install-suggests \
-   --fix-broken \
    install \
       wget \
       zip \
