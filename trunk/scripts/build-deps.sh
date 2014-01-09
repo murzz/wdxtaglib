@@ -2,7 +2,7 @@
 #sudo apt-get autoclean && \
 #sudo apt-get update && \
 sudo apt-get \
-   --quite \
+   --quiet \
    --assume-yes \
    --install-suggests \
    --fix-broken \
