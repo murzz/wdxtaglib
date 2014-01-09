@@ -132,6 +132,8 @@ _build_taglib()
    local cmakeparams="$cmakeparams -DVISIBILITY_HIDDEN=ON"
    #local cmakeparams="$cmakeparams -DBUILD_TESTS=ON"
    #local cmakeparams="$cmakeparams -DBUILD_EXAMPLES=ON"
+   local cmakeparams="$cmakeparams -DWITH_ASF=ON"
+   local cmakeparams="$cmakeparams -DWITH_MP4=ON"
 
    if ! test -z "$with_64bit"; then
       local cmakeparams="$cmakeparams -DWITH_64BIT=ON"
