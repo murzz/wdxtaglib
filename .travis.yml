@@ -1,7 +1,15 @@
 language: cpp
 sudo: required
 compiler:
-  - gcc
+- gcc
 before_install: cd ./scripts
 install: ./build-deps.sh
 script: ./build-release.sh
+deploy:
+  provider: releases
+  api_key:
+    secure: KFr3snZO7b0uQjbUUfdGZe9SytkhDn/s2jjHFDFoVgxjgArZNGI8ZFxHOD7AoZQDSKGHdLrF31YtblP5sVyEEnhFoqiANGfm5siMWMD9HekAu50HXUfhuZnM8bvx3WHOdHgNAXh+Ei8gtXflp/kmbXUQmes3C39sezwjKSAerPA=
+  file: /tmp/wdxtaglib/wdx_WDXTagLib_*.zip
+  on:
+    repo: murzz/wdxtaglib
+    tags: true
