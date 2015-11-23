@@ -124,7 +124,7 @@ _build_taglib()
    _set_common_vars || exit
 
    # build
-   local cmakeparams="$cmakeparams -GNinja"
+   #local cmakeparams="$cmakeparams -GNinja"
    local cmakeparams="$cmakeparams -DCMAKE_TOOLCHAIN_FILE=$toolchain_file"
    local cmakeparams="$cmakeparams -DCMAKE_BUILD_TYPE=Release"
    local cmakeparams="$cmakeparams -DCMAKE_INSTALL_PREFIX=$taglib_stage_dir"
@@ -171,7 +171,7 @@ _build_wdx()
    _download_and_build_taglib || exit
 
    # build
-   local cmakeparams="$cmakeparams -GNinja"
+   #local cmakeparams="$cmakeparams -GNinja"
    local cmakeparams="$cmakeparams -DCMAKE_TOOLCHAIN_FILE=$toolchain_file"
    local cmakeparams="$cmakeparams -DCMAKE_BUILD_TYPE=Release"
    local cmakeparams="$cmakeparams -DCMAKE_INSTALL_PREFIX=$wdx_stage_dir"
