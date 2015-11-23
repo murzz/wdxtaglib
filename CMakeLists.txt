@@ -6,7 +6,6 @@ set(PACKAGE_DESCRIPTION_SUMMARY "Content plugin for Total Commander for reading 
 set(PACKAGE_VENDOR "Dmitry Murzaikin")
 set(PACKAGE_NAME "WDXTagLib")
 set(PACKAGE_VERSION "1.1.3")
-string(TIMESTAMP PACKAGE_DATE UTC)
 
 set(PACKAGE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME})
 
