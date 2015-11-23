@@ -4,7 +4,7 @@
 #SVNCMD=echo
 SVNCMD=svn
 
-taglib_ver=1.9.1
+taglib_ver=1.10
 
 tag_url=^/tags/
 tag_full_url=https://wdxtaglib.googlecode.com/svn/tags/
@@ -143,13 +143,12 @@ _build_taglib()
    #rm -rf "$builddir" || exit
    mkdir -p "$taglib_stage_dir"
    mkdir -p "$taglib_build_dir" || exit
-   cd "$taglib_build_dir" || exit
 
    if test ! -f "$taglib_build_dir/CMakeCache.txt"; then
-      cmake $cmakeparams "$taglib_src_dir" || exit
+      cmake $cmakeparams -H"$taglib_src_dir" -B"$taglib_build_dir" || exit
    fi
 
-   make -j$cpu_count install || exit
+   cmake --build "$taglib_build_dir" --target install -- -j$cpu_count || exit
 
    echo "TagLib built"
 }
@@ -181,12 +180,12 @@ _build_wdx()
 
    #rm -rf "$wdx_build_dir" || exit
    mkdir -p "$wdx_build_dir" || exit
-   cd "$wdx_build_dir" || exit
    if test ! -f "$wdx_build_dir/CMakeCache.txt"; then
-      cmake $cmakeparams "$wdx_src_dir" || exit
+      cmake $cmakeparams -H"$wdx_src_dir" -B"$wdx_build_dir" || exit
    fi
 
-   make -j$cpu_count install && make -j$cpu_count package || exit
+   cmake --build "$wdx_build_dir" --target install -- -j$cpu_count || exit
+   cmake --build "$wdx_build_dir" --target package -- -j$cpu_count || exit
 
    echo "WDXTagLib built"
 }
