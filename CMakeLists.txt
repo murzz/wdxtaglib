@@ -48,9 +48,9 @@ set_target_properties(wdxtaglib PROPERTIES LINK_FLAGS "-static -Wl,--kill-at")
 install(TARGETS wdxtaglib DESTINATION .)
 
 set(DOCS 
-    doc/COPYING
-    doc/COPYING.LESSER
-    doc/readme.txt
+    COPYING
+    COPYING.LESSER
+    README.md
     res/pluginst.inf
 )
 
