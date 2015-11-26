@@ -2,7 +2,7 @@ language: cpp
 sudo: required
 compiler:
 - gcc
-before_install: cd ./scripts
+before_install: cd ./build
 install: ./build-deps.sh
 script: ./build-release.sh
 deploy:
