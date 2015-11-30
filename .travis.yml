@@ -3,7 +3,10 @@ sudo: required
 dist: trusty
 compiler:
 - gcc
-before_install: sudo apt-get update && sudo apt-get -y install realpath
+before_install:
+- sudo apt-get update
+- sudo apt-get -y install realpath ninja-build
+- export CMAKE_GENERATOR=Ninja
 install: build/install_deps
 before_script: build/build_deps
 script: build/build_release
