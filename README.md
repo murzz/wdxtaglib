@@ -24,9 +24,19 @@ Readonly tags:
 * length,
 * tag type. 
 
-Requirements
-============
-* Total Commander 7.02 or higher (7.5 for Unicode support).
+Build time dependencies
+=======================
+* realpath
+* basename
+* dirname
+* wget
+* zip
+* libz-dev
+* mingw-w64
+* cmake
+* make
+* taglib
+* ...
 
 Clone
 =====
@@ -34,17 +44,21 @@ Clone
 
 Build
 =====
-`cd build && ./build-release.sh`
+`cd build && ./build_release`
 
-Links
-=====
+Run time dependencies
+=====================
+* Total Commander 7.02 or higher (7.5 for Unicode support).
+
+Some useful links
+=================
 * [List of content plugins](http://www.ghisler.com/plugins.htm#content)
 * [Content-Plugin Guide 2.1se](http://ghisler.fileburst.com/content/contentpluginhelp2.1se.zip), could be found on page above
 * [Plugin interface descriptions](http://www.ghisler.ch/board/viewtopic.php?t=25751&sid=86a548a6c0a1d02bf17738a446f74356)
 * [Content plugin wiki](http://www.ghisler.ch/wiki/index.php/Content_plugin)
 
-License Agreement
-=================
+License
+=======
 This software is distributed under the GNU General Public License (GPL) version 3 or later or GNU Lesser General Public License (LGPL) version 3 or later.
 
 No Warranty
