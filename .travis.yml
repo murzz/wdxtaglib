@@ -2,10 +2,10 @@ language: cpp
 sudo: required
 compiler:
 - gcc
-before_install: cd build
-install: ./install_deps
-before_script: ./build_deps
-script: ./build_release
+before_install: sudo apt-get -y install coreutils
+install: build/install_deps
+before_script: build/build_deps
+script: build/build_release
 deploy:
   provider: releases
   api_key:
