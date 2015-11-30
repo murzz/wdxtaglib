@@ -16,7 +16,7 @@ test ! -z "$CMAKE_GENERATOR" && CMAKE_GENERATOR="-G$CMAKE_GENERATOR"
 _install_deps()
 {
    sudo apt-get update && \
-   sudo apt-get -y install wget zip build-essential libz-dev && \
+   sudo apt-get -y install coreutils wget zip build-essential libz-dev && \
    sudo apt-get -y remove mingw32 && \
    sudo apt-get -y install mingw-w64 g++-mingw-w64
 }
