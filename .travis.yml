@@ -1,9 +1,17 @@
 language: cpp
-sudo: required
+sudo: false
 compiler:
 - gcc
-before_install: sudo apt-get -y install coreutils
-install: build/install_deps
+addons:
+  apt:
+    packages:
+    - coreutils
+    - realpath    
+    - wget
+    - zip
+    - build-essential
+    - mingw-w64
+    - g++-mingw-w64
 before_script: build/build_deps
 script: build/build_release
 deploy:
