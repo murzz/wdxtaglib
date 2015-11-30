@@ -1,4 +1,7 @@
-WDXTagLib [![Build Status](https://travis-ci.org/murzz/wdxtaglib.svg?branch=master)](https://travis-ci.org/murzz/wdxtaglib)
+Status
+============
+[![Build Status](https://travis-ci.org/murzz/wdxtaglib.svg?branch=master)](https://travis-ci.org/murzz/wdxtaglib)
+[![Latest Release](https://img.shields.io/github/release/murzz/wdxtaglib.svg)](https://github.com/murzz/wdxtaglib/releases/latest)
 
 Description
 ===========
