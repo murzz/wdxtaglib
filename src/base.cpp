@@ -120,6 +120,11 @@ int base::GetSupportedFieldFlags(const int iFieldIndex)
 {
    try
    {
+      if(!fields_.size())
+      {
+         OnInitFields();
+      }
+
       if (-1 == iFieldIndex) // we should return a combination of all supported flags here
       {
          int iTotalFlags = 0;
