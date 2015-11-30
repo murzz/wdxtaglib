@@ -2,9 +2,9 @@ language: cpp
 sudo: required
 compiler:
 - gcc
-before_install: cd ./build
-install: ./build-deps.sh
-script: ./build-release.sh
+install: ./install_deps
+before-script: ./build_deps
+script: ./build_release
 deploy:
   provider: releases
   api_key:
