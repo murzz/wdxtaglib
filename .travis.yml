@@ -1,17 +1,10 @@
 language: cpp
-sudo: false
+sudo: required
+dist: trusty
 compiler:
 - gcc
-addons:
-  apt:
-    packages:
-    - coreutils
-    - realpath    
-    - wget
-    - zip
-    - build-essential
-    - mingw-w64
-    - g++-mingw-w64
+before_install: sudo apt-get -y install realpath coreutils
+install: build/install_deps
 before_script: build/build_deps
 script: build/build_release
 deploy:
