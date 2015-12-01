@@ -1,5 +1,5 @@
 [plugininstall]
-description=Content plugin which uses TagLib library for reading and editing meta-data of audio files.
+description=Content plugin for Total Commander for reading and editing meta-data of audio files.
 type=wdx
 file=wdxtaglib.wdx
 defaultdir=wdxtaglib
