@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # for debug purposes
 #SVNCMD=echo
 SVNCMD=svn
@@ -11,6 +9,22 @@ tag_full_url=https://wdxtaglib.googlecode.com/svn/tags/
 taglib_url_root=http://taglib.github.io/releases/
 
 cpu_count=$(grep -c ^processor /proc/cpuinfo)
+
+time="command time -ap"
+test ! -z "$CMAKE_GENERATOR" && CMAKE_GENERATOR="-G$CMAKE_GENERATOR"
+
+_install_deps()
+{
+   sudo apt-get update && \
+   sudo apt-get -y install coreutils wget zip build-essential libz-dev && \
+   sudo apt-get -y remove mingw32 && \
+   sudo apt-get -y install mingw-w64 g++-mingw-w64
+}
+
+_build_deps()
+{
+   _download_and_build_taglib $@
+}
 
 _set_common_vars()
 {
@@ -124,7 +138,6 @@ _build_taglib()
    _set_common_vars || exit
 
    # build
-   #local cmakeparams="$cmakeparams -GNinja"
    local cmakeparams="$cmakeparams -DCMAKE_TOOLCHAIN_FILE=$toolchain_file"
    local cmakeparams="$cmakeparams -DCMAKE_BUILD_TYPE=Release"
    local cmakeparams="$cmakeparams -DCMAKE_INSTALL_PREFIX=$taglib_stage_dir"
@@ -146,8 +159,9 @@ _build_taglib()
    mkdir -p "$taglib_build_dir" || exit
 
    if test ! -f "$taglib_build_dir/CMakeCache.txt"; then
-      cmake $cmakeparams -H"$taglib_src_dir" -B"$taglib_build_dir" || exit
+      cmake $CMAKE_GENERATOR $cmakeparams -H"$taglib_src_dir" -B"$taglib_build_dir" || exit
    fi
+   
 
    cmake --build "$taglib_build_dir" --target install -- -j$cpu_count || exit
 
@@ -171,7 +185,6 @@ _build_wdx()
    _download_and_build_taglib || exit
 
    # build
-   #local cmakeparams="$cmakeparams -GNinja"
    local cmakeparams="$cmakeparams -DCMAKE_TOOLCHAIN_FILE=$toolchain_file"
    local cmakeparams="$cmakeparams -DCMAKE_BUILD_TYPE=Release"
    local cmakeparams="$cmakeparams -DCMAKE_INSTALL_PREFIX=$wdx_stage_dir"
@@ -183,7 +196,7 @@ _build_wdx()
    #rm -rf "$wdx_build_dir" || exit
    mkdir -p "$wdx_build_dir" || exit
    if test ! -f "$wdx_build_dir/CMakeCache.txt"; then
-      cmake $cmakeparams -H"$wdx_src_dir" -B"$wdx_build_dir" || exit
+      cmake $CMAKE_GENERATOR $cmakeparams -H"$wdx_src_dir" -B"$wdx_build_dir" || exit
    fi
 
    cmake --build "$wdx_build_dir" --target install -- -j$cpu_count || exit

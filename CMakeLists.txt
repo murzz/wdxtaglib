@@ -5,7 +5,7 @@ project(wdxtaglib)
 set(PACKAGE_DESCRIPTION_SUMMARY "Content plugin for Total Commander for reading and writing audio file tags")
 set(PACKAGE_VENDOR "Dmitry Murzaikin")
 set(PACKAGE_NAME "WDXTagLib")
-set(PACKAGE_VERSION "1.1.3")
+set(PACKAGE_VERSION "1.1.4")
 
 set(PACKAGE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME})
 
@@ -48,9 +48,9 @@ set_target_properties(wdxtaglib PROPERTIES LINK_FLAGS "-static -Wl,--kill-at")
 install(TARGETS wdxtaglib DESTINATION .)
 
 set(DOCS 
-    doc/COPYING
-    doc/COPYING.LESSER
-    doc/readme.txt
+    COPYING
+    COPYING.LESSER
+    README.md
     res/pluginst.inf
 )
 
