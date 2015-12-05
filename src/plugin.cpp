@@ -271,7 +271,11 @@ int plugin::OnSetValue(const std::wstring& sFileName, const int iFieldIndex,
    switch (iFieldIndex)
    {
       case fiTitle:
-         tag->setTitle((wchar_t*) pFieldValue);
+         WCHAR FieldValueW[MAX_PATH];
+         awfilenamecopy(FieldValueW, (CHAR*)pFieldValue);
+         std::cout<<std::wstring(FieldValueW)<<std::endl;
+         std::cout<<std::string((CHAR*)pFieldValue)<<std::endl;
+         tag->setTitle(FieldValueW);
          break;
       case fiArtist:
          tag->setArtist((wchar_t*) pFieldValue);
