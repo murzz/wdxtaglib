@@ -1,6 +1,7 @@
 Status
 ============
 [![Build Status](https://travis-ci.org/murzz/wdxtaglib.svg?branch=master)](https://travis-ci.org/murzz/wdxtaglib)
+[![Build status](https://ci.appveyor.com/api/projects/status/px1gljh02yttkakd/branch/master?svg=true)](https://ci.appveyor.com/project/murzz/wdxtaglib/branch/master)
 [![Latest Release](https://img.shields.io/github/release/murzz/wdxtaglib.svg)](https://github.com/murzz/wdxtaglib/releases/latest)
 
 Description
