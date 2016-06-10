@@ -9,16 +9,25 @@ set(PACKAGE_VERSION "1.1.4")
 
 set(PACKAGE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x ")
+if (CMAKE_COMPILER_IS_GNUCC)
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
+   #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x ")
+endif()
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/src
-    ${TAGLIB_ROOT}/include/taglib
-)
+set(TAGLIB_INCLUDES ${TAGLIB_ROOT}/include/taglib)
+set(TAGLIB_LIBRARY tag)
 
 link_directories(
     ${TAGLIB_ROOT}/lib
+)
+
+if (NOT CMAKE_COMPILER_IS_GNUCC)
+    set(ZLIB_LIBRARY zlibstatic)
+endif()
+
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${TAGLIB_INCLUDES}
 )
 
 add_definitions(
@@ -36,14 +45,16 @@ set(SOURCES
 
 add_library(wdxtaglib SHARED ${SOURCES})
 
-target_link_libraries(wdxtaglib tag)
+target_link_libraries(wdxtaglib ${TAGLIB_LIBRARY} ${ZLIB_LIBRARY})
 
 # artifact naming
 set_target_properties(wdxtaglib PROPERTIES PREFIX "")
 set_target_properties(wdxtaglib PROPERTIES SUFFIX ".wdx")
 
-# link runtime statically, remove @ from exported symbols
-set_target_properties(wdxtaglib PROPERTIES LINK_FLAGS "-static -Wl,--kill-at")
+if (CMAKE_COMPILER_IS_GNUCC)
+   # link runtime statically, remove @ from exported symbols
+   set_target_properties(wdxtaglib PROPERTIES LINK_FLAGS "-static -Wl,--kill-at")
+endif()
 
 install(TARGETS wdxtaglib DESTINATION .)
 

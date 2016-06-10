@@ -1,0 +1,13 @@
+version: 1.0.{build}
+build_script:
+- set SRC_ROOT=%~dp0
+- set SRC_DEPS=%SRC_ROOT%/mk/dependencies
+- set BUILD_ROOT=%~dp0/build-dir
+- set BUILD_DEPS=%BUILD_ROOT%/dependencies
+- set BUILD_PROJ=%BUILD_ROOT%/project
+- set INSTALL_PREFIX=%BUILD_ROOT%/install
+- set INSTALL_PREFIX_PROJ=%BUILD_ROOT%/install-wdx
+- cmake -H%SRC_DEPS% -B%BUILD_DEPS% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%INSTALL_PREFIX%
+- cmake --build %BUILD_DEPS% --config Release
+- cmake -H%SRC_ROOT% -B%BUILD_PROJ% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%INSTALL_PREFIX_PROJ% -DTAGLIB_ROOT=%INSTALL_PREFIX%
+- cmake --build %BUILD_PROJ% --config Release --target package
