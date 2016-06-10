@@ -1,6 +1,6 @@
 version: 1.0.{build}
 build_script:
-- set SRC_ROOT=%~dp0
+- set SRC_ROOT=%APPVEYOR_BUILD_FOLDER%
 - set SRC_DEPS=%SRC_ROOT%/mk/dependencies
 - set BUILD_ROOT=%~dp0/build-dir
 - set BUILD_DEPS=%BUILD_ROOT%/dependencies
